@@ -9,20 +9,22 @@ FUNCTIONS2 = ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 				ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c 
+GNL = get_next_line.c get_next_line_utils.c 
 OBJECTS1 = $(FUNCTIONS1:.c=.o)
 OBJECTS2 = $(FUNCTIONS2:.c=.o)
 OBJECTSBONUS = $(BONUS:.c=.o)
+OBJECTSGNL = $(GNL:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS)
-	ar cr $(NAME) $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS)
+$(NAME) : $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS) $(OBJECTSGNL)
+	ar cr $(NAME) $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS) $(OBJECTSGNL)
 
 %.o : %.c
 	gcc $(FLAGS) -c $<
 
 clean :
-	rm -f $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS)
+	rm -f $(OBJECTS1) $(OBJECTS2) $(OBJECTSBONUS) $(OBJECTSGNL)
 
 fclean: clean 
 	rm -f $(NAME)

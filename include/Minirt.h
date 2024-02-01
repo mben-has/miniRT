@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:09:35 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:14:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 typedef struct s_ambient {
 	char	type;
@@ -55,8 +57,11 @@ typedef struct s_scene {
 	int			nr_cylinders;
 }	t_scene;
 
+typedef int (*t_function_pointer)(char *line, t_scene *scene);
+
 void	print_usage(void);
 int		parsing(char *file, t_scene *scene);
+int		check_ambient(char *line, t_scene *scene);
 int		raytracing(t_scene *scene);
 
 #endif
