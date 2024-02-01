@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/06/12 18:16:02 by marschul          #+#    #+#             */
+/*   Updated: 2023/10/09 20:57:13 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int		error;
-	t_scene	scene;
+	size_t	dst_len;
+	size_t	src_len;
+	char	*pointer;
 
-	if (argc != 2)
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (size <= dst_len)
+		return (src_len + size);
+	pointer = dst + dst_len;
+	size = size - dst_len;
+	while (size > 1 && *src != '\0')
 	{
-		print_usage();
-		exit(1);
+		*pointer = *src;
+		pointer++;
+		src++;
+		size--;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	*pointer = '\0';
+	return (src_len + dst_len);
 }

@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/17 18:41:10 by marschul          #+#    #+#             */
+/*   Updated: 2023/06/12 16:53:38 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+size_t	ft_strlen(const char *s)
 {
-	int		error;
-	t_scene	scene;
+	size_t	length;
 
-	if (argc != 2)
+	length = 0;
+	while (*s != '\0')
 	{
-		print_usage();
-		exit(1);
+		length++;
+		s++;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	return (length);
 }

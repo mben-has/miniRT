@@ -6,15 +6,18 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 11:38:19 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/01 13:09:35 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include "libft.h"
+# include "MLX42.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
 
 typedef struct s_ambient {
 	char	type;
@@ -54,5 +57,6 @@ typedef struct s_scene {
 
 void	print_usage(void);
 int		parsing(char *file, t_scene *scene);
+int		raytracing(t_scene *scene);
 
 #endif

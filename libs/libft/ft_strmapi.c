@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/17 19:08:53 by marschul          #+#    #+#             */
+/*   Updated: 2023/06/28 20:30:40 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		error;
-	t_scene	scene;
+	unsigned int	length;
+	unsigned int	i;
+	char			*new;
 
-	if (argc != 2)
+	if (s == NULL || f == NULL)
+		return (NULL);
+	length = ft_strlen(s);
+	new = (char *) malloc(length + 1);
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	while (i < length)
 	{
-		print_usage();
-		exit(1);
+		new[i] = f(i, s[i]);
+		i++;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	new[i] = '\0';
+	return (new);
 }

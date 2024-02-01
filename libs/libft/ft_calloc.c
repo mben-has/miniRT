@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/06/18 19:51:55 by marschul          #+#    #+#             */
+/*   Updated: 2023/10/09 18:59:45 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int		error;
-	t_scene	scene;
+	void	*memory;
+	size_t	length;
 
-	if (argc != 2)
-	{
-		print_usage();
-		exit(1);
-	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	length = count * size;
+	memory = malloc(length);
+	if (memory == NULL)
+		return (NULL);
+	ft_bzero(memory, length);
+	return (memory);
 }

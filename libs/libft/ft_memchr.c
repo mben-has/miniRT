@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/20 21:45:35 by marschul          #+#    #+#             */
+/*   Updated: 2023/06/12 16:25:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int		error;
-	t_scene	scene;
-
-	if (argc != 2)
+	while (n > 0)
 	{
-		print_usage();
-		exit(1);
+		if (*(unsigned char *) s == (unsigned char) c)
+			return ((void *) s);
+		s++;
+		n--;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	return (NULL);
 }

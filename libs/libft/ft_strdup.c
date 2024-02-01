@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/21 04:57:28 by marschul          #+#    #+#             */
+/*   Updated: 2023/10/09 14:20:09 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	int		error;
-	t_scene	scene;
+	size_t	length;
+	size_t	i;
+	char	*str_dup;
 
-	if (argc != 2)
+	length = ft_strlen(s) + 1;
+	str_dup = (char *) malloc(length);
+	if (str_dup == NULL)
+		return (NULL);
+	i = 0;
+	while (i < length)
 	{
-		print_usage();
-		exit(1);
+		str_dup[i] = s[i];
+		i++;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	return (str_dup);
 }

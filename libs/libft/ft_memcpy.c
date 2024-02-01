@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/20 16:29:22 by marschul          #+#    #+#             */
+/*   Updated: 2023/10/09 21:39:20 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/*
+** Precondition: The memory areas must not overlap
+*  It lies in the responibility of the user to pass valid pointers.
+*/
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int		error;
-	t_scene	scene;
+	unsigned char	*pointer;
 
-	if (argc != 2)
+	if (dest == NULL && src == 0)
+		return (NULL);
+	pointer = (unsigned char *) dest;
+	while (n > 0)
 	{
-		print_usage();
-		exit(1);
+		*pointer = *(const unsigned char *) src;
+		src++;
+		pointer++;
+		n--;
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	return (dest);
 }

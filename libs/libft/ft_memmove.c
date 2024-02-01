@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 13:08:42 by marschul         ###   ########.fr       */
+/*   Created: 2023/05/20 17:51:24 by marschul          #+#    #+#             */
+/*   Updated: 2023/10/09 21:42:38 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	int		error;
-	t_scene	scene;
+	size_t		i;
 
-	if (argc != 2)
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	if (dst > src)
 	{
-		print_usage();
-		exit(1);
+		while (n > 0)
+		{
+			((char *) dst)[n - 1] = ((char *) src)[n - 1];
+			n--;
+		}
 	}
-	error = parsing(argv[1], &scene);
-	if (error != 0)
-		exit(error);
-	error = raytracing(&scene);
-	if (error != 0)
-		exit(error);
-	return (0);	
+	else
+	{
+		i = 0;
+		while (i < n)
+		{
+			((char *) dst)[i] = ((char *) src)[i];
+			i++;
+		}
+	}
+	return (dst);
 }
