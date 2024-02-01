@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Minirt.h                                           :+:      :+:    :+:   */
+/*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 10:58:34 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/01 10:59:58 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "Minirt.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-
-void	print_usage(void);
-void	parsing(void);
-
-#endif
+void	print_usage(void)
+{
+	printf("Usage: ./minirt *.rt\n");
+}

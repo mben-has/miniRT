@@ -1,7 +1,7 @@
 NAME = minirt
 FLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
-SRC = src/main.c src/parsing/parsing_main.c 
+SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c 
 OBJECTS = $(SRC:.c=.o)
 
 
@@ -21,3 +21,6 @@ fclean : clean
 
 re :
 	fclean all
+
+bonus :
+	
