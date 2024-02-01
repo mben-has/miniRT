@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 14:19:49 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:38:28 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,42 @@ int	check_file_extension(char *file)
 		return (1);
 }
 
+int	check_for_unique(int i)
+{
+	static int	unique_elements[3];
+
+	if (i > 2)
+		return (1);
+	if (unique_elements[i] == 1)
+		return (0);
+	unique_elements[i] = 1;
+	return (1);
+}
+
 int	read_in_element(char *line, t_scene *scene)
 {
-	t_function_pointer	function_pointers[6] = {check_ambient};
+	t_function_pointer	function_pointers[6] = {check_ambient, check_camera, check_light, check_sphere, check_plane, check_cylinder};
 	int					i;
+	char				**split;
 
+	split = ft_split(line, ' ');
+	if (split == NULL)
+		return (4);
 	i = 0;
-	while (i < 1)
+	while (i < 6)
 	{
-		if (function_pointers[i](line, scene) == 1)
-			return (0);
+		if (function_pointers[i](split, scene) == 1)
+		{
+			free(split);
+			if (check_for_unique(i) == 0)
+				return (6);
+			else
+				return (0);
+		}
 		i++;
 	}
-	return (4);
+	free(split);
+	return (5);
 }
 
 int	parsing(char *file, t_scene *scene)
@@ -59,7 +82,11 @@ int	parsing(char *file, t_scene *scene)
 	while (line != NULL)
 	{
 		if (line[0] != '\n')
+		{
+			if (line[ft_strlen(line) - 1] == '\n')
+				line[ft_strlen(line) - 1] = '\0';
 			error = read_in_element(line, scene);
+		}
 		free(line);
 		if (error != 0)
 			break;

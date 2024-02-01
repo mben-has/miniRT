@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 14:14:05 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:39:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,53 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct s_color {
+	int	r;
+	int	g;
+	int b;
+}	t_color;
+
+typedef struct s_vector {
+	double	x;
+	double	y;
+	double	z;
+}	t_vector;
+
 typedef struct s_ambient {
-	char	type;
+	double	lighting_ratio;
+	t_color	color;
 }	t_ambient;
 
 typedef struct s_camera {
-	char	type;
+	t_vector	point;
+	t_vector	orientation;
+	int			fov;
 }	t_camera;
 
 typedef struct s_light {
-	char	type;
+	t_vector	point;
+	double		brightness_ratio;
+	t_color		color;
 }	t_light;
 
 typedef struct s_sphere {
-	char	type;
+	t_vector	point;
+	double		diameter;
+	t_color		color;
 }	t_sphere;
 
 typedef struct s_plane {
-	char	type;
+	t_vector	point;
+	t_vector	normal_vector;
+	t_color		color;
 }	t_plane;
 
 typedef struct s_cylinder {
-	char	type;
+	t_vector	point;
+	t_vector	axis_vector;
+	double		diameter;
+	double		height;
+	t_color		color;
 }	t_cylinder;
 
 typedef struct s_scene {
@@ -57,11 +82,24 @@ typedef struct s_scene {
 	int			nr_cylinders;
 }	t_scene;
 
-typedef int (*t_function_pointer)(char *line, t_scene *scene);
+typedef int (*t_function_pointer)(char **split, t_scene *scene);
 
+// main
 void	print_usage(void);
+
+// parsing
 int		parsing(char *file, t_scene *scene);
-int		check_ambient(char *line, t_scene *scene);
+int		check_ambient(char **split, t_scene *scene);
+int 	check_camera(char **split, t_scene *scene);
+int 	check_light(char **split, t_scene *scene);
+int 	check_sphere(char **split, t_scene *scene);
+int 	check_plane(char **split, t_scene *scene);
+int 	check_cylinder(char **split, t_scene *scene);
+int		read_double(char *str, double *number);
+int		word_length(char **split);
+int		read_color(char *str, t_color *color);
+
+// raytracing
 int		raytracing(t_scene *scene);
 
 #endif
