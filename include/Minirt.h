@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/02 16:05:54 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:33:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "MLX42.h"
+# include "../src/garbage_collector/garbage_collector.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
