@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/02 17:31:24 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:27:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_ambient(char **split, t_scene *scene)
 		return (0);
 
 	// reading in double
-	if (read_double(split[1], &scene->ambient.lighting_ratio) == 0)
+	if (read_double(split[1], &scene->ambient.lighting_ratio, 0.0, 1.0) == 0)
 		return (0);
 
 	// reading in int triple
@@ -35,15 +35,15 @@ int check_camera(char **split, t_scene *scene)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->camera.point) == 0)
+	if (read_vector(split[1], &scene->camera.point, 0) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->camera.orientation) == 0)
+	if (read_vector(split[2], &scene->camera.orientation, 1) == 0)
 		return (0);
 
 	// reading in int triple
-	scene->camera.fov = read_byte(split[3]);
+	scene->camera.fov = read_byte(split[3], 0, 180);
 	if (scene->camera.fov == -1)
 		return (0);
 	return (1);
@@ -56,11 +56,11 @@ int check_light(char **split, t_scene *scene)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->light.point) == 0)
+	if (read_vector(split[1], &scene->light.point, 0) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[2], &scene->light.brightness_ratio) == 0)
+	if (read_double(split[2], &scene->light.brightness_ratio, 0.0, 1.0) == 0)
 		return (0);
 
 	// reading in int triple
@@ -76,11 +76,11 @@ int check_sphere(char **split, t_scene *scene)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->spheres[scene->nr_spheres].point) == 0)
+	if (read_vector(split[1], &scene->spheres[scene->nr_spheres].point, 0) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[2], &scene->spheres[scene->nr_spheres].diameter) == 0)
+	if (read_double(split[2], &scene->spheres[scene->nr_spheres].diameter, 0, 0) == 0)
 		return (0);
 
 	// reading in int triple
@@ -100,11 +100,11 @@ int check_plane(char **split, t_scene *scene)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->planes[scene->nr_planes].point) == 0)
+	if (read_vector(split[1], &scene->planes[scene->nr_planes].point, 0) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->planes[scene->nr_planes].normal_vector) == 0)
+	if (read_vector(split[2], &scene->planes[scene->nr_planes].normal_vector, 1) == 0)
 		return (0);
 
 	// reading in int triple
@@ -124,19 +124,19 @@ int check_cylinder(char **split, t_scene *scene)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &(scene->cylinders[scene->nr_cylinders].point)) == 0)
+	if (read_vector(split[1], &scene->cylinders[scene->nr_cylinders].point, 0) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->cylinders[scene->nr_cylinders].axis_vector) == 0)
+	if (read_vector(split[2], &scene->cylinders[scene->nr_cylinders].axis_vector, 1) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[3], &scene->cylinders[scene->nr_cylinders].diameter) == 0)
+	if (read_double(split[3], &scene->cylinders[scene->nr_cylinders].diameter, 0, 0) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[4], &scene->cylinders[scene->nr_cylinders].height) == 0)
+	if (read_double(split[4], &scene->cylinders[scene->nr_cylinders].height, 0, 0) == 0)
 		return (0);
 
 	// reading in int triple

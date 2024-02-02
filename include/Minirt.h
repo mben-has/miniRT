@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/02 17:33:00 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:26:50 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ int 	check_light(char **split, t_scene *scene);
 int 	check_sphere(char **split, t_scene *scene);
 int 	check_plane(char **split, t_scene *scene);
 int 	check_cylinder(char **split, t_scene *scene);
-int		read_double(char *str, double *number);
+int		read_double(char *str, double *number, double range_left, double range_right);
 int		word_length(char **split);
 int		read_color(char *str, t_color *color);
-int		read_byte(char *str);
-int		read_vector(char *str, t_vector *vector);
+int		read_byte(char *str, int range_left, int range_right);
+int		read_vector(char *str, t_vector *vector, int is_normal);
 
 
 // raytracing
