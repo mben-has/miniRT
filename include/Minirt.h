@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 21:39:59 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:05:54 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ typedef struct s_color {
 }	t_color;
 
 typedef struct s_vector {
-	double	x;
-	double	y;
-	double	z;
+	double	coordinate[3];
 }	t_vector;
 
 typedef struct s_ambient {
@@ -98,6 +96,9 @@ int 	check_cylinder(char **split, t_scene *scene);
 int		read_double(char *str, double *number);
 int		word_length(char **split);
 int		read_color(char *str, t_color *color);
+int		read_byte(char *str);
+int		read_vector(char *str, t_vector *vector);
+
 
 // raytracing
 int		raytracing(t_scene *scene);

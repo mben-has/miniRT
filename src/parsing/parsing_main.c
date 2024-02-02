@@ -6,11 +6,33 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/01 21:38:28 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:30:58 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
+
+int	init_scene(t_scene *scene)
+{
+	void *mem;
+
+	mem = malloc(100 * sizeof(t_sphere));
+	if (mem == NULL)
+		return (0);
+	scene->spheres = mem;
+	mem = malloc(100 * sizeof(t_plane));
+	if (mem == NULL)
+		return (0);
+	scene->planes = mem;
+	mem = malloc(100 * sizeof(t_cylinder));
+	if (mem == NULL)
+		return (0);
+	scene->cylinders = mem;
+	scene->nr_spheres = 0;
+	scene->nr_planes = 0;
+	scene->nr_cylinders = 0;
+	return (1);
+}
 
 int	check_file_extension(char *file)
 {
@@ -66,6 +88,10 @@ int	parsing(char *file, t_scene *scene)
 	char	*line;
 	int		fd;
 	int		error;
+
+	// init scene
+	if (init_scene(scene) == 0)
+		return (7);
 
 	// check for right ending
 	if (check_file_extension(file) == 0)
