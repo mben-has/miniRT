@@ -3,9 +3,13 @@ FLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
-SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c  src/raytracing/raytracing_main.c \
+SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c  src/raytracing/raytracing.c \
 		src/parsing/check_elements.c src/parsing/parsing_helper.c \
-		src/raytracing/math.c
+		src/raytracing/math.c src/raytracing/vector.c \
+		src/garbage_collector/exit_function.c\
+		src/garbage_collector/free.c\
+		src/garbage_collector/garbage_collector.c
+
 OBJECTS = $(SRC:.c=.o)
 
 
@@ -33,8 +37,7 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 
-re :
-	fclean all
+re : fclean all
 
 bonus :
 	

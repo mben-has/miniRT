@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/03 02:22:16 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:57:19 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ int		read_vector(char *str, t_vector *vector, int is_normal);
 
 
 // raytracing
-int		raytracing(t_scene *scene);
+int		raytracing(t_scene *scene, t_garbage_collector *gc);
+
+//vector
+t_vector		*init_vector(double x, double y, double z, t_garbage_collector *gc);
+unsigned int	argb_to_hex(t_vector *color); //convert argb to hex
 
 #endif
