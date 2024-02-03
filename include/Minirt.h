@@ -6,12 +6,17 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/03 16:57:19 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/03 22:25:10 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+#define WIDTH 400
+#define HEIGHT (int)(WIDTH/(16.9/9.0))
+#define VP_HEIGHT 2.0
+#define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
 
 # include "libft.h"
 # include "MLX42.h"
@@ -38,9 +43,10 @@ typedef struct s_ambient {
 }	t_ambient;
 
 typedef struct s_camera {
-	t_vector	point;
-	t_vector	orientation;
+	t_vector	*point;
+	t_vector	*orientation;
 	int			fov;
+	double		distance;
 }	t_camera;
 
 typedef struct s_light {
@@ -81,6 +87,11 @@ typedef struct s_scene {
 	int			nr_cylinders;
 }	t_scene;
 
+typedef struct s_ray{
+	t_vector* origin;
+	t_vector* direction;
+} t_ray;
+
 typedef int (*t_function_pointer)(char **split, t_scene *scene);
 
 // main
@@ -108,4 +119,9 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc);
 t_vector		*init_vector(double x, double y, double z, t_garbage_collector *gc);
 unsigned int	argb_to_hex(t_vector *color); //convert argb to hex
 
+// get the height of image by ratio
+int get_height(double ratio);
+
+//camera
+t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_collector *gc);
 #endif
