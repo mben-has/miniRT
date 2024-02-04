@@ -6,14 +6,14 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/04 10:37:47 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/04 11:37:02 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#define WIDTH 400
+#define WIDTH 800
 #define HEIGHT (int)(WIDTH/(16.9/9.0))
 #define VP_HEIGHT 2.0
 #define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
@@ -135,5 +135,6 @@ t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_
 t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 
 //color
-t_color *init_color(t_vector *colors, t_ray **ray, t_garbage_collector *gc);
+t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc);
+
 #endif

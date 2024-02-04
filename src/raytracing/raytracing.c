@@ -6,7 +6,7 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/04 10:28:29 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/04 11:41:07 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     
     t_color *color;
     
-    color = init_color(init_vector(255, 255 , 255, gc), NULL, gc);
     int i = 0;
     int j = 0;
     // mlx_set_setting(MLX_MAXIMIZED, true);
@@ -55,7 +54,9 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
         {
             pixel_center = vector_sum(pixel00_loc, vector_sum(scalar_product(dpu, i, gc), scalar_product(dpv, j, gc), gc), gc);
             ray_direction = vector_difference(pixel_center, cam->point, gc);
+            // printf("r[0] = %f ; r[1] = %f ; r[2] = %f\n", ray_direction->coordinate[0],ray_direction->coordinate[1],ray_direction->coordinate[2] );
             ray = init_ray(cam->point, ray_direction, gc);
+            color = init_color(init_vector(0, 0 , 255, gc), ray_direction, gc);
             mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
             i++;
         }
