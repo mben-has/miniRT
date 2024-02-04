@@ -6,14 +6,14 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/04 11:37:02 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/04 18:04:00 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#define WIDTH 800
+#define WIDTH 400
 #define HEIGHT (int)(WIDTH/(16.9/9.0))
 #define VP_HEIGHT 2.0
 #define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
@@ -58,9 +58,10 @@ typedef struct s_light {
 }	t_light;
 
 typedef struct s_sphere {
-	t_vector	point;
+	t_vector	*point;
 	double		diameter;
-	t_color		color;
+	double		radius;
+	t_vector	*color;
 }	t_sphere;
 
 typedef struct s_plane {
@@ -136,5 +137,9 @@ t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 
 //color
 t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc);
+
+//sphere
+t_sphere *init_sphere(t_vector *position, double diameter, t_garbage_collector *gc);
+bool hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc);
 
 #endif

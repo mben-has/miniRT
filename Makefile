@@ -9,6 +9,7 @@ SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c  src/raytraci
 		src/raytracing/camera.c\
 		src/raytracing/ray.c\
 		src/raytracing/color.c\
+		src/raytracing/sphere.c\
 		src/garbage_collector/exit_function.c\
 		src/garbage_collector/free.c\
 		src/garbage_collector/garbage_collector.c
