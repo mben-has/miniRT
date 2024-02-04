@@ -6,13 +6,13 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:22:44 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/04 18:11:31 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/04 22:11:52 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
 
-t_sphere *init_sphere(t_vector *position, double diameter, t_garbage_collector *gc)
+t_sphere *init_sphere(t_vector *position, double diameter, t_vector *color, t_garbage_collector *gc)
 {
     t_sphere *sphere;
 
@@ -24,6 +24,7 @@ t_sphere *init_sphere(t_vector *position, double diameter, t_garbage_collector *
     sphere->point = position;
     sphere->diameter = diameter;
     sphere->radius = diameter * 0.5;
+    sphere->color = init_vector(color->coordinate[0], color->coordinate[1], color->coordinate[2], gc);
     return (sphere);
 }
 

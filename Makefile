@@ -7,6 +7,7 @@ SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c  src/raytraci
 		src/parsing/check_elements.c src/parsing/parsing_helper.c \
 		src/raytracing/math_op.c src/raytracing/vector.c \
 		src/raytracing/camera.c\
+		src/raytracing/cylinder.c\
 		src/raytracing/ray.c\
 		src/raytracing/color.c\
 		src/raytracing/sphere.c\

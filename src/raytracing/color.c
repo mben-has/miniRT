@@ -6,7 +6,7 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 10:08:10 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/04 11:35:43 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/04 19:30:24 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc
     t_vector *color1 = init_vector(1.0, 1.0, 1.0, gc);
 	t_vector *color2 = init_vector(0.5, 0.7, 1.0, gc);
     color->v_color = vector_sum(scalar_product(color1,(1.0-a) *255, gc),scalar_product(color2,a * 255,gc),gc);   
-    printf("u[0] = %f ; u[1] = %f ; r[2] = %f\n", color->v_color->coordinate[0],color->v_color->coordinate[1],color->v_color->coordinate[2] );
+    // printf("u[0] = %f ; u[1] = %f ; r[2] = %f\n", color->v_color->coordinate[0],color->v_color->coordinate[1],color->v_color->coordinate[2] );
     //return vector_summ(scalar_multiplication(color1,(1.0-a)), scalar_multiplication(color2,(a)));
     return (color);
 }
