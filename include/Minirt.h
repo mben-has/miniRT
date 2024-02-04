@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/03 22:25:10 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:37:47 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct s_color {
-	int	r;
-	int	g;
-	int b;
-}	t_color;
 
 typedef struct s_vector {
 	double	coordinate[3];
 }	t_vector;
+
+typedef struct s_color {
+	int r;
+	int g;
+	int b;
+	t_vector	*v_color;
+}	t_color;
 
 typedef struct s_ambient {
 	double	lighting_ratio;
@@ -118,10 +120,20 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc);
 //vector
 t_vector		*init_vector(double x, double y, double z, t_garbage_collector *gc);
 unsigned int	argb_to_hex(t_vector *color); //convert argb to hex
+t_vector		*scalar_division(t_vector *v, double scalar, t_garbage_collector *gc);
+t_vector		*scalar_product(t_vector *v, double scalar, t_garbage_collector *gc);
+t_vector    	*vector_sum(t_vector *v1, t_vector *v2, t_garbage_collector *gc);
+t_vector   		*vector_difference(t_vector *v1, t_vector *v2, t_garbage_collector *gc);
 
 // get the height of image by ratio
 int get_height(double ratio);
 
 //camera
 t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_collector *gc);
+
+//ray
+t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
+
+//color
+t_color *init_color(t_vector *colors, t_ray **ray, t_garbage_collector *gc);
 #endif

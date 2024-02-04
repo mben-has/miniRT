@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/03 20:41:41 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/04 08:28:39 by BigBen           ###   ########.fr       */
+/*   Created: 2024/02/04 09:19:11 by BigBen            #+#    #+#             */
+/*   Updated: 2024/02/04 09:58:37 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
 
-t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_collector *gc)
+t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 {
-	t_camera    *cam;
-
-	cam = malloc(sizeof(t_camera));
-	if (!cam)
-        exit_function(gc, "error while init camera\n", 1, true);
-    else
-        add_pointer_node(gc, cam);
-    cam->point = point;
-    cam->orientation = orientation;
-    cam->fov = fov;
-    //cam->distance = ((WIDTH / 2) / tan(fov/((2.0 * 180.0) /M_PI)));
-    return (cam);
+	t_ray *aux; 
+    
+    aux = malloc(sizeof(t_ray));
+    if (!aux)
+		exit_function(gc, "error while init ray\n", 1, true);
+	else
+		add_pointer_node(gc, aux);
+	aux->direction = direction;
+	aux->origin = origin;
+	return (aux);
 }

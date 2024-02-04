@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/03 20:41:41 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/04 08:28:39 by BigBen           ###   ########.fr       */
+/*   Created: 2024/02/04 10:08:10 by BigBen            #+#    #+#             */
+/*   Updated: 2024/02/04 10:27:42 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
-
-t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_collector *gc)
+t_color *init_color(t_vector *colors, t_ray **ray, t_garbage_collector *gc)
 {
-	t_camera    *cam;
-
-	cam = malloc(sizeof(t_camera));
-	if (!cam)
-        exit_function(gc, "error while init camera\n", 1, true);
+    t_color *color;
+    color = malloc(sizeof(t_color));
+    if (!color)
+        exit_function(gc, "error while alloc color", 1, true);
     else
-        add_pointer_node(gc, cam);
-    cam->point = point;
-    cam->orientation = orientation;
-    cam->fov = fov;
-    //cam->distance = ((WIDTH / 2) / tan(fov/((2.0 * 180.0) /M_PI)));
-    return (cam);
+        add_pointer_node(gc, color);
+    color->v_color = init_vector(colors->coordinate[0],\
+    colors->coordinate[1],\
+    colors->coordinate[2], gc);
+    
+    return (color);
 }
