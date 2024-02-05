@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 14:23:47 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:40:16 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
 		return (0);
 
 	// read in id
-	sphere->id = 'p';
+	plane->id = 'p';
 
 	// reading in vector
 	if (read_vector(split[1], &plane->point, 0, gc) == 0)
@@ -158,7 +158,7 @@ int check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc)
 
 
 	// read in id
-	sphere->id = 'c';
+	cylinder->id = 'c';
 
 	// reading in vector
 	if (read_vector(split[1], &cylinder->point, 0, gc) == 0)
