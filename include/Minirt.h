@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 14:22:30 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 23:17:33 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,26 @@ typedef struct s_scene {
 	int			nr_cylinders;
 }	t_scene;
 
+typedef struct s_object 
+{
+	char		id;
+	double		distance;
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cylinder;
+	t_vector	*color;
+	// double		diameter;
+	// double		radius;
+	// t_vector	*point;
+	// t_vector	*normal_vector;
+	// t_vector	*axis_vector;
+}t_object;
+
 typedef struct s_ray{
 	t_vector* origin;
 	t_vector* direction;
+	t_object * clo; //closest object
+	
 } t_ray;
 
 typedef int (*t_function_pointer)(char **split, t_scene *scene, t_garbage_collector *gc);
@@ -129,6 +146,7 @@ unsigned int	argb_to_hex(t_vector *color); //convert argb to hex
 t_vector		*scalar_division(t_vector *v, double scalar, t_garbage_collector *gc);
 t_vector		*scalar_product(t_vector *v, double scalar, t_garbage_collector *gc);
 t_vector    	*vector_sum(t_vector *v1, t_vector *v2, t_garbage_collector *gc);
+double			vector_vector(t_vector *v1, t_vector *v2);
 t_vector   		*vector_difference(t_vector *v1, t_vector *v2, t_garbage_collector *gc);
 
 // get the height of image by ratio
@@ -139,13 +157,17 @@ t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_
 
 //ray
 t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
+t_object *init_clo(char id, void **object, double distance, t_garbage_collector *gc);
+void clo_set_sp(t_object **object, t_sphere **sphere, double distance);
 
 //color
 t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc);
 
 //sphere
 t_sphere *init_sphere(t_vector *position, double diameter, t_vector *color, t_garbage_collector *gc);
-bool hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc);
+double	hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc);
+void setup_sphere(t_sphere **t_sphere);
+
 //cylinder
 t_cylinder *init_cylinder(t_vector *point, t_vector *axis, double diameter, double height, t_vector *color, t_garbage_collector *gc);
 bool hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);

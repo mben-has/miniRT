@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 20:12:20 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/04 09:03:34 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/05 22:38:08 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,13 @@ t_vector    *vector_sum(t_vector *v1, t_vector *v2, t_garbage_collector *gc)
                      v1->coordinate[1] + v2->coordinate[1], \
                      v1->coordinate[2] + v2->coordinate[2] , gc);
     return (aux);
+}
+
+double	vector_vector(t_vector *v1, t_vector *v2)
+{
+	double	a;
+
+	a = v1->coordinate[0] * v2->coordinate[0] + v1->coordinate[1]
+		* v2->coordinate[1] + v1->coordinate[2] * v2->coordinate[2];
+	return (a);
 }

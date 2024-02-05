@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/05 13:43:50 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 00:38:06 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,27 @@
     
 // }
 
+void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
+{
+    int h;
+    double e;
+      h = 0;
+            while (h < (*scene)->nr_spheres)
+            {
+                e = hit_sphere((*scene)->spheres[h], (*ray), gc);
+             
+                if(e != -1.0)
+                {   
+                    if(!((*ray)->clo))
+                        (*ray)->clo = init_clo('s', &((*scene)->spheres[h]), e, gc );
+                    else if(((*ray)->clo) && (e < (*ray)->clo->distance))
+                        (*ray)->clo = init_clo('s', &((*scene)->spheres[h]), e, gc );
+                }
+             
+                h++;
+            }
+}
+
 int		raytracing(t_scene *scene, t_garbage_collector *gc)
 {
     t_camera *cam;
@@ -109,7 +130,7 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     (void)scene;
     
     t_color *color;
-    int r = 0;
+    double e = 0;
     int i = 0;
     int j = 0;
     // mlx_set_setting(MLX_MAXIMIZED, true);
@@ -135,19 +156,28 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
             // printf(" r[0] = %f ; r[1] = %f ; r[2] = %f\n", ray_direction->coordinate[0],ray_direction->coordinate[1],ray_direction->coordinate[2] );
             ray = init_ray(cam->point, ray_direction, gc);
             // printf("ray_or = (%f,%f,%f)\n", ray->origin->coordinate[0], ray->origin->coordinate[1], ray->origin->coordinate[2]);
-            color = init_color(init_vector(0, 0 , 255, gc), ray_direction, gc);
-            	mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
-            h = 0;
-            while (h < scene->nr_spheres)
-            {
-                
-                if(hit_sphere(scene->spheres[h], ray, gc) != -1.0)
-                {   
-                    mlx_put_pixel(img, i, j, argb_to_hex(scene->spheres[h]->color));
-                }
+            // color = init_color(init_vector(0, 0 , 255, gc), ray_direction, gc);
+            // 	mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
+            // if (!ray->clo)
+            //     return 0;
+            // h = 0;
+            // while (h < scene->nr_spheres)
+            // {
+            //     e = hit_sphere(scene->spheres[h], ray, gc);
              
-                h++;
-            }
+            //     if(e != -1.0)
+            //     {   
+            //         if(!ray->clo)
+            //             ray->clo = init_clo('s', &(scene->spheres[h]), e, gc );
+            //         else if(ray->clo && (e < ray->clo->distance))
+            //             ray->clo = init_clo('s', &(scene->spheres[h]), e, gc );
+            //     }
+             
+            //     h++;
+            // }
+            check_hit(&scene, &ray,gc);
+            if(ray->clo != NULL)
+                mlx_put_pixel(img, i, j, argb_to_hex(ray->clo->color));
                 // printf("num sphere = %d\n", scene->nr_spheres);
             
             //  if(hit_cylinder(cy, ray, gc))

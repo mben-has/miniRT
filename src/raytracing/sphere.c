@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:22:44 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/05 13:40:06 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:21:26 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,7 @@ void setup_sphere(t_sphere **t_sphere)
 {
     (*t_sphere)->radius = (*t_sphere)->diameter  * 0.5;
 }
-double	vector_vector(t_vector *v1, t_vector *v2)
-{
-	double	a;
 
-	a = v1->coordinate[0] * v2->coordinate[0] + v1->coordinate[1]
-		* v2->coordinate[1] + v1->coordinate[2] * v2->coordinate[2];
-	return (a);
-}
 
 double	hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc)
 {
