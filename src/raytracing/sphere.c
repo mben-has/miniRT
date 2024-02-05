@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:22:44 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/05 09:55:56 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:40:26 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,32 @@ double vector_vector(t_vector *v1, t_vector *v2)
     return (a);
 }
 
-bool hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc)
+double hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc)
 {
+    //    vec3 oc = r.origin() - center;
+    // auto a = dot(r.direction(), r.direction());
+    // auto b = 2.0 * dot(oc, r.direction());
+    // auto c = dot(oc, oc) - radius*radius;
+    // auto discriminant = b*b - 4*a*c;
+
+    // if (discriminant < 0) {
+    //     return -1.0;
+    // } else {
+    //     return (-b - sqrt(discriminant) ) / (2.0*a);
+    // }
+
+    
     t_vector *oc = vector_difference(ray->origin, sphere->point, gc);
     double a = vector_vector(ray->direction, ray->direction);
     double b = 2.0 * vector_vector(oc, ray->direction);
     double c = vector_vector(oc, oc) - (sphere->radius * sphere->radius);
-    double check_sqrt = b*b - 4*a*c;
-    return (check_sqrt >= 0);
+    double square_root  = b*b - 4*a*c;
+    
+    if (square_root < 0)
+        return (-1.0);
+    else
+    {
+        double x =  (-b - sqrt(square_root) ) / (2.0*a);
+        return (x);
+    }
 }
