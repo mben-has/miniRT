@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 12:01:42 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:23:47 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ int check_sphere(char **split, t_scene *scene, t_garbage_collector *gc)
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 2 || split[0][0] != 's' || split[0][1] != 'p')
 		return (0);
 
+	// read in id
+	sphere->id = 's';
+
 	// reading in vector
 	if (read_vector(split[1], &sphere->point, 0, gc) == 0)
 		return (0);
@@ -117,6 +120,9 @@ int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 2 || split[0][0] != 'p' || split[0][1] != 'l')
 		return (0);
 
+	// read in id
+	sphere->id = 'p';
+
 	// reading in vector
 	if (read_vector(split[1], &plane->point, 0, gc) == 0)
 		return (0);
@@ -149,6 +155,10 @@ int check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc)
 	// check for right element and right amount of words
 	if (word_length(split) != 6 || ft_strlen(split[0]) != 2 || split[0][0] != 'c' || split[0][1] != 'y')
 		return (0);
+
+
+	// read in id
+	sphere->id = 'c';
 
 	// reading in vector
 	if (read_vector(split[1], &cylinder->point, 0, gc) == 0)

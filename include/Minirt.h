@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 11:43:40 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:22:30 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_light {
 }	t_light;
 
 typedef struct s_sphere {
+	char		id;
 	t_vector	*point;
 	double		diameter;
 	double		radius;
@@ -67,12 +68,14 @@ typedef struct s_sphere {
 }	t_sphere;
 
 typedef struct s_plane {
+	char		id;
 	t_vector	*point;
 	t_vector	*normal_vector;
 	t_vector	*color;
 }	t_plane;
 
 typedef struct s_cylinder {
+	char		id;
 	t_vector	*point;
 	t_vector	*axis_vector;
 	double		diameter;
