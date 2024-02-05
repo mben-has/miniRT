@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/05 10:41:53 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:43:50 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     t_vector *v2;
     t_vector *v3;
     t_cylinder *cy;
+    int h;
+    setup_sphere(&(scene->spheres[0]));
+    printf("number of spheres = %d\n", scene->nr_spheres);
 
     cam = init_camera(init_vector(0,0,0,gc), NULL, 60, gc);
     cy = init_cylinder(init_vector(0,0,300, gc), init_vector(0,0,1, gc),  14.2,  150, init_vector(0,255,0, gc), gc);
@@ -106,7 +109,7 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     (void)scene;
     
     t_color *color;
-    
+    int r = 0;
     int i = 0;
     int j = 0;
     // mlx_set_setting(MLX_MAXIMIZED, true);
@@ -133,12 +136,26 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
             ray = init_ray(cam->point, ray_direction, gc);
             // printf("ray_or = (%f,%f,%f)\n", ray->origin->coordinate[0], ray->origin->coordinate[1], ray->origin->coordinate[2]);
             color = init_color(init_vector(0, 0 , 255, gc), ray_direction, gc);
-            if(hit_cylinder(cy, ray, gc))
-                mlx_put_pixel(img, i, j, argb_to_hex(cy->color));
-            else if(hit_sphere(sphere, ray, gc))
-                mlx_put_pixel(img, i, j, argb_to_hex(sphere->color));
-			else
-				mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
+            	mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
+            h = 0;
+            while (h < scene->nr_spheres)
+            {
+                
+                if(hit_sphere(scene->spheres[h], ray, gc) != -1.0)
+                {   
+                    mlx_put_pixel(img, i, j, argb_to_hex(scene->spheres[h]->color));
+                }
+             
+                h++;
+            }
+                // printf("num sphere = %d\n", scene->nr_spheres);
+            
+            //  if(hit_cylinder(cy, ray, gc))
+            //     mlx_put_pixel(img, i, j, argb_to_hex(cy->color));
+            // else if(hit_sphere(sphere, ray, gc) != -1.0)
+            //     mlx_put_pixel(img, i, j, argb_to_hex(sphere->color));
+			// else
+			// 	mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
             i++;
         }
         j++;
