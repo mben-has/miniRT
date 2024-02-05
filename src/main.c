@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/03 16:07:16 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:17:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		print_usage();
 		exit(1);
 	}
-	error = parsing(argv[1], &scene);
+	error = parsing(argv[1], &scene, gc);
 	if (error != 0)
 		exit(error);
 	error = raytracing(&scene, gc);

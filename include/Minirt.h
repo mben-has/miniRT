@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/04 23:06:11 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/05 11:43:40 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_color {
 
 typedef struct s_ambient {
 	double	lighting_ratio;
-	t_color	color;
+	t_vector	*color;
 }	t_ambient;
 
 typedef struct s_camera {
@@ -54,9 +54,9 @@ typedef struct s_camera {
 }	t_camera;
 
 typedef struct s_light {
-	t_vector	point;
+	t_vector	*point;
 	double		brightness_ratio;
-	t_color		color;
+	t_vector	*color;
 }	t_light;
 
 typedef struct s_sphere {
@@ -67,9 +67,9 @@ typedef struct s_sphere {
 }	t_sphere;
 
 typedef struct s_plane {
-	t_vector	point;
-	t_vector	normal_vector;
-	t_color		color;
+	t_vector	*point;
+	t_vector	*normal_vector;
+	t_vector	*color;
 }	t_plane;
 
 typedef struct s_cylinder {
@@ -84,9 +84,9 @@ typedef struct s_scene {
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;
-	t_sphere	*spheres;
-	t_plane		*planes;
-	t_cylinder	*cylinders;
+	t_sphere	**spheres;
+	t_plane		**planes;
+	t_cylinder	**cylinders;
 	int			nr_spheres;
 	int			nr_planes;
 	int			nr_cylinders;
@@ -97,24 +97,24 @@ typedef struct s_ray{
 	t_vector* direction;
 } t_ray;
 
-typedef int (*t_function_pointer)(char **split, t_scene *scene);
+typedef int (*t_function_pointer)(char **split, t_scene *scene, t_garbage_collector *gc);
 
 // main
 void	print_usage(void);
 
 // parsing
-int		parsing(char *file, t_scene *scene);
-int		check_ambient(char **split, t_scene *scene);
-int 	check_camera(char **split, t_scene *scene);
-int 	check_light(char **split, t_scene *scene);
-int 	check_sphere(char **split, t_scene *scene);
-int 	check_plane(char **split, t_scene *scene);
-int 	check_cylinder(char **split, t_scene *scene);
+int		parsing(char *file, t_scene *scene, t_garbage_collector *gc);
+int		check_ambient(char **split, t_scene *scene, t_garbage_collector *gc);
+int 	check_camera(char **split, t_scene *scene, t_garbage_collector *gc);
+int 	check_light(char **split, t_scene *scene, t_garbage_collector *gc);
+int 	check_sphere(char **split, t_scene *scene, t_garbage_collector *gc);
+int 	check_plane(char **split, t_scene *scene, t_garbage_collector *gc);
+int 	check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc);
 int		read_double(char *str, double *number, double range_left, double range_right);
 int		word_length(char **split);
-int		read_color(char *str, t_color *color);
+int		read_color(char *str, t_vector **color, t_garbage_collector *gc);
 int		read_byte(char *str, int range_left, int range_right);
-int		read_vector(char *str, t_vector *vector, int is_normal);
+int		read_vector(char *str, t_vector **vector, int is_normal, t_garbage_collector *gc);
 
 
 // raytracing

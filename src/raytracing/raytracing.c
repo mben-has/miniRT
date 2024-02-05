@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/04 23:28:36 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/05 10:41:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     t_vector *v3;
     t_cylinder *cy;
 
-    
     cam = init_camera(init_vector(0,0,0,gc), NULL, 60, gc);
     cy = init_cylinder(init_vector(0,0,300, gc), init_vector(0,0,1, gc),  14.2,  150, init_vector(0,255,0, gc), gc);
     // printf("cylinder_point (%f , %f, %f) \n", cy->point->coordinate[0],cy->point->coordinate[1],cy->point->coordinate[2]);
@@ -134,12 +133,12 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
             ray = init_ray(cam->point, ray_direction, gc);
             // printf("ray_or = (%f,%f,%f)\n", ray->origin->coordinate[0], ray->origin->coordinate[1], ray->origin->coordinate[2]);
             color = init_color(init_vector(0, 0 , 255, gc), ray_direction, gc);
-            if(hit_sphere(sphere, ray, gc))
-                mlx_put_pixel(img, i, j, argb_to_hex(sphere->color));
-            else if(hit_cylinder(cy, ray, gc))
+            if(hit_cylinder(cy, ray, gc))
                 mlx_put_pixel(img, i, j, argb_to_hex(cy->color));
-            else
-                mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
+            else if(hit_sphere(sphere, ray, gc))
+                mlx_put_pixel(img, i, j, argb_to_hex(sphere->color));
+			else
+				mlx_put_pixel(img, i, j, argb_to_hex(color->v_color));
             i++;
         }
         j++;
@@ -147,7 +146,7 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     i--;
     j--;
     mlx_loop(mlx);
-    return (0);
+    // return (0);
 
     
 }

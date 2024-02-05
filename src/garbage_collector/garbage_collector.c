@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:58:02 by mben-has          #+#    #+#             */
-/*   Updated: 2024/01/18 14:06:16 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:55:28 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_garbage_collector	*init_garbage_collector(void)
 	t_garbage_collector	*garbage_collector;
 
 	garbage_collector = malloc(sizeof(t_garbage_collector));
+	if (garbage_collector == NULL)
+		return (NULL);
 	garbage_collector->head = NULL;
 	garbage_collector->tail = NULL;
 	garbage_collector->size = 0;

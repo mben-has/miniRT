@@ -6,13 +6,13 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/02 18:27:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:01:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
 
-int	check_ambient(char **split, t_scene *scene)
+int	check_ambient(char **split, t_scene *scene, t_garbage_collector *gc)
 {
 	// check for right element and right amount of words
 	if (word_length(split) != 3 || ft_strlen(split[0]) != 1 || split[0][0] != 'A')
@@ -23,23 +23,23 @@ int	check_ambient(char **split, t_scene *scene)
 		return (0);
 
 	// reading in int triple
-	if (read_color(split[2], &scene->ambient.color) == 0)
+	if (read_color(split[2], &scene->ambient.color, gc) == 0)
 		return (0);
 	return (1);
 }
 
-int check_camera(char **split, t_scene *scene)
+int check_camera(char **split, t_scene *scene, t_garbage_collector *gc)
 {
 	// check for right element and right amount of words
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 1 || split[0][0] != 'C')
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->camera.point, 0) == 0)
+	if (read_vector(split[1], &scene->camera.point, 0, gc) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->camera.orientation, 1) == 0)
+	if (read_vector(split[2], &scene->camera.orientation, 1, gc) == 0)
 		return (0);
 
 	// reading in int triple
@@ -49,14 +49,14 @@ int check_camera(char **split, t_scene *scene)
 	return (1);
 }
 
-int check_light(char **split, t_scene *scene)
+int check_light(char **split, t_scene *scene, t_garbage_collector *gc)
 {
 	// check for right element and right amount of words
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 1 || split[0][0] != 'L')
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->light.point, 0) == 0)
+	if (read_vector(split[1], &scene->light.point, 0, gc) == 0)
 		return (0);
 
 	// reading in double
@@ -64,27 +64,36 @@ int check_light(char **split, t_scene *scene)
 		return (0);
 
 	// reading in int triple
-	if (read_color(split[3], &scene->ambient.color) == 0)
+	if (read_color(split[3], &scene->ambient.color, gc) == 0)
 		return (0);
 	return (1);
 }
 
-int check_sphere(char **split, t_scene *scene)
+int check_sphere(char **split, t_scene *scene, t_garbage_collector *gc)
 {
+    t_sphere *sphere;
+
+	// malloc struct
+    sphere = (t_sphere *) malloc(sizeof(t_sphere));
+    if(sphere == NULL)
+        return (0);
+    add_pointer_node(gc, sphere);
+	scene->spheres[scene->nr_spheres] = sphere;
+
 	// check for right element and right amount of words
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 2 || split[0][0] != 's' || split[0][1] != 'p')
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->spheres[scene->nr_spheres].point, 0) == 0)
+	if (read_vector(split[1], &sphere->point, 0, gc) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[2], &scene->spheres[scene->nr_spheres].diameter, 0, 0) == 0)
+	if (read_double(split[2], &sphere->diameter, 0, 0) == 0)
 		return (0);
 
 	// reading in int triple
-	if (read_color(split[3], &scene->spheres[scene->nr_spheres].color) == 0)
+	if (read_color(split[3], &sphere->color, gc) == 0)
 		return (0);
 
 	// increase nr
@@ -93,22 +102,31 @@ int check_sphere(char **split, t_scene *scene)
 	return (1);
 }
 
-int check_plane(char **split, t_scene *scene)
+int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
 {
+    t_plane *plane;
+
+	// malloc struct
+    plane = (t_plane *) malloc(sizeof(t_plane));
+    if(plane == NULL)
+        return (0);
+    add_pointer_node(gc, plane);
+	scene->planes[scene->nr_planes] = plane;
+
 	// check for right element and right amount of words
 	if (word_length(split) != 4 || ft_strlen(split[0]) != 2 || split[0][0] != 'p' || split[0][1] != 'l')
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->planes[scene->nr_planes].point, 0) == 0)
+	if (read_vector(split[1], &plane->point, 0, gc) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->planes[scene->nr_planes].normal_vector, 1) == 0)
+	if (read_vector(split[2], &plane->normal_vector, 1, gc) == 0)
 		return (0);
 
 	// reading in int triple
-	if (read_color(split[3], &scene->planes[scene->nr_planes].color) == 0)
+	if (read_color(split[3], &plane->color, gc) == 0)
 		return (0);
 
 	// increase nr
@@ -117,30 +135,43 @@ int check_plane(char **split, t_scene *scene)
 	return (1);
 }
 
-int check_cylinder(char **split, t_scene *scene)
+int check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc)
 {
+   t_cylinder*cylinder;
+
+	// malloc struct
+    cylinder = (t_cylinder *) malloc(sizeof(t_cylinder));
+    if(cylinder == NULL)
+        return (0);
+    add_pointer_node(gc, cylinder);
+	scene->cylinders[scene->nr_cylinders] = cylinder;
+
 	// check for right element and right amount of words
 	if (word_length(split) != 6 || ft_strlen(split[0]) != 2 || split[0][0] != 'c' || split[0][1] != 'y')
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[1], &scene->cylinders[scene->nr_cylinders].point, 0) == 0)
+	if (read_vector(split[1], &cylinder->point, 0, gc) == 0)
 		return (0);
 
 	// reading in vector
-	if (read_vector(split[2], &scene->cylinders[scene->nr_cylinders].axis_vector, 1) == 0)
+	if (read_vector(split[2], &cylinder->axis_vector, 1, gc) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[3], &scene->cylinders[scene->nr_cylinders].diameter, 0, 0) == 0)
+	if (read_double(split[3], &cylinder->diameter, 0, 0) == 0)
 		return (0);
 
 	// reading in double
-	if (read_double(split[4], &scene->cylinders[scene->nr_cylinders].height, 0, 0) == 0)
+	if (read_double(split[4], &cylinder->height, 0, 0) == 0)
 		return (0);
 
 	// reading in int triple
-	if (read_color(split[5], &scene->cylinders[scene->nr_cylinders].color) == 0)
+	if (read_color(split[5], &cylinder->color, gc) == 0)
 		return (0);
+
+	// increase nr
+	scene->nr_cylinders++;
+
 	return (1);
 }

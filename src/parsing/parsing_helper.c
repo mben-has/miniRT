@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/04 10:36:57 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/05 11:45:11 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,17 @@ int	read_byte(char *str, int range_left, int range_right)
 	return (byte);
 }
 
-int	read_color(char *str, t_color *color)
+int	read_color(char *str, t_vector **color, t_garbage_collector *gc)
 {
 	char	**split;
 	int		byte;
 	int		error;
+
+	// malloc struct
+	*color = (t_vector *) malloc(sizeof(t_vector));
+	if (*color == NULL)
+		return (0);
+    add_pointer_node(gc, *color);
 
 	split = ft_split(str, ',');
 	if (split == NULL)
@@ -67,15 +73,15 @@ int	read_color(char *str, t_color *color)
 	byte = read_byte(split[0], 0, 255);
 	if (byte == -1)
 		error = 0;
-	color->r = byte;
+	(*color)->coordinate[0] = byte;
 	byte = read_byte(split[1], 0, 255);
 	if (byte == -1)
 		error = 0;
-	color->g = byte;
+	(*color)->coordinate[1] = byte;
 	byte = read_byte(split[2], 0, 255);
 	if (byte == -1)
 		error = 0;
-	color->b = byte;
+	(*color)->coordinate[2] = byte;
 	free(split);
 	return (error);
 }
@@ -133,18 +139,27 @@ int	read_double(char *str, double *number, double range_left, double range_right
 	return (1);
 }
 
-int	read_vector(char *str, t_vector *vector, int is_normal)
+int	read_vector(char *str, t_vector **vector, int is_normal, t_garbage_collector *gc)
 {
 	char	**split;
 	int		error;
 	int		range_left;
 	int		range_right;
 
+	// maloc struct
+	*vector = (t_vector *) malloc(sizeof(t_vector));
+	if (*vector == NULL)
+		return (0);
+    add_pointer_node(gc, *vector);
+
+	// split string
 	split = ft_split(str, ',');
 	if (split == NULL)
 		return (0);
 	if (word_length(split) != 3)
 		return (0);
+
+	// set range
 	range_left = 0;
 	range_right = 0;
 	if (is_normal)
@@ -152,13 +167,16 @@ int	read_vector(char *str, t_vector *vector, int is_normal)
 		range_left = -1.0;
 		range_right = 1.0;
 	}
+
+	// read in doubles
 	error = 1;
-	if (read_double(split[0], &vector->coordinate[0], range_left, range_right) == 0)
+	if (read_double(split[0], &(*vector)->coordinate[0], range_left, range_right) == 0)
 		error = 0;
-	if (read_double(split[1], &vector->coordinate[1], range_left, range_right) == 0)
+	if (read_double(split[1], &(*vector)->coordinate[1], range_left, range_right) == 0)
 		error = 0;
-	if (read_double(split[2], &vector->coordinate[2], range_left, range_right) == 0)
+	if (read_double(split[2], &(*vector)->coordinate[2], range_left, range_right) == 0)
 		error = 0;
+
 	free(split);
 	return (error);
 }

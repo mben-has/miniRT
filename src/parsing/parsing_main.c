@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/02 17:30:58 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:19:15 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ int	init_scene(t_scene *scene)
 {
 	void *mem;
 
-	mem = malloc(100 * sizeof(t_sphere));
+	mem = (t_sphere *) malloc(100 * sizeof(t_sphere *));
 	if (mem == NULL)
 		return (0);
 	scene->spheres = mem;
-	mem = malloc(100 * sizeof(t_plane));
+	mem = (t_plane *) malloc(100 * sizeof(t_plane *));
 	if (mem == NULL)
 		return (0);
 	scene->planes = mem;
-	mem = malloc(100 * sizeof(t_cylinder));
+	mem = (t_cylinder *) malloc(100 * sizeof(t_cylinder *));
 	if (mem == NULL)
 		return (0);
 	scene->cylinders = mem;
@@ -57,7 +57,7 @@ int	check_for_unique(int i)
 	return (1);
 }
 
-int	read_in_element(char *line, t_scene *scene)
+int	read_in_element(char *line, t_scene *scene, t_garbage_collector *gc)
 {
 	t_function_pointer	function_pointers[6] = {check_ambient, check_camera, check_light, check_sphere, check_plane, check_cylinder};
 	int					i;
@@ -69,7 +69,7 @@ int	read_in_element(char *line, t_scene *scene)
 	i = 0;
 	while (i < 6)
 	{
-		if (function_pointers[i](split, scene) == 1)
+		if (function_pointers[i](split, scene, gc) == 1)
 		{
 			free(split);
 			if (check_for_unique(i) == 0)
@@ -83,7 +83,7 @@ int	read_in_element(char *line, t_scene *scene)
 	return (5);
 }
 
-int	parsing(char *file, t_scene *scene)
+int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 {
 	char	*line;
 	int		fd;
@@ -111,7 +111,7 @@ int	parsing(char *file, t_scene *scene)
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
 				line[ft_strlen(line) - 1] = '\0';
-			error = read_in_element(line, scene);
+			error = read_in_element(line, scene, gc);
 		}
 		free(line);
 		if (error != 0)
