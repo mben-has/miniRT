@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/06 00:38:06 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 02:27:03 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // {
 //     t_camera *cam;
 //     t_vector *pixel_center;
-//     t_vector *ray_direction;
+//     t_vector ray_direction;
 //     t_ray *ray;
 //     t_sphere *sphere;
 
@@ -93,6 +93,21 @@ void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
              
                 h++;
             }
+          h = 0;
+            while (h < (*scene)->nr_cylinders)
+             {
+                e = hit_cylinder((*scene)->cylinders[h], (*ray), gc);
+             
+                if(e != -1.0)
+                {   
+                    if(!((*ray)->clo))
+                        (*ray)->clo = init_clo('c', &((*scene)->cylinders[h]), e, gc );
+                    else if(((*ray)->clo) && (e < (*ray)->clo->distance))
+                        (*ray)->clo = init_clo('c', &((*scene)->cylinders[h]), e, gc );
+                }
+             
+                h++;
+            }
 }
 
 int		raytracing(t_scene *scene, t_garbage_collector *gc)
@@ -108,11 +123,14 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     t_cylinder *cy;
     int h;
     setup_sphere(&(scene->spheres[0]));
+    printf("cy id = %c\n", scene->cylinders[0]->id);
     printf("number of spheres = %d\n", scene->nr_spheres);
+    printf("number of cylinder = %d\n", scene->nr_cylinders);
+    printf("cylinder_color (%f , %f, %f) \n", scene->cylinders[0]->color->coordinate[0],scene->cylinders[0]->color->coordinate[1],scene->cylinders[0]->color->coordinate[2]);
+    printf("sphere_color (%f , %f, %f) \n", scene->spheres[0]->color->coordinate[0],scene->spheres[0]->color->coordinate[1],scene->spheres[0]->color->coordinate[2]);
 
     cam = init_camera(init_vector(0,0,0,gc), NULL, 60, gc);
     cy = init_cylinder(init_vector(0,0,300, gc), init_vector(0,0,1, gc),  14.2,  150, init_vector(0,255,0, gc), gc);
-    // printf("cylinder_point (%f , %f, %f) \n", cy->point->coordinate[0],cy->point->coordinate[1],cy->point->coordinate[2]);
 
     sphere = init_sphere(init_vector(0,0,cam->distance + HEIGHT,gc), HEIGHT, init_vector(255,0,0,gc), gc);
     // cam->distance = 1.0;
@@ -127,7 +145,7 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     pixel00_loc = scalar_product(pixel00_loc, 0.5, gc);
     pixel00_loc = vector_sum(p_upper_left, pixel00_loc,gc);
     printf("dis = %f\n", cam->distance);
-    (void)scene;
+    // (void)scene;
     
     t_color *color;
     double e = 0;
@@ -161,16 +179,15 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
             // if (!ray->clo)
             //     return 0;
             // h = 0;
-            // while (h < scene->nr_spheres)
-            // {
-            //     e = hit_sphere(scene->spheres[h], ray, gc);
+            // while (h < scene->nr_cylinders)
+            //  {
+            //     e = hit_cylinder((scene)->cylinders[h], ray, gc);
              
             //     if(e != -1.0)
             //     {   
-            //         if(!ray->clo)
-            //             ray->clo = init_clo('s', &(scene->spheres[h]), e, gc );
-            //         else if(ray->clo && (e < ray->clo->distance))
-            //             ray->clo = init_clo('s', &(scene->spheres[h]), e, gc );
+            //         mlx_put_pixel(img, i, j, argb_to_hex(scene->cylinders[h]->color));                //         (ray)->clo = init_clo('c', &((scene)->cylinders[h]), e, gc );
+            //     //     else if(((ray)->clo) && (e < (ray)->clo->distance))
+            //     //         (ray)->clo = init_clo('c', &((scene)->cylinders[h]), e, gc );
             //     }
              
             //     h++;
@@ -193,7 +210,7 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     i--;
     j--;
     mlx_loop(mlx);
-    // return (0);
+    return (0);
 
     
 }

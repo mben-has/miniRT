@@ -1,26 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_function.c                                    :+:      :+:    :+:   */
+/*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 14:19:14 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/06 01:23:46 by mben-has         ###   ########.fr       */
+/*   Created: 2024/02/06 02:25:05 by mben-has          #+#    #+#             */
+/*   Updated: 2024/02/06 02:25:16 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "garbage_collector.h"
+#include "../../include/Minirt.h"
 
-void	exit_function(t_garbage_collector *collector, char *string,
-	int exit_code, bool should_exit)
-{
-	if (string)
-		printf("%s\n", string);
-	if (should_exit)
-	{
-		free_all(collector);
-		system("leaks minirt");
-		exit(exit_code);
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 23:17:33 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 01:30:28 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_
 t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 t_object *init_clo(char id, void **object, double distance, t_garbage_collector *gc);
 void clo_set_sp(t_object **object, t_sphere **sphere, double distance);
+void clo_set_cy(t_object **object, t_cylinder **cylinder, double distance);
 
 //color
 t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc);
@@ -170,5 +171,6 @@ void setup_sphere(t_sphere **t_sphere);
 
 //cylinder
 t_cylinder *init_cylinder(t_vector *point, t_vector *axis, double diameter, double height, t_vector *color, t_garbage_collector *gc);
-bool hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);
+double hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);
+
 #endif
