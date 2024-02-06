@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 04:55:25 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 08:04:06 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ t_vector 		*normalize_vector(t_vector *v) ;
 
 //camera
 t_camera	*init_camera(t_vector *point, t_vector *orientation, int fov,t_garbage_collector *gc);
+void setup_camera(t_camera *camera, t_garbage_collector *gc);
 
 //ray
 t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
@@ -174,4 +175,8 @@ double hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);
 
 //plane
 double hit_plane(t_plane *plane, t_ray *ray, t_garbage_collector *gc);
+
+//hit
+void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc);
+
 #endif
