@@ -22,3 +22,5 @@ t_vector    *versor (t_vector *v);
 t_vector    *scalar_multiplication(t_vector *v, double scalar);
 
 #endif
+
+// test comment
