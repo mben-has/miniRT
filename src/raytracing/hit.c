@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:19:45 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/06 07:20:18 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 10:14:55 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void check_cylinders(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
      int h;
     double e;
       h = 0;
+
             while (h < (*scene)->nr_cylinders)
              {
                 e = hit_cylinder((*scene)->cylinders[h], (*ray), gc);
@@ -75,9 +76,12 @@ void check_planes(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
             }
 }
 
-void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
+int check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
 {
      check_spheres(&(*scene), &(*ray), gc);
      check_cylinders(&(*scene), &(*ray), gc);
-     check_planes(&(*scene), &(*ray), gc);      
+     check_planes(&(*scene), &(*ray), gc); 
+    if ((*ray)->clo != NULL)
+		return (1);
+    return (0);
 }

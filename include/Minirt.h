@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 08:04:06 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 10:14:15 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ t_object *init_clo(char id, void **object, double distance, t_garbage_collector 
 void clo_set_sp(t_object **object, t_sphere **sphere, double distance);
 void clo_set_cy(t_object **object, t_cylinder **cylinder, double distance);
 void clo_set_pl(t_object **object,t_plane **plane, double distance);
+t_ray *get_ray(t_scene **scene, int i, int j, t_garbage_collector *gc);
 
 //color
 t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc);
@@ -172,11 +173,9 @@ void setup_sphere(t_sphere **t_sphere);
 //cylinder
 t_cylinder *init_cylinder(t_vector *point, t_vector *axis, double diameter, double height, t_vector *color, t_garbage_collector *gc);
 double hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);
-
 //plane
 double hit_plane(t_plane *plane, t_ray *ray, t_garbage_collector *gc);
 
 //hit
-void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc);
-
+int check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc);
 #endif
