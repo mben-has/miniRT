@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 16:01:05 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:53:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_object
 	// t_vector	*point;
 	// t_vector	*normal_vector;
 	// t_vector	*axis_vector;
-}t_object;
+}	t_object;
 
 typedef struct s_ray{
 	t_vector* origin;

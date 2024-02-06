@@ -1,12 +1,33 @@
 
 Library functions:
 ------------------
-double		discriminant(t_ray ray)
-t_vector	translation(t_vector vector)
-t_vector	scaling(t_vector vector)
-t_vector	normalize(t_vector vector)
-t_vector	transpose
-double		dot(t_vector a, t_vector b)
+t_vector	vector_add(t_vector a, t_vector b);
+t_vector	vector_subtract(t_vector a, t_vector b);
+t_vector	vector_negate(t_vector vector);
+t_vector	scalar_mult(t_vector vector, double c);
+t_vector	scalar_div(t_vector vector, double c);
+double		magnitude(t_vector vector);
+t_vector	normalize(t_vector vector);
+double		dot(t_vector a, t_vector b);
+t_vector	cross(t_vector a, t_vector b);
+t_color		color_add(t_color a, t_color b);
+t_color		hadamard_product(t_color a, t_color b);
+t_matrix	matrix_equal(t_matrix a, t_matrix b);
+t_matrix	identity_matrix();
+t_matrix	matrix_mult(t_matrix a, t_matrix b);
+t_matrix	transpose(t_matrix m);
+t_matrix	inverse(t_matrix m);
+double		determinant(t_matrix m);
+t_matrix	submatrix(t_matrix m, int i, int j);
+double		minor(t_matrix m, int i, int j);
+double		cofactor(t_matrix m, int i, int j);
+t_vector	translation(t_vector vector);
+t_vector	scaling(t_vector vector);
+t_vector	rotation_x(t_vector vector);
+t_vector	rotation_y(t_vector vector);
+t_vector	rotation_z(t_vector vector);
+// shearing: I dont know if we need that for planes
+double		discriminant(t_ray ray);
 
 //************************************************
 
@@ -22,14 +43,15 @@ t_vector	position(t_ray ray, double t)
 	return point 
 }
 
-t_intersections intersect(t_sphere sphere, t_ray ray)
+// This is one intersect_* function out of 3 for the 3 different types
+t_intersections intersect_sphere(t_sphere sphere, t_ray ray)
 {
 	computes intersections with this object 
-	ray2 = transform(ray, inverse(sphere.transformation_matrix))
+	ray2 = transform(ray, inverse(object.transformation_matrix))
 	return intersections
 }
 
-t_intersection intersection(double t, t_sphere sphere)
+t_intersection intersection(double t, t_object object)
 {
 	creates an intersection object 
 	return intersection 
@@ -38,6 +60,7 @@ t_intersection intersection(double t, t_sphere sphere)
 t_intersection	hit(t_intersections intersections)
 {
 	computes the hit, that is the smallest positive distance
+	Here we search for the right intersection 
 	return intersection 
 }
 
@@ -47,16 +70,18 @@ t_ray transform(t_ray ray, t_matrix matrix)
 	return ray 
 }
 
-void	set_transform(t_sphere sphere, t_matrix matrix)
+void	set_transform(t_object object t_matrix matrix)
 {
-	sets the transformation matrix field in the sphere
+	Determines the object type and 
+	sets the transformation matrix field in the object
 }
 
 //************************************************
 
-t_vector	normal_at(t_sphere sphere, t_vector point)
+t_vector	normal_at(t_object object, t_vector point)
 {
 	Code p.82
+	Determines object type and calls the specific normal_at function 
 	computes the normal vector 
 	return world_normal
 }
@@ -85,7 +110,8 @@ t_color lighting(t_material material, t_light light, t_vector point, t_vector ey
 
 t_intersections	intersect_world(t_world world, t_ray)
 {
-	iterates over all objects and returns all intersections
+	iterates over all objects and returns all intersections (we can 
+		add all intersections objects into one)
 	return intersections
 }
 
@@ -141,3 +167,12 @@ void	render(t_camera camera, t_world world)
 		color = color_at(world, ray)
 		write_pixel(x, y, color)
 }
+
+//************************************************
+
+Initialisierungen:
+------------------
+camera
+world
+mlx
+objects must be initialized: for instance material field must be created 
