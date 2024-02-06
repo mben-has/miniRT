@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 11:19:15 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 03:09:47 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	read_in_element(char *line, t_scene *scene, t_garbage_collector *gc)
 	{
 		if (function_pointers[i](split, scene, gc) == 1)
 		{
-			free(split);
+			free_2d(split);
 			if (check_for_unique(i) == 0)
 				return (6);
 			else
@@ -79,7 +79,7 @@ int	read_in_element(char *line, t_scene *scene, t_garbage_collector *gc)
 		}
 		i++;
 	}
-	free(split);
+	free_2d(split);
 	return (5);
 }
 
@@ -96,12 +96,10 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	// check for right ending
 	if (check_file_extension(file) == 0)
 		return (2);
-
 	// open file
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (3);
-
 	// read in lines
 	error = 0;
 	line = get_next_line(fd);
@@ -120,6 +118,7 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	}
 
 	//close file
+	
 	close(fd);
 	
 	return (error);
