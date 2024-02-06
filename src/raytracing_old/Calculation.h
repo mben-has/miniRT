@@ -17,10 +17,8 @@ t_vector    *vector_difference(t_vector *v1, t_vector *v2);
 t_vector    *vector_summ(t_vector *v1, t_vector *v2);
 t_vector    *new_vector(double x, double y, double z);
 double      modul( t_vector *v1);
-double      vector_dot_product( t_vector *v1, t_vector *v2);
+double      vector_dot_product(t_vector *v1, t_vector *v2);
 t_vector    *versor (t_vector *v);
 t_vector    *scalar_multiplication(t_vector *v, double scalar);
 
 #endif
-
-// test comment

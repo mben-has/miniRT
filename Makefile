@@ -4,19 +4,15 @@ DEBUGFLAGS = -Wall -Wextra -g
 # -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
-SRC = src/main.c src/helper_functions.c src/parsing/parsing_main.c  src/raytracing/raytracing.c \
-		src/parsing/check_elements.c src/parsing/parsing_helper.c \
-		src/raytracing/math_op.c src/raytracing/vector.c \
-		src/raytracing/camera.c\
-		src/raytracing/cylinder.c\
-		src/raytracing/ray.c\
-		src/raytracing/color.c\
-		src/raytracing/sphere.c\
-		src/raytracing/hit.c\
-		src/raytracing/plane.c\
-		src/garbage_collector/exit_function.c\
-		src/garbage_collector/free.c\
-		src/garbage_collector/garbage_collector.c
+SRC = 	src/main.c \
+		src/helper_functions.c \
+		src/garbage_collector/exit_function.c \
+		src/garbage_collector/free.c \
+		src/garbage_collector/garbage_collector.c \
+		src/parsing/parsing_main.c \
+		src/parsing/check_elements.c \
+		src/parsing/parsing_helper.c \
+		src/raytracing/raytracing_main.c
 
 OBJECTS = $(SRC:.c=.o)
 

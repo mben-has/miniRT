@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 19:40:16 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:06:36 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int check_light(char **split, t_scene *scene, t_garbage_collector *gc)
 
 int check_sphere(char **split, t_scene *scene, t_garbage_collector *gc)
 {
-    t_sphere *sphere;
+    t_sphere_p *sphere;
 
 	// malloc struct
-    sphere = (t_sphere *) malloc(sizeof(t_sphere));
+    sphere = (t_sphere_p *) malloc(sizeof(t_sphere_p));
     if(sphere == NULL)
         return (0);
     add_pointer_node(gc, sphere);
@@ -107,10 +107,10 @@ int check_sphere(char **split, t_scene *scene, t_garbage_collector *gc)
 
 int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
 {
-    t_plane *plane;
+    t_plane_p *plane;
 
 	// malloc struct
-    plane = (t_plane *) malloc(sizeof(t_plane));
+    plane = (t_plane_p *) malloc(sizeof(t_plane_p));
     if(plane == NULL)
         return (0);
     add_pointer_node(gc, plane);
@@ -143,10 +143,10 @@ int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
 
 int check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc)
 {
-   t_cylinder*cylinder;
+   t_cylinder_p	*cylinder;
 
 	// malloc struct
-    cylinder = (t_cylinder *) malloc(sizeof(t_cylinder));
+    cylinder = (t_cylinder_p *) malloc(sizeof(t_cylinder_p));
     if(cylinder == NULL)
         return (0);
     add_pointer_node(gc, cylinder);

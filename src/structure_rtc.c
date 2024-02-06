@@ -174,5 +174,4 @@ Initialisierungen:
 ------------------
 camera
 world
-mlx
 objects must be initialized: for instance material field must be created 

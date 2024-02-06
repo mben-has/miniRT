@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 11:45:11 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:05:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int	read_byte(char *str, int range_left, int range_right)
 	return (byte);
 }
 
-int	read_color(char *str, t_vector **color, t_garbage_collector *gc)
+int	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 {
 	char	**split;
 	int		byte;
 	int		error;
 
 	// malloc struct
-	*color = (t_vector *) malloc(sizeof(t_vector));
+	*color = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*color == NULL)
 		return (0);
     add_pointer_node(gc, *color);
@@ -139,7 +139,7 @@ int	read_double(char *str, double *number, double range_left, double range_right
 	return (1);
 }
 
-int	read_vector(char *str, t_vector **vector, int is_normal, t_garbage_collector *gc)
+int	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc)
 {
 	char	**split;
 	int		error;
@@ -147,7 +147,7 @@ int	read_vector(char *str, t_vector **vector, int is_normal, t_garbage_collector
 	int		range_right;
 
 	// maloc struct
-	*vector = (t_vector *) malloc(sizeof(t_vector));
+	*vector = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*vector == NULL)
 		return (0);
     add_pointer_node(gc, *vector);
