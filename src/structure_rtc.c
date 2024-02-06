@@ -1,7 +1,7 @@
 
 Library functions:
 ------------------
-t_vector	vector_add(t_vector a, t_vector b);
+t_vector	*vector_add(t_vector a, t_vector b);
 t_vector	vector_subtract(t_vector a, t_vector b);
 t_vector	vector_negate(t_vector vector);
 t_vector	scalar_mult(t_vector vector, double c);

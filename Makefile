@@ -4,6 +4,7 @@ DEBUGFLAGS = -Wall -Wextra -g
 # -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
+LINALG = libs/liblinalg/liblinalg.a 
 SRC = 	src/main.c \
 		src/helper_functions.c \
 		src/garbage_collector/exit_function.c \
@@ -19,11 +20,14 @@ OBJECTS = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJECTS) $(LIBFT) $(MLX)
-	cc $(DEBUGFLAGS) -Llibs/libft -lft -lglfw -Llibs/mlx -lmlx42 -lm $(OBJECTS) -o $(NAME)
+$(NAME) : $(OBJECTS) $(LIBFT) $(MLX) $(LINALG)
+	cc $(DEBUGFLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(OBJECTS) -o $(NAME)
 
 $(LIBFT) :
 	cd libs/libft; make; make clean
+
+$(LINALG) :
+	cd libs/liblinalg; make; make clean
 
 $(MLX) :
 	cd libs/mlx; git clone https://github.com/codam-coding-college/MLX42.git; \

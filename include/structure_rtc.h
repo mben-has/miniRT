@@ -6,18 +6,22 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 18:56:40 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:48:06 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_RTC_H
 # define STRUCTURE_RTC_H
 
-typedef	double t_vector[4];
+# ifndef LIBLINALG_H
 
-typedef	double t_matrix[4][4];
+	typedef	double t_vector[4];
 
-typedef double t_color[3];
+	typedef	double t_matrix[4][4];
+
+	typedef double t_color[3];
+	
+# endif
 
 typedef struct s_camera {
 	int			hsize;

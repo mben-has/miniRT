@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 19:06:36 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:07:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int check_sphere(char **split, t_scene *scene, t_garbage_collector *gc)
     sphere = (t_sphere_p *) malloc(sizeof(t_sphere_p));
     if(sphere == NULL)
         return (0);
-    add_pointer_node(gc, sphere);
+    // add_pointer_node(gc, sphere);
 	scene->spheres[scene->nr_spheres] = sphere;
 
 	// check for right element and right amount of words
@@ -113,7 +113,7 @@ int check_plane(char **split, t_scene *scene, t_garbage_collector *gc)
     plane = (t_plane_p *) malloc(sizeof(t_plane_p));
     if(plane == NULL)
         return (0);
-    add_pointer_node(gc, plane);
+    // add_pointer_node(gc, plane);
 	scene->planes[scene->nr_planes] = plane;
 
 	// check for right element and right amount of words
@@ -149,7 +149,7 @@ int check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc)
     cylinder = (t_cylinder_p *) malloc(sizeof(t_cylinder_p));
     if(cylinder == NULL)
         return (0);
-    add_pointer_node(gc, cylinder);
+    // add_pointer_node(gc, cylinder);
 	scene->cylinders[scene->nr_cylinders] = cylinder;
 
 	// check for right element and right amount of words

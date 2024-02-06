@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 19:05:51 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:07:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 	*color = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*color == NULL)
 		return (0);
-    add_pointer_node(gc, *color);
+    // add_pointer_node(gc, *color);
 
 	split = ft_split(str, ',');
 	if (split == NULL)
@@ -150,7 +150,7 @@ int	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collect
 	*vector = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*vector == NULL)
 		return (0);
-    add_pointer_node(gc, *vector);
+    // add_pointer_node(gc, *vector);
 
 	// split string
 	split = ft_split(str, ',');
