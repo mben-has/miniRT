@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/05 14:22:30 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:41:27 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_color *init_color(t_vector *colors, t_vector *ray_dir, t_garbage_collector *gc
 
 //sphere
 t_sphere *init_sphere(t_vector *position, double diameter, t_vector *color, t_garbage_collector *gc);
-bool hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc);
+double hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc);
 //cylinder
 t_cylinder *init_cylinder(t_vector *point, t_vector *axis, double diameter, double height, t_vector *color, t_garbage_collector *gc);
 bool hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_garbage_collector *gc);
