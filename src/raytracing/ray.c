@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 09:19:11 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/06 01:29:59 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 05:39:16 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_ray *init_ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	aux->direction = direction;
 	aux->origin = origin;
 	aux->clo = NULL;
+	aux->direction = normalize_vector(aux->direction);
 	return (aux);
 }
 
@@ -32,6 +33,7 @@ t_object *init_clo(char id, void **object, double distance, t_garbage_collector 
 	t_object *clo;
 	t_sphere *sphere;
 	t_cylinder *cylinder;
+	t_plane *plane;
 	
 	clo = malloc(sizeof(t_object));
 	if (!clo)
@@ -48,9 +50,24 @@ t_object *init_clo(char id, void **object, double distance, t_garbage_collector 
 		cylinder = (t_cylinder *)(*object);
 		clo_set_cy(&clo, &cylinder, distance);
 	}
-	// else if (id == 'p')
-	// 	//clo_set_pl(&clo);
+	else if (id == 'p')
+	{
+		plane = (t_plane *)(*object);
+		clo_set_pl(&clo, &plane, distance);
+	}
+	
 	return (clo);
+}
+
+void clo_set_pl(t_object **object,t_plane **plane, double distance)
+{
+	(*object)->id = 'p';
+	(*object)->distance = distance;
+	(*object)->plane = (*plane);
+	(*object)->color = (*plane)->color;
+	// (*object)->cylinder = NULL;
+	// (*object)->plane = NULL;
+
 }
 
 void clo_set_sp(t_object **object, t_sphere **sphere, double distance)

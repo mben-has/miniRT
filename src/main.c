@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 02:48:22 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 03:26:05 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 	error = parsing(argv[1], &scene, gc);
 	if (error != 0)
 		exit(error);
+	// system("leaks minirt"); //<====== uncomment this line to see the weird leaks
 	
 	error = raytracing(&scene, gc);
 	if (error != 0)
@@ -34,5 +35,6 @@ int	main(int argc, char **argv)
 	
 
 	free_all(gc);
+	// system("leaks minirt");
 	return (0);	
 }

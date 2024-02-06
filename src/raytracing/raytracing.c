@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:10:50 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/06 02:27:03 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 05:45:09 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
                 if(e != -1.0)
                 {   
                     if(!((*ray)->clo))
-                        (*ray)->clo = init_clo('s', &((*scene)->spheres[h]), e, gc );
+                        (*ray)->clo = init_clo('s', (void *)&((*scene)->spheres[h]), e, gc );
                     else if(((*ray)->clo) && (e < (*ray)->clo->distance))
-                        (*ray)->clo = init_clo('s', &((*scene)->spheres[h]), e, gc );
+                        (*ray)->clo = init_clo('s', (void *)&((*scene)->spheres[h]), e, gc );
                 }
              
                 h++;
             }
-          h = 0;
+            h = 0;
             while (h < (*scene)->nr_cylinders)
              {
                 e = hit_cylinder((*scene)->cylinders[h], (*ray), gc);
@@ -101,9 +101,24 @@ void check_hit(t_scene **scene, t_ray **ray, t_garbage_collector *gc)
                 if(e != -1.0)
                 {   
                     if(!((*ray)->clo))
-                        (*ray)->clo = init_clo('c', &((*scene)->cylinders[h]), e, gc );
+                        (*ray)->clo = init_clo('c', (void *)&((*scene)->cylinders[h]), e, gc );
                     else if(((*ray)->clo) && (e < (*ray)->clo->distance))
-                        (*ray)->clo = init_clo('c', &((*scene)->cylinders[h]), e, gc );
+                        (*ray)->clo = init_clo('c', (void *)&((*scene)->cylinders[h]), e, gc );
+                }
+             
+                h++;
+            }
+            h = 0;
+           while (h < (*scene)->nr_planes)
+             {
+                e = hit_plane((*scene)->planes[h], (*ray), gc);
+             
+                if(e != -1.0)
+                {   
+                    if(!((*ray)->clo))
+                        (*ray)->clo = init_clo('p', (void *)&((*scene)->planes[h]), e, gc );
+                    else if(((*ray)->clo) && (e < (*ray)->clo->distance))
+                        (*ray)->clo = init_clo('p', (void *)&((*scene)->planes[h]), e, gc );
                 }
              
                 h++;
@@ -119,13 +134,16 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     t_sphere *sphere;
     t_vector *v1;
     t_vector *v2;
-    t_vector *v3;
+   
     t_cylinder *cy;
-    int h;
+    
     setup_sphere(&(scene->spheres[0]));
     printf("cy id = %c\n", scene->cylinders[0]->id);
     printf("number of spheres = %d\n", scene->nr_spheres);
     printf("number of cylinder = %d\n", scene->nr_cylinders);
+    printf("plane_normal(%f , %f, %f) \n", scene->planes[0]->normal_vector->coordinate[0],scene->planes[0]->normal_vector->coordinate[1],scene->planes[0]->normal_vector->coordinate[2]);
+    printf("plane_id(%c ) \n", scene->planes[0]->id);
+    printf("plane_point(%f , %f, %f) \n", scene->planes[0]->point->coordinate[0],scene->planes[0]->point->coordinate[1],scene->planes[0]->point->coordinate[2]);
     printf("cylinder_color (%f , %f, %f) \n", scene->cylinders[0]->color->coordinate[0],scene->cylinders[0]->color->coordinate[1],scene->cylinders[0]->color->coordinate[2]);
     printf("sphere_color (%f , %f, %f) \n", scene->spheres[0]->color->coordinate[0],scene->spheres[0]->color->coordinate[1],scene->spheres[0]->color->coordinate[2]);
 
@@ -147,8 +165,8 @@ int		raytracing(t_scene *scene, t_garbage_collector *gc)
     printf("dis = %f\n", cam->distance);
     // (void)scene;
     
-    t_color *color;
-    double e = 0;
+  
+
     int i = 0;
     int j = 0;
     // mlx_set_setting(MLX_MAXIMIZED, true);

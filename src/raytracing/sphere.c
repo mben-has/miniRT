@@ -6,11 +6,13 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:22:44 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/05 22:21:26 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:58:11 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
+
+
 
 t_sphere	*init_sphere(t_vector *position, double diameter, t_vector *color,
 		t_garbage_collector *gc)
@@ -35,6 +37,15 @@ void setup_sphere(t_sphere **t_sphere)
     (*t_sphere)->radius = (*t_sphere)->diameter  * 0.5;
 }
 
+// void normalize_vector(t_vector *v) {
+//     double length = sqrt(v->coordinate[0] * v->coordinate[0] +
+//                          v->coordinate[1] * v->coordinate[1] +
+//                          v->coordinate[2] * v->coordinate[2]);
+
+//     v->coordinate[0] /= length;
+//     v->coordinate[1] /= length;
+//     v->coordinate[2] /= length;
+// }
 
 double	hit_sphere(t_sphere *sphere, t_ray *ray, t_garbage_collector *gc)
 {
