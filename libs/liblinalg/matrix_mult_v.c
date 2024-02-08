@@ -6,13 +6,13 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:49:41 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 10:08:32 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:25:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_vector	*matrix_mult_v(t_matrix m, t_vector *v)
+t_vector	*matrix_mult_v(t_matrix* m, t_vector *v)
 {
 	t_vector	*result;
 	int			j;
@@ -28,7 +28,7 @@ t_vector	*matrix_mult_v(t_matrix m, t_vector *v)
 	j = 0;
 	while (j < 4)
 	{
-		result->dim[j] = row_by_column(m[j], column);
+		result->dim[j] = row_by_column((*m)[j], column);
 		j++;
 	}
 	return (result);

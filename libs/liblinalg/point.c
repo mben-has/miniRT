@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation_x.c                                       :+:      :+:    :+:   */
+/*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 09:20:39 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 19:51:04 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/08 20:01:44 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/08 20:05:41 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_matrix	*rotation_x(double radians)
+t_vector	*point(double a, double b, double c)
 {
-	t_matrix	*m;
+	t_vector	*point;
 
-	m = identity_matrix();
-	if (m == NULL)
+	point = (t_vector *) malloc(sizeof(t_vector));
+	if (point == NULL)
 		return (NULL);
-	(*m)[1][1] = cos(radians);
-	(*m)[2][2] = cos(radians);
-	(*m)[1][2] = -sin(radians);
-	(*m)[2][1] = sin(radians);
-	return(m);
+	point->dim[0] = a;
+	point->dim[1] = b;
+	point->dim[2] = c;
+	point->dim[3] = 1;
+	return (point);
 }

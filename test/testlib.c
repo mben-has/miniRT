@@ -191,17 +191,56 @@ void	test_matrix_mult()
 	printf("\n");
 }
 
-// void	test_transpose()
-// {
-// 	t_matrix a = {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
-// 	t_matrix *m;
+void	test_transpose()
+{
+	t_matrix a = {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
+	t_matrix *m;
 
-// 	m = transpose(a);
-// 	printf("%f %f %f %f\n", *m[0][0], *m[0][1], *m[0][2], *m[0][3]);
-// 	printf("%f %f %f %f\n", *m[1][0], *m[1][1], *m[1][2], *m[1][3]);
-// 	printf("%f %f %f %f\n", *m[2][0], *m[2][1], *m[2][2], *m[2][3]);
-// 	printf("%f %f %f %f\n", *m[3][0], *m[3][1], *m[3][2], *m[3][3]);
-// }
+	m = transpose(&a);
+	printf("%f %f %f %f\n", (*m)[0][0], (*m)[0][1], (*m)[0][2], (*m)[0][3]);
+	printf("%f %f %f %f\n", (*m)[1][0], (*m)[1][1], (*m)[1][2], (*m)[1][3]);
+	printf("%f %f %f %f\n", (*m)[2][0], (*m)[2][1], (*m)[2][2], (*m)[2][3]);
+	printf("%f %f %f %f\n", (*m)[3][0], (*m)[3][1], (*m)[3][2], (*m)[3][3]);
+	printf("\n");
+}
+
+void	test_translation()
+{
+	t_vector p = {5, -3, 2, 1};
+	t_vector p2 = {-3, 4, 5, 1};
+	t_vector	*result;
+	t_matrix *m;
+
+	m = translation(&p);
+	result = matrix_mult_v(m, &p2);
+	printf("%f %f %f\n", result->dim[0], result->dim[1], result->dim[2]);
+	printf("\n");
+}
+
+void	test_scaling()
+{
+	t_vector p = {2, 3, 4, 0};
+	t_vector p2 = {-4, 6, 8, 1};
+	t_vector	*result;
+	t_matrix *m;
+
+	m = scaling(&p);
+	result = matrix_mult_v(m, &p2);
+	printf("%f %f %f\n", result->dim[0], result->dim[1], result->dim[2]);
+	printf("\n");
+}
+
+void	test_rotation_x()
+{
+	t_vector p = {0, 1, 0, 0};
+	t_vector	*result;
+	t_matrix *m;
+
+	m = rotation_x(M_PI / 2);
+	result = matrix_mult_v(m, &p);
+	printf("%f %f %f\n", result->dim[0], result->dim[1], result->dim[2]);
+	printf("\n");
+}
 
 int	main()
 {
@@ -221,6 +260,9 @@ int	main()
 	test_matrix_equal();	
 	test_identity_matrix();	
 	test_matrix_mult();	
+	test_transpose();	
 
-	// test_transpose();	
+	test_translation();	
+	test_scaling();
+	test_rotation_x();
 }

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 15:13:26 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 20:03:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_color {
 
 typedef	double t_matrix[4][4];
 
+t_vector	*vector(double a, double b, double c);
+t_vector	*point(double a, double b, double c);
 t_vector	*vector_add(t_vector* a, t_vector* b);
 t_vector	*vector_subtract(t_vector *a, t_vector *b);
 t_vector	*vector_negate(t_vector *vector);
@@ -45,10 +47,10 @@ t_color		*color_mult(t_color *a, double c);
 t_color		*hadamard_product(t_color *a, t_color *b);
 int			double_equal(double a, double b);
 int			matrix_equal(t_matrix a, t_matrix b);
-double		**identity_matrix();
-double		(*matrix_mult_m)[4][4](double (*a)[4][4], double (*b)[4][4]);
-t_vector	*matrix_mult_v(t_matrix m, t_vector *v);
-t_matrix	*transpose(t_matrix m);
+t_matrix	*identity_matrix();
+t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b);
+t_vector	*matrix_mult_v(t_matrix *m, t_vector *v);
+t_matrix	*transpose(t_matrix *m);
 
 t_matrix	*translation(t_vector *point);
 t_matrix	*scaling(t_vector *point);
