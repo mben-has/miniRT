@@ -1,6 +1,7 @@
 NAME = minirt
 FLAGS = -Wall -Wextra -Werror
-DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
+DEBUGFLAGS = -Wall -Wextra -g
+# -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
 LINALG = libs/liblinalg/liblinalg.a 
@@ -46,7 +47,7 @@ clean :
 	rm -f $(OBJECTS)
 
 fclean : clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(LINALG)
 
 re : fclean all
 
