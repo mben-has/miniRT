@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 03:09:47 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:42:23 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	}
 
 	//close file
-	
 	close(fd);
-	
 	return (error);
 }

@@ -6,13 +6,11 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:22:44 by BigBen            #+#    #+#             */
-/*   Updated: 2024/02/06 04:58:11 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/08 21:05:57 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
-
-
 
 t_sphere	*init_sphere(t_vector *position, double diameter, t_vector *color,
 		t_garbage_collector *gc)

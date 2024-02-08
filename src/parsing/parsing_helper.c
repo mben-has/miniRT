@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 20:07:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:39:51 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 	if (split == NULL)
 		return (0);
 	if (word_length(split) != 3)
-		return (0);
+		return (free_2d(split), 0);
 	error = 1;
 	byte = read_byte(split[0], 0, 255);
 	if (byte == -1)
@@ -82,7 +82,7 @@ int	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 	if (byte == -1)
 		error = 0;
 	(*color)->coordinate[2] = byte;
-	free(split);
+	free_2d(split);
 	return (error);
 }
 
@@ -157,7 +157,7 @@ int	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collect
 	if (split == NULL)
 		return (0);
 	if (word_length(split) != 3)
-		return (0);
+		return (free_2d(split), 0);
 
 	// set range
 	range_left = 0;
@@ -177,6 +177,6 @@ int	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collect
 	if (read_double(split[2], &(*vector)->coordinate[2], range_left, range_right) == 0)
 		error = 0;
 
-	free(split);
+	free_2d(split);
 	return (error);
 }
