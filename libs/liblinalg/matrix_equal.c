@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   matrix_equal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/07 20:34:20 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/07 20:38:58 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+int	matrix_equal(t_matrix a, t_matrix b)
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	int	i;
+	int	j;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	j = 0;
+	while (j < 4)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			if (double_equal(a[j][i], b[j][i]) != 1)
+				return (0);
+			i++;
+		}
+		j++;
+	}
+	return (1);
 }

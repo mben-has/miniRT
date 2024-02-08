@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/06 18:42:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
+#include "structure_rtc.h"
 
-void	print_usage(void)
-{
-	printf("Usage: ./minirt *.rt\n");
-}
-
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
+int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 {
 	return (0);
 }

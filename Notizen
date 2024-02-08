@@ -1,0 +1,9 @@
+Mara:
+-----
+- Parser testen
+- Parser Leak finden
+- Errorhandling: Schreibe Errornachricht on Error
+- garbage collector: Beende mit gc - funktion on error!
+
+- library norminetten
+- header file mit comments versehen

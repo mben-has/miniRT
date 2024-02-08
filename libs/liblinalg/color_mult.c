@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   color_mult.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/07 18:25:58 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/07 20:10:55 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+t_color	*color_mult(t_color *a, double c)
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	t_color	*result;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	result = (t_color *) malloc(sizeof(t_color));
+	if (result == NULL)
+		return (NULL);
+	result->col[0] = c * a->col[0];
+	result->col[1] = c * a->col[1];
+	result->col[2] = c * a->col[2];
+	return (result);
 }

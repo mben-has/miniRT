@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   row_by_column.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/08 09:59:34 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/08 18:08:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+double	row_by_column(double row[4], double column[4])
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	double	result;
+	int		i;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	result = 0;
+	i = 0;
+	while (i < 4)
+	{
+		result += row[i] * column[i];
+		i++;
+	}
+	return (result);
 }

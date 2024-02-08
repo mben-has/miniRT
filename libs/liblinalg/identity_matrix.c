@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   identity_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/07 20:49:15 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/08 18:09:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+t_matrix	*identity_matrix()
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	t_matrix	*m;
+	int		i;
+	int		j;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	m = (t_matrix *) malloc(sizeof(t_matrix));
+	if (m == NULL)
+		return (NULL);
+	j = 0;
+	while (j < 4)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			if (i == j)
+				(*m)[j][i] = 1.0;
+			else
+				(*m)[j][i] = 0.0;
+			i++;
+		}
+		j++;
+	}
+	return (m);
 }
