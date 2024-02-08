@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   transpose.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/07 21:23:07 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/07 22:00:23 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+t_matrix	*transpose(t_matrix m)
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	int			i;
+	int			j;
+	t_matrix	*matrix;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	matrix = (t_matrix *) malloc(sizeof(t_matrix));
+	if (matrix == NULL)
+		return (NULL);
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j <= i)
+		{
+			*matrix[i][j] = m[j][i];
+			*matrix[j][i] = m[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (matrix);
 }

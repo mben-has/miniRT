@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 19:48:36 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:40:03 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@
 #define VP_HEIGHT 2.0
 #define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
 
-# include "libft.h"
-# include "liblinalg.h"
-# include "MLX42.h"
-# include "garbage_collector.h"
-# include "structure_rtc.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "libft.h"
+# include "liblinalg.h"
+# include "MLX42.h"
+# include "garbage_collector.h"
+# include "structure_rtc.h"
 
-
-typedef struct s_vector {
+typedef struct s_vector_p {
 	double	coordinate[3];
 }	t_vector_p;
 

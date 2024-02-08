@@ -36,6 +36,10 @@ $(MLX) :
 	mv MLX42/include/MLX42/MLX42.h ../../include; \
 	rm -rf MLX42
 
+testlib	: $(LINALG)
+	cc $(DEBUGFLAGS) -Llibs/liblinalg -llinalg test/testlib.c -o testlib 
+	rm -f $(LINALG)
+
 %.o : %.c
 	cc $(DEBUGFLAGS) -Iinclude -c $< -o $@
 

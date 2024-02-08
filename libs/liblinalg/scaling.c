@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   scaling.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 10:55:32 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 12:41:53 by marschul         ###   ########.fr       */
+/*   Created: 2024/02/08 09:17:57 by marschul          #+#    #+#             */
+/*   Updated: 2024/02/08 09:45:30 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Minirt.h"
+#include "liblinalg.h"
 
-void	print_usage(void)
+t_matrix	*scaling(t_vector *point)
 {
-	printf("Usage: ./minirt *.rt\n");
-}
+	t_matrix	*m;
 
-/*
-Initializes world and camera with the data in scene.
-*/
-int	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
-{
-	return (0);
+	m = identity_matrix();
+	if (m == NULL)
+		return (NULL);
+	*m[0][0] = point->dim[0];
+	*m[1][1] = point->dim[1];
+	*m[2][2] = point->dim[2];
+	return(m);
 }

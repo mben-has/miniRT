@@ -11,23 +11,26 @@ t_vector	normalize(t_vector vector);
 double		dot(t_vector a, t_vector b);
 t_vector	cross(t_vector a, t_vector b);
 t_color		color_add(t_color a, t_color b);
+t_color		color_mult(t_color a, t_color b);
 t_color		hadamard_product(t_color a, t_color b);
-t_matrix	matrix_equal(t_matrix a, t_matrix b);
+int			double_equal(double a, double b);
+int			matrix_equal(t_matrix a, t_matrix b);
 t_matrix	identity_matrix();
-t_matrix	matrix_mult(t_matrix a, t_matrix b);
+t_matrix	matrix_mult_m(t_matrix a, t_matrix b);
+t_vector	matrix_mult_v(t_matrix m, t_vector v);
 t_matrix	transpose(t_matrix m);
 t_matrix	inverse(t_matrix m);
 double		determinant(t_matrix m);
 t_matrix	submatrix(t_matrix m, int i, int j);
 double		minor(t_matrix m, int i, int j);
 double		cofactor(t_matrix m, int i, int j);
-t_vector	translation(t_vector vector);
-t_vector	scaling(t_vector vector);
+t_matrix	translation(t_vector vector);
+t_matrix	scaling(t_vector vector);
 t_vector	rotation_x(t_vector vector);
 t_vector	rotation_y(t_vector vector);
 t_vector	rotation_z(t_vector vector);
 // shearing: I dont know if we need that for planes
-double		discriminant(t_ray ray);
+double		discriminant(double a, double b, double c);
 
 //************************************************
 
