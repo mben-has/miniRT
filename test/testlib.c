@@ -167,43 +167,41 @@ void	test_matrix_equal()
 
 void	test_identity_matrix()
 {
-	t_matrix *m;
+	t_matrix	*m;
 
-	m = identity_matrix();
-	printf("%f %f %f %f\n", *m[0][0], *m[0][1], *m[0][2], *m[0][3]);
-	printf("%f %f %f %f\n", *m[1][0], *m[1][1], *m[1][2], *m[1][3]);
-	printf("%f %f %f %f\n", *m[2][0], *m[2][1], *m[2][2], *m[2][3]);
-	printf("%f %f %f %f\n", *m[3][0], *m[3][1], *m[3][2], *m[3][3]);
+	m = (t_matrix *) identity_matrix();
+	printf("%f %f %f %f\n", (*m)[0][0], (*m)[0][1], (*m)[0][2], (*m)[0][3]);
+	printf("%f %f %f %f\n", (*m)[1][0], (*m)[1][1], (*m)[1][2], (*m)[1][3]);
+	printf("%f %f %f %f\n", (*m)[2][0], (*m)[2][1], (*m)[2][2], (*m)[2][3]);
+	printf("%f %f %f %f\n", (*m)[3][0], (*m)[3][1], (*m)[3][2], (*m)[3][3]);
 }
 
 void	test_matrix_mult()
 {
-	t_matrix 	*m;
-	t_matrix	*b;
-	t_matrix a = {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
+	t_matrix *m;
+	t_matrix *b;
+	t_matrix a = {{1.1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
 
 	b = identity_matrix();
 	m = matrix_mult_m(&a, b);
-	printf("test\n");
-	printf("%f %f %f %f\n", *m[0][0], *m[0][1], *m[0][2], *m[0][3]);
-	printf("%f %f %f %f\n", *m[1][0], *m[1][1], *m[1][2], *m[1][3]);
-	printf("%f %f %f %f\n", *m[2][0], *m[2][1], *m[2][2], *m[2][3]);
-	printf("%f %f %f %f\n", *m[3][0], *m[3][1], *m[3][2], *m[3][3]);
-
+	printf("%f %f %f %f\n", (*m)[0][0], (*m)[0][1], (*m)[0][2], (*m)[0][3]);
+	printf("%f %f %f %f\n", (*m)[1][0], (*m)[1][1], (*m)[1][2], (*m)[1][3]);
+	printf("%f %f %f %f\n", (*m)[2][0], (*m)[2][1], (*m)[2][2], (*m)[2][3]);
+	printf("%f %f %f %f\n", (*m)[3][0], (*m)[3][1], (*m)[3][2], (*m)[3][3]);
 	printf("\n");
 }
 
-void	test_transpose()
-{
-	t_matrix a = {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
-	t_matrix *m;
+// void	test_transpose()
+// {
+// 	t_matrix a = {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}};
+// 	t_matrix *m;
 
-	m = transpose(a);
-	printf("%f %f %f %f\n", *m[0][0], *m[0][1], *m[0][2], *m[0][3]);
-	printf("%f %f %f %f\n", *m[1][0], *m[1][1], *m[1][2], *m[1][3]);
-	printf("%f %f %f %f\n", *m[2][0], *m[2][1], *m[2][2], *m[2][3]);
-	printf("%f %f %f %f\n", *m[3][0], *m[3][1], *m[3][2], *m[3][3]);
-}
+// 	m = transpose(a);
+// 	printf("%f %f %f %f\n", *m[0][0], *m[0][1], *m[0][2], *m[0][3]);
+// 	printf("%f %f %f %f\n", *m[1][0], *m[1][1], *m[1][2], *m[1][3]);
+// 	printf("%f %f %f %f\n", *m[2][0], *m[2][1], *m[2][2], *m[2][3]);
+// 	printf("%f %f %f %f\n", *m[3][0], *m[3][1], *m[3][2], *m[3][3]);
+// }
 
 int	main()
 {
@@ -224,5 +222,5 @@ int	main()
 	test_identity_matrix();	
 	test_matrix_mult();	
 
-	test_transpose();	
+	// test_transpose();	
 }

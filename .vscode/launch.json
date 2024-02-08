@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/testlib",
+			"program": "${workspaceFolder}/a.out",
 			"args": ["scenes/test.rt"],
 			"cwd": "${workspaceFolder}"
 		}

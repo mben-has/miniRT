@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 11:24:28 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:13:26 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ t_color		*color_mult(t_color *a, double c);
 t_color		*hadamard_product(t_color *a, t_color *b);
 int			double_equal(double a, double b);
 int			matrix_equal(t_matrix a, t_matrix b);
-t_matrix	*identity_matrix();
-t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b);
+double		**identity_matrix();
+double		(*matrix_mult_m)[4][4](double (*a)[4][4], double (*b)[4][4]);
 t_vector	*matrix_mult_v(t_matrix m, t_vector *v);
 t_matrix	*transpose(t_matrix m);
 

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:49:15 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/07 20:57:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:09:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_matrix	*identity_matrix()
 {
 	t_matrix	*m;
-	int			i;
-	int			j;
+	int		i;
+	int		j;
 
 	m = (t_matrix *) malloc(sizeof(t_matrix));
 	if (m == NULL)
@@ -28,9 +28,9 @@ t_matrix	*identity_matrix()
 		while (i < 4)
 		{
 			if (i == j)
-				*m[j][i] = 1.0;
+				(*m)[j][i] = 1.0;
 			else
-				*m[j][i] = 0.0;
+				(*m)[j][i] = 0.0;
 			i++;
 		}
 		j++;
