@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 19:48:06 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/09 21:40:18 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 	
 # endif
 
+# define DIFFUSE	0.9
+# define SPECULAR	0.9
+# define SHININESS	200
+
 typedef struct s_camera {
 	int			hsize;
 	int			vsize;
@@ -36,7 +40,7 @@ typedef struct s_camera {
 // t_computation
 
 typedef struct s_material {
-	t_color		color;
+	t_color		*color;
 	double		ambient;
 	double		diffuse;
 	double		specular;
@@ -44,30 +48,30 @@ typedef struct s_material {
 }	t_material;
 
 typedef	struct s_light {
-	t_vector	position;
+	t_vector	*position;
 	double		intensity;
 }	t_light;
 
 typedef	struct s_ray {
-	t_vector	origin;
-	t_vector	direction;
+	t_vector	*origin;
+	t_vector	*direction;
 }	t_ray;
 
 typedef struct s_sphere {
 	// other specific fields
-	t_matrix	transformation_matrix;
+	t_matrix	*transformation_matrix;
 	t_material	material;
 }	t_sphere;
 
 typedef struct s_plane {
 	// other specific fields
-	t_matrix	transformation_matrix;
+	t_matrix	*transformation_matrix;
 	t_material	material;
 }	t_plane;
 
 typedef struct s_cylinder {
 	// other specific fields
-	t_matrix	transformation_matrix;
+	t_matrix	*transformation_matrix;
 	t_material	material;
 }	t_cylinder;
 
@@ -81,7 +85,7 @@ typedef struct s_object
 
 typedef struct s_intersection {
 	double		t;
-	t_object	object;
+	t_object	*object;
 }	t_intersection;
 
 typedef struct s_intersections {
@@ -91,7 +95,8 @@ typedef struct s_intersections {
 
 typedef struct s_world {
 	t_light		light;
-	t_sphere	*spheres;
+	t_object	*objects;
+	int			nr_objects;
 }	t_world;
 
 #endif 

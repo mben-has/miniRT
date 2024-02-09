@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 21:57:22 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:46:08 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef int (*t_function_pointer)(char **split, t_scene *scene, t_garbage_collec
 
 // main
 void	print_usage(void);
-int		init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc);
 
 // parsing
 int		parsing(char *file, t_scene *scene, t_garbage_collector *gc);
@@ -109,6 +108,8 @@ int		read_color(char *str, t_vector_p **color, t_garbage_collector *gc);
 int		read_byte(char *str, int range_left, int range_right);
 int		read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc);
 
+// initialization
+void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc);
 
 // raytracing
 int		raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc);

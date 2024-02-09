@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 16:26:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/09 21:37:15 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBLINALG_H
 
 # include <stdlib.h>
-# include "../../include/garbage_collector.h"
+# include "garbage_collector.h"
 # ifndef __MATH__
 # include <math.h>
 # endif
@@ -34,6 +34,7 @@ typedef	double t_matrix[4][4];
 
 t_vector	*vector(double a, double b, double c, t_garbage_collector *gc);
 t_vector	*point(double a, double b, double c, t_garbage_collector *gc);
+t_color		*color(double a, double b, double c, t_garbage_collector *gc);
 t_vector	*vector_add(t_vector *a, t_vector *b, t_garbage_collector *gc);
 t_vector	*vector_subtract(t_vector *a, t_vector *b, t_garbage_collector *gc);
 t_vector	*vector_negate(t_vector *vector, t_garbage_collector *gc);

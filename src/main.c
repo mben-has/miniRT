@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 23:15:47 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:30:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ int	main(int argc, char **argv)
 	if (error != 0)
 		exit(error);
 	
-	error = init_world(&scene, &world, &camera, gc);
-	if (error != 0)
-		exit(error);
+	init_world(&scene, &world, &camera, gc);
 
 	error = raytracing(&world, &camera, gc);
 	if (error != 0)
