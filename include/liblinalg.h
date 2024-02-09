@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liblinalg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 21:58:33 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:26:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBLINALG_H
 
 # include <stdlib.h>
-# include "garbage_collector.h"
+# include "../../include/garbage_collector.h"
 # ifndef __MATH__
 # include <math.h>
 # endif
@@ -34,7 +34,7 @@ typedef	double t_matrix[4][4];
 
 t_vector	*vector(double a, double b, double c, t_garbage_collector *gc);
 t_vector	*point(double a, double b, double c, t_garbage_collector *gc);
-t_vector	*vector_add(t_vector* a, t_vector* b, t_garbage_collector *gc);
+t_vector	*vector_add(t_vector *a, t_vector *b, t_garbage_collector *gc);
 t_vector	*vector_subtract(t_vector *a, t_vector *b, t_garbage_collector *gc);
 t_vector	*vector_negate(t_vector *vector, t_garbage_collector *gc);
 t_vector	*scalar_mult(t_vector *vector, double c, t_garbage_collector *gc);
@@ -52,7 +52,12 @@ t_matrix	*identity_matrix(t_garbage_collector *gc);
 t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b, t_garbage_collector *gc);
 t_vector	*matrix_mult_v(t_matrix *m, t_vector *v, t_garbage_collector *gc);
 t_matrix	*transpose(t_matrix *m, t_garbage_collector *gc);
-
+t_matrix	*submatrix(t_matrix *m, int x, int y);
+double		cofactor(t_matrix *m, int i, int j);
+double		minor(t_matrix *m, int i, int j);
+double		determinant_3x3(t_matrix *m);
+double		determinant_4x4(t_matrix *m);
+t_matrix	*inverse(t_matrix *m);
 t_matrix	*translation(t_vector *point, t_garbage_collector *gc);
 t_matrix	*scaling(t_vector *point, t_garbage_collector *gc);
 t_matrix	*rotation_x(double radians, t_garbage_collector *gc);
