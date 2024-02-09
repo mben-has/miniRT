@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   rotation_x.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:20:39 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 19:51:04 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:08:22 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_matrix	*rotation_x(double radians)
+t_matrix	*rotation_x(double radians, t_garbage_collector *gc)
 {
 	t_matrix	*m;
 
-	m = identity_matrix();
+	m = identity_matrix(gc);
 	if (m == NULL)
 		return (NULL);
 	(*m)[1][1] = cos(radians);

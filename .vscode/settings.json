@@ -57,6 +57,17 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "minirt.h": "c"
+    "minirt.h": "c",
+    "garbage_collector.h": "c",
+    "liblinalg.h": "c",
+    "__cxx_version": "c",
+    "functional": "c",
+    "vector": "c",
+    "iosfwd": "c",
+    "iterator": "c",
+    "libft.h": "c",
+    "structure_rtc.h": "c",
+    "__tuple": "c",
+    "array": "c"
   }
 }

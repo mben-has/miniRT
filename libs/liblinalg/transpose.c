@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   transpose.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 21:23:07 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 19:28:37 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:21:25 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_matrix	*transpose(t_matrix* m)
+t_matrix	*transpose(t_matrix* m, t_garbage_collector *gc)
 {
 	int			i;
 	int			j;
@@ -20,7 +20,9 @@ t_matrix	*transpose(t_matrix* m)
 
 	matrix = (t_matrix *) malloc(sizeof(t_matrix));
 	if (matrix == NULL)
-		return (NULL);
+		exit_function(gc, "error allocating matrix\n", 1, true);
+	else
+		add_pointer_node(gc, matrix);
 	i = 0;
 	while (i < 4)
 	{

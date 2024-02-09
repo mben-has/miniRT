@@ -12,14 +12,16 @@
 
 #include "liblinalg.h"
 
-t_vector	*normalize(t_vector *vector)
+t_vector	*normalize(t_vector *vector, t_garbage_collector *gc)
 {
 	t_vector	*result;
 	double		mag;
 
 	result = (t_vector *) malloc(sizeof(t_vector));
 	if (result == NULL)
-		return (NULL);
+		exit_function(gc, "error allocating norm_vector\n", 1, true);
+	else
+		add_pointer_node(gc, result);
 	mag = magnitude(vector);
 	result->dim[0] = vector->dim[0] / mag;
 	result->dim[1] = vector->dim[1] / mag;

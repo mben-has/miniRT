@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   identity_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:49:15 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 18:09:57 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 23:08:08 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_matrix	*identity_matrix()
+t_matrix	*identity_matrix(t_garbage_collector *gc)
 {
 	t_matrix	*m;
 	int		i;
@@ -20,7 +20,9 @@ t_matrix	*identity_matrix()
 
 	m = (t_matrix *) malloc(sizeof(t_matrix));
 	if (m == NULL)
-		return (NULL);
+		exit_function(gc, "error allocating matrix\n", 1, true);
+	else
+		add_pointer_node(gc, m);
 	j = 0;
 	while (j < 4)
 	{

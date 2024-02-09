@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:58:02 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/05 11:55:28 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/08 21:34:07 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "garbage_collector.h"
+#include "../../include/garbage_collector.h"
 
 t_garbage_collector	*init_garbage_collector(void)
 {

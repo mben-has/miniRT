@@ -6,11 +6,11 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 14:19:14 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/06 01:23:46 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/08 21:33:46 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "garbage_collector.h"
+#include "../../include/garbage_collector.h"
 
 void	exit_function(t_garbage_collector *collector, char *string,
 	int exit_code, bool should_exit)
