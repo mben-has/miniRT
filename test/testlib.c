@@ -242,6 +242,22 @@ void	test_rotation_x()
 	printf("\n");
 }
 
+void	test_inverse()
+{
+	t_matrix a = {{-5, 2, 6, -8}, {1, -5, 1, 8}, {7, 7, -6, -7}, {1, -3, 7, 4}};
+	t_matrix *m;
+
+	m = inverse(&a);
+	printf("Test Inverse\n");
+	printf("Determinant %f\n", determinant_4x4(&a));
+	printf("Cofactor %f\n", cofactor(&a, 3, 2));
+	printf("%f %f %f %f\n", (*m)[0][0], (*m)[0][1], (*m)[0][2], (*m)[0][3]);
+	printf("%f %f %f %f\n", (*m)[1][0], (*m)[1][1], (*m)[1][2], (*m)[1][3]);
+	printf("%f %f %f %f\n", (*m)[2][0], (*m)[2][1], (*m)[2][2], (*m)[2][3]);
+	printf("%f %f %f %f\n", (*m)[3][0], (*m)[3][1], (*m)[3][2], (*m)[3][3]);
+	printf("\n");
+}
+
 int	main()
 {
 	test_vector_add();
@@ -261,8 +277,8 @@ int	main()
 	test_identity_matrix();	
 	test_matrix_mult();	
 	test_transpose();	
-
 	test_translation();	
 	test_scaling();
 	test_rotation_x();
+	test_inverse();
 }

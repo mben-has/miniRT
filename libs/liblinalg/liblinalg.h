@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 20:03:51 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:53:44 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ t_matrix	*identity_matrix();
 t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b);
 t_vector	*matrix_mult_v(t_matrix *m, t_vector *v);
 t_matrix	*transpose(t_matrix *m);
-
+t_matrix	*submatrix(t_matrix *m, int x, int y);
+double		cofactor(t_matrix *m, int i, int j);
+double		minor(t_matrix *m, int i, int j);
+double		determinant_3x3(t_matrix *m);
+double		determinant_4x4(t_matrix *m);
+t_matrix	*inverse(t_matrix *m);
 t_matrix	*translation(t_vector *point);
 t_matrix	*scaling(t_vector *point);
 t_matrix	*rotation_x(double radians);
