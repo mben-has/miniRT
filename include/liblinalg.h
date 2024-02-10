@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liblinalg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 21:37:15 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:40:07 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ double		cofactor(t_matrix *m, int i, int j);
 double		minor(t_matrix *m, int i, int j);
 double		determinant_3x3(t_matrix *m);
 double		determinant_4x4(t_matrix *m);
-t_matrix	*inverse(t_matrix *m);
+t_matrix	*inverse(t_matrix *m, t_garbage_collector *gc);
 t_matrix	*translation(t_vector *point, t_garbage_collector *gc);
 t_matrix	*scaling(t_vector *point, t_garbage_collector *gc);
 t_matrix	*rotation_x(double radians, t_garbage_collector *gc);

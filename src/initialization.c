@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 21:48:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:15:51 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,34 @@ void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	add_cylinders(scene, world, gc);
 }
 
+// void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
+// {
+// 	int		fov;
+// 	double	x; //lenght diagonal across virtual screen * 0.5
+// 	double	fov_radians;
+// 	t_vector	*norm_orientation;
+	
+// 	(*cam).fov = scene->camera.fov;
+// 	fov_radians = (*cam).fov * (M_PI / 180.0);
+// 	x = sqrt(((HEIGHT * 0.5) * (HEIGHT * 0.5)) + ((WIDTH * 0.5) * (WIDTH
+// 					* 0.5)));
+// 	(*cam).dist_canvas = x / tan(fov_radians / 2.0);
+// 	(*cam).cam_canvas= 
+// 	// printf("distance%f\n", scene->camera.distance);
+// 	printf("fov%d\n", (*cam).fov);
+// 	// printf("%d\n", scene->camera.o_vp);
+// 	// printf("%d\n", scene->camera.orientation);
+// 	// printf("%d\n", scene->camera.point);
+// 	// printf("radius%d\n", scene->camera.radius);
+// 	// fov = cam->fov;
+// 	// cam->distance = x / tan(fov_radians / 2.0);
+// 	(*cam).cam_canvas = vector((*cam).dist_canvas * scene->camera.orientation->coordinate[0],
+// 			(*cam).dist_canvas * scene->camera.orientation->coordinate[1],
+// 			(*cam).dist_canvas * scene->camera.orientation->coordinate[2], gc);
+// 	// cam->radius = vector_difference(init_vector(0, HEIGHT * 0.5,
+// 	// 			cam->distance, gc), init_vector(WIDTH * 0.5, 0,
+// 	// 			cam->distance, gc), gc);
+// }
 /*
 Initializes world and camera with the data in scene.
 */

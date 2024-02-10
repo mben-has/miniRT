@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 17:30:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:55:51 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	main(int argc, char **argv)
 		exit(error);
 	
 	free_all(gc);
-	system("leaks minirt");
+	// system("leaks minirt");
 	return (0);	
 }
