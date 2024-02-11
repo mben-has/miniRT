@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 15:21:05 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:05:23 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_camera {
 	t_matrix	transformation_matrix;
 }	t_camera;
 
-// t_computation
-
 typedef struct s_material {
 	t_color		*color;
 	double		ambient;
@@ -53,6 +51,19 @@ typedef struct s_material {
 	double		specular;
 	double		shininess;
 }	t_material;
+
+typedef struct s_computation {
+	t_material	*material;
+	t_vector	*point;
+	t_vector	*lightv;
+	t_vector	*normalv;
+	t_vector	*eyev;
+	t_vector	*reflectv;
+	t_color		*effective_color;
+	t_color		*light_color;
+	double		dot_light_normal;
+	double		dot_reflect_eye;
+}	t_computation;
 
 typedef	struct s_light {
 	t_vector	*position;
@@ -105,5 +116,8 @@ typedef struct s_world {
 	t_object	*objects;
 	int			nr_objects;
 }	t_world;
+
+//light.c
+t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
 
 #endif 

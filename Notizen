@@ -4,6 +4,7 @@ Mara:
 - Parser Leak finden
 - Errorhandling: Schreibe Errornachricht on Error
 - garbage collector: Beende mit gc - funktion on error!
+- Light in madatory part has no color!
 
 - library norminetten
 - header file mit comments versehen

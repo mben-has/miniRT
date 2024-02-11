@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/06 20:07:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:33:13 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int check_camera(char **split, t_scene *scene, t_garbage_collector *gc)
 int check_light(char **split, t_scene *scene, t_garbage_collector *gc)
 {
 	// check for right element and right amount of words
-	if (word_length(split) != 4 || ft_strlen(split[0]) != 1 || split[0][0] != 'L')
+	if (word_length(split) != 3 || ft_strlen(split[0]) != 1 || split[0][0] != 'L')
 		return (0);
 
 	// reading in vector
