@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/10 05:04:15 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:21:05 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ typedef struct s_camera {
 	int			pixel_size;
 	double		half_width;
 	double		half_height;
-	double		dist_canvas; // distance between camera and the virtual screen
-	t_vector	*cam_canvas; // vector from camera to the virtual screen
+	double		focal_length; // distance between camera and the virtual screen
+	t_vector	*v_cam_canvas; // vector from camera to the virtual screen
+	t_vector	*orientation; //orientation of the camera
+	t_vector	*v_width;// normalized vector across width
+	t_vector	*v_height;// normalized vector across heigth
+	t_vector	*point;//center of the camera
+	t_vector	*pixel00;//upper_left_point
 	t_matrix	transformation_matrix;
 }	t_camera;
 

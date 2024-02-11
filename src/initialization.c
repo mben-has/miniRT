@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/10 05:15:51 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:21:57 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,34 +154,41 @@ void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	add_cylinders(scene, world, gc);
 }
 
-// void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
-// {
-// 	int		fov;
-// 	double	x; //lenght diagonal across virtual screen * 0.5
-// 	double	fov_radians;
-// 	t_vector	*norm_orientation;
+void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
+{
+	double		half_diag; //lenght diagonal across virtual screen * 0.5
+	double		fov_radians;
+	t_vector	*aux;
 	
-// 	(*cam).fov = scene->camera.fov;
-// 	fov_radians = (*cam).fov * (M_PI / 180.0);
-// 	x = sqrt(((HEIGHT * 0.5) * (HEIGHT * 0.5)) + ((WIDTH * 0.5) * (WIDTH
-// 					* 0.5)));
-// 	(*cam).dist_canvas = x / tan(fov_radians / 2.0);
-// 	(*cam).cam_canvas= 
-// 	// printf("distance%f\n", scene->camera.distance);
-// 	printf("fov%d\n", (*cam).fov);
-// 	// printf("%d\n", scene->camera.o_vp);
-// 	// printf("%d\n", scene->camera.orientation);
-// 	// printf("%d\n", scene->camera.point);
-// 	// printf("radius%d\n", scene->camera.radius);
-// 	// fov = cam->fov;
-// 	// cam->distance = x / tan(fov_radians / 2.0);
-// 	(*cam).cam_canvas = vector((*cam).dist_canvas * scene->camera.orientation->coordinate[0],
-// 			(*cam).dist_canvas * scene->camera.orientation->coordinate[1],
-// 			(*cam).dist_canvas * scene->camera.orientation->coordinate[2], gc);
-// 	// cam->radius = vector_difference(init_vector(0, HEIGHT * 0.5,
-// 	// 			cam->distance, gc), init_vector(WIDTH * 0.5, 0,
-// 	// 			cam->distance, gc), gc);
-// }
+	(*cam).point = point(scene->camera.point->coordinate[0], scene->camera.point->coordinate[1], scene->camera.point->coordinate[2], gc);
+	(*cam).orientation = vector(scene->camera.orientation->coordinate[0], scene->camera.orientation->coordinate[1], scene->camera.orientation->coordinate[2], gc);
+	(*cam).fov = scene->camera.fov;
+	fov_radians = (*cam).fov * (M_PI / 180.0);
+	half_diag = sqrt(((HEIGHT * 0.5) * (HEIGHT * 0.5)) + ((WIDTH * 0.5) * (WIDTH
+					* 0.5)));
+	(*cam).focal_length = half_diag / tan(fov_radians / 2.0);
+	aux = vector(0 , 1.0, 0,gc);
+	
+	(*cam).v_width= normalize(cross(aux, (*cam).orientation, gc), gc); 
+	(*cam).v_width = scalar_mult((*cam).v_width  , WIDTH * 0.5, gc);
+	(*cam).v_height = normalize(cross((*cam).orientation, (*cam).v_width, gc), gc);
+	(*cam).v_height  = scalar_mult((*cam).v_height   , HEIGHT * 0.5, gc);
+	(*cam).v_cam_canvas = scalar_mult((*cam).orientation, (*cam).focal_length, gc);
+	(*cam).v_cam_canvas = vector_add((*cam).v_cam_canvas, (*cam).point, gc);
+	aux = vector_subtract((*cam).v_height, (*cam).v_width, gc);
+	(*cam).pixel00 = vector_add((*cam).v_cam_canvas,aux, gc);
+	(*cam).v_width= normalize((*cam).v_width, gc);
+	(*cam).v_height= normalize((*cam).v_height, gc);
+	printf("fov = %d\n", (*cam).fov);
+	printf("focal length = %f\n", (*cam).focal_length);
+	printf("lenght half_diag = %f\n", half_diag);
+	printf("pixel00 (%f, %f, %f, %f)\n", (*cam).pixel00->dim[0], (*cam).pixel00->dim[1], (*cam).pixel00->dim[2], (*cam).pixel00->dim[3]);
+	printf("cam_coordinations = (%f, %f, %f, %f)\n", (*cam).point->dim[0], (*cam).point->dim[1],(*cam).point->dim[2], (*cam).point->dim[3]);
+	printf("cam_orientation = (%f, %f, %f, %f)\n", (*cam).orientation->dim[0], (*cam).orientation->dim[1],(*cam).orientation->dim[2], (*cam).orientation->dim[3]);
+	// printf("v-height_coordinations = (%f, %f, %f, %f)\n", (*cam).v_height->dim[0], (*cam).v_height->dim[1],(*cam).v_height->dim[2], (*cam).v_height->dim[3]);
+	// printf("v-width_coordinations = (%f, %f, %f, %f)\n", (*cam).v_width->dim[0], (*cam).v_width->dim[1],(*cam).v_width->dim[2], (*cam).v_width->dim[3]);
+}
+
 /*
 Initializes world and camera with the data in scene.
 */
@@ -190,5 +197,5 @@ void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_coll
 	init_base(world);
 	init_light(scene, &world->light, gc);
 	init_objects(scene, world, gc);
-	// init_camera(scene, camera, gc);
+	init_camera(scene, camera, gc);
 }

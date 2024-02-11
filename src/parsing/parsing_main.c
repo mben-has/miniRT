@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 22:42:23 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:32:59 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	check_file_extension(char *file)
 {
 	int	length;
 
+	
 	length = ft_strlen(file);
 	if (length < 4 || file[length - 3] != '.' || file[length - 2] != 'r' || file[length - 1] != 't')
 		return (0);
@@ -96,7 +97,7 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	// check for right ending
 	if (check_file_extension(file) == 0)
 		return (2);
-	// open file
+ 	// open file
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (3);
