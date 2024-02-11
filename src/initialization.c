@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 15:21:57 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:21:28 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,20 @@ void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
 	half_diag = sqrt(((HEIGHT * 0.5) * (HEIGHT * 0.5)) + ((WIDTH * 0.5) * (WIDTH
 					* 0.5)));
 	(*cam).focal_length = half_diag / tan(fov_radians / 2.0);
-	aux = vector(0 , 1.0, 0,gc);
+
+ if ((*cam).orientation->dim[0] == 0.0f
+        && ((*cam).orientation->dim[1] == 1.0f || (*cam).orientation->dim[1] == -1.0f)
+        && (*cam).orientation->dim[2] == 0.0f)
+        {
+			aux = vector(0 , 0.0, -1.0,gc);
+			
+		}
+		else
+		{
+			aux = vector(0.0, 1.0, 0.0,gc);
+		}
 	
-	(*cam).v_width= normalize(cross(aux, (*cam).orientation, gc), gc); 
+	(*cam).v_width= normalize(cross(aux, (*cam).orientation,  gc), gc); 
 	(*cam).v_width = scalar_mult((*cam).v_width  , WIDTH * 0.5, gc);
 	(*cam).v_height = normalize(cross((*cam).orientation, (*cam).v_width, gc), gc);
 	(*cam).v_height  = scalar_mult((*cam).v_height   , HEIGHT * 0.5, gc);
