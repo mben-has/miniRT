@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 15:21:05 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:36:46 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,9 @@ typedef struct s_world {
 	t_object	*objects;
 	int			nr_objects;
 }	t_world;
+
+
+//ray
+t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 
 #endif 

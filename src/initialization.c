@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 19:21:28 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:24:19 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,6 @@ void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
         && (*cam).orientation->dim[2] == 0.0f)
         {
 			aux = vector(0 , 0.0, -1.0,gc);
-			
 		}
 		else
 		{

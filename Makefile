@@ -14,6 +14,7 @@ SRC = 	src/main.c \
 		src/parsing/check_elements.c \
 		src/parsing/parsing_helper.c \
 		src/raytracing/raytracing_main.c \
+		src/raytracing/ray.c \
 		src/initialization.c 
 
 OBJECTS = $(SRC:.c=.o)
