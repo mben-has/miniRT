@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/11 20:34:45 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:16:03 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,13 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	// aux->clo = NULL;
 	// aux->direction = normalize_vector(aux->direction);
 	return (aux);
+}
+
+t_vector *position(t_ray *ray, double t, t_garbage_collector *gc)
+{
+	t_vector *position;
+
+	position = scalar_mult(ray->direction, t, gc);
+	position = vector_add(ray->origin, position, gc);
+	return (position);
 }
