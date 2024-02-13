@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 01:56:20 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/13 21:23:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_color	*color_cast(t_vector_p *vector_parsing, t_garbage_collector *gc)
 {
 	t_color	*col;
 
-	col = color(vector_parsing->coordinate[0], vector_parsing->coordinate[1], vector_parsing->coordinate[2], gc);
+	col = color(vector_parsing->coordinate[0] / 255, vector_parsing->coordinate[1] / 255, vector_parsing->coordinate[2] / 255, gc);
 	return (col);	
 }
 

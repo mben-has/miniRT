@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 11:57:34 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:34:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define DIFFUSE	0.9
 # define SPECULAR	0.9
-# define SHININESS	200
+# define SHININESS	200.0
 
 typedef struct s_camera {
 	int			hsize;
