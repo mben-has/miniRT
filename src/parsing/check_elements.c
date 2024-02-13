@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 17:33:13 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:06:04 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,6 @@ int check_light(char **split, t_scene *scene, t_garbage_collector *gc)
 
 	// reading in double
 	if (read_double(split[2], &scene->light.brightness_ratio, 0.0, 1.0) == 0)
-		return (0);
-
-	// reading in int triple
-	if (read_color(split[3], &scene->ambient.color, gc) == 0)
 		return (0);
 	return (1);
 }

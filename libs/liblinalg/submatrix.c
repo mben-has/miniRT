@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   submatrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:31:17 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 16:10:32 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:54:20 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	copy(t_matrix *sub, t_matrix *m)
 	}
 }
 
-t_matrix	*submatrix(t_matrix *m, int x, int y)
+t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc)
 {
 	t_matrix	*sub;
 	int 		i;
@@ -38,7 +38,9 @@ t_matrix	*submatrix(t_matrix *m, int x, int y)
 
 	sub = (t_matrix*) malloc(sizeof(t_matrix));
 	if (sub == NULL)
-		return (NULL);
+		exit_function(gc, "error malloc submatrix \n", 1, true);
+	else
+		add_pointer_node(gc, sub);
 	copy(sub, m);
 	j = y + 1;
 	while (j < 4)

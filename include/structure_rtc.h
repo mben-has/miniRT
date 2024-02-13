@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 21:05:23 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:57:34 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,15 @@ typedef struct s_world {
 
 //light.c
 t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
+
+//ray
+t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
+t_vector *position(t_ray *ray, double t, t_garbage_collector *gc);
+t_intersections intersect(t_sphere *s, t_ray *r, t_garbage_collector *gc);
+t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc);
+t_intersections intersections(t_intersection first, ...);//last parameter should be NULL
+t_intersection hit(t_intersections xs, double focal_length);
+t_ray *transform(t_ray *r, t_matrix *m, t_garbage_collector *gc);
+void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc);
 
 #endif 

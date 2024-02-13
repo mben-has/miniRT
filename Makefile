@@ -1,6 +1,6 @@
 NAME = minirt
 FLAGS = -Wall -Wextra -Werror
-DEBUGFLAGS = -Wall -Wextra -g 
+DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
 # -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
@@ -15,7 +15,8 @@ SRC = 	src/main.c \
 		src/parsing/parsing_helper.c \
 		src/raytracing/raytracing_main.c \
 		src/initialization.c \
-		src/raytracing/light.c 
+		src/raytracing/light.c \
+		src/raytracing/ray.c
 
 OBJECTS = $(SRC:.c=.o)
 

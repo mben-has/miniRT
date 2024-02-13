@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cofactor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:49:27 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/09 13:52:19 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:57:32 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-double	cofactor(t_matrix *m, int i, int j)
+double	cofactor(t_matrix *m, int i, int j, t_garbage_collector *gc)
 {
 	int	neg;
 
@@ -20,5 +20,5 @@ double	cofactor(t_matrix *m, int i, int j)
 		neg = 1;
 	else
 		neg = -1;
-	return (neg * minor(m, i, j));
+	return (neg * minor(m, i, j, gc));
 }
