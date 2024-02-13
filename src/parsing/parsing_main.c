@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/10 23:32:59 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:39:08 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ int	check_for_unique(int i)
 	return (1);
 }
 
+int	check_mandatory_elements_present(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (check_for_unique(i) == 1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	read_in_element(char *line, t_scene *scene, t_garbage_collector *gc)
 {
 	t_function_pointer	function_pointers[6] = {check_ambient, check_camera, check_light, check_sphere, check_plane, check_cylinder};
@@ -103,10 +117,11 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 		return (3);
 	// read in lines
 	error = 0;
-	line = get_next_line(fd);
+	line = (void *) 1;
 	while (line != NULL)
 	{
-		if (line[0] != '\n')
+		line = get_next_line(fd);
+		if (line && line[0] != '\n')
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
 				line[ft_strlen(line) - 1] = '\0';
@@ -114,10 +129,11 @@ int	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 		}
 		free(line);
 		if (error != 0)
-			break;
-		line = get_next_line(fd);
+			return (8);
 	}
-
+	// check if all 3 mandatory elements are present
+	if (check_mandatory_elements_present() == 0)
+		return (10);
 	//close file
 	close(fd);
 	return (error);

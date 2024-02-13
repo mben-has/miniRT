@@ -8,8 +8,8 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/a.out",
-			"args": ["scenes/test.rt"],
+			"program": "${workspaceFolder}/minirt",
+			"args": ["scenes/test_single_sphere.rt"],
 			"cwd": "${workspaceFolder}"
 		}
 	]
