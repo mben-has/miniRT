@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inverse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:30:28 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/10 03:38:58 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:59:35 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_matrix	*inverse(t_matrix *m, t_garbage_collector *gc)
 	double		det;
 	double		cofact;
 
-	det = determinant_4x4(m);
+	det = determinant_4x4(m, gc);
 	if (det == 0)
 		return (NULL);
 	inv = (t_matrix *) malloc(sizeof(t_matrix));
@@ -34,7 +34,7 @@ t_matrix	*inverse(t_matrix *m, t_garbage_collector *gc)
 		i = 0;
 		while (i < 4)
 		{
-			cofact = cofactor(m, i, j);
+			cofact = cofactor(m, i, j, gc);
 			(*inv)[i][j] = cofact / det;
 			i++;
 		}

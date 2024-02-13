@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 19:24:19 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:56:20 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 			exit_function(gc, "malloc failed\n", 1, 1);
 		else
 			add_pointer_node(gc, sphere);
+		sphere->transformation_matrix = identity_matrix(gc);
 		obj->sphere = sphere;
 		obj->plane = NULL;
 		obj->cylinder = NULL;
@@ -125,7 +126,7 @@ void	add_cylinders(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	while (i < scene->nr_cylinders)
 	{
 		obj = &world->objects[world->nr_objects];
-		obj->id = 's';
+		obj->id = 'c';
 		cylinder = (t_cylinder *) malloc(sizeof(t_cylinder));
 		if (cylinder == NULL)
 			exit_function(gc, "malloc failed\n", 1, 1);

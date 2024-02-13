@@ -6,7 +6,7 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/12 15:02:14 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/13 00:24:37 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,11 @@ typedef struct s_world {
 //ray
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 t_vector *position(t_ray *ray, double t, t_garbage_collector *gc);
+t_intersections intersect(t_sphere *s, t_ray *r, t_garbage_collector *gc);
+t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc);
+t_intersections intersections(t_intersection first, ...);//last parameter should be NULL
+t_intersection hit(t_intersections xs, double focal_length);
+t_ray *transform(t_ray *r, t_matrix *m, t_garbage_collector *gc);
+void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc);
 
 #endif 

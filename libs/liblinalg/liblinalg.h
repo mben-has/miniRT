@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liblinalg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/10 03:39:55 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:58:58 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ t_matrix	*identity_matrix(t_garbage_collector *gc);
 t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b, t_garbage_collector *gc);
 t_vector	*matrix_mult_v(t_matrix *m, t_vector *v, t_garbage_collector *gc);
 t_matrix	*transpose(t_matrix *m, t_garbage_collector *gc);
-t_matrix	*submatrix(t_matrix *m, int x, int y);
-double		cofactor(t_matrix *m, int i, int j);
-double		minor(t_matrix *m, int i, int j);
+t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc);
+double		cofactor(t_matrix *m, int i, int j, t_garbage_collector *gc);
+double		minor(t_matrix *m, int i, int j, t_garbage_collector *gc);
 double		determinant_3x3(t_matrix *m);
-double		determinant_4x4(t_matrix *m);
+double		determinant_4x4(t_matrix *m, t_garbage_collector *gc);
 t_matrix	*inverse(t_matrix *m, t_garbage_collector *gc);
 t_matrix	*translation(t_vector *point, t_garbage_collector *gc);
 t_matrix	*scaling(t_vector *point, t_garbage_collector *gc);
