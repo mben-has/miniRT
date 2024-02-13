@@ -26,6 +26,6 @@ t_vector	*normalize(t_vector *vector, t_garbage_collector *gc)
 	result->dim[0] = vector->dim[0] / mag;
 	result->dim[1] = vector->dim[1] / mag;
 	result->dim[2] = vector->dim[2] / mag;
-	result->dim[3] = vector->dim[3] / mag;
+	result->dim[3] = vector->dim[3];
 	return (result);
 }

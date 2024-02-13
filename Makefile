@@ -16,7 +16,8 @@ SRC = 	src/main.c \
 		src/raytracing/raytracing_main.c \
 		src/initialization.c \
 		src/raytracing/light.c \
-		src/raytracing/ray.c
+		src/raytracing/ray.c \
+		src/raytracing/raytracing_helper.c 
 
 OBJECTS = $(SRC:.c=.o)
 

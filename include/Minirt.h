@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 15:03:50 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:25:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collec
 void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc);
 
 // raytracing
-int		raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc);
+int				raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc);
+unsigned int	rgb_to_hex(t_color *col);
 
 #endif

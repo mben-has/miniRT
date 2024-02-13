@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 02:18:37 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/13 20:26:01 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	t_ray		*ray;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_color 	*color_vector;
+	unsigned int	color_hex;
 
 	i = 0;
 	j = 0;
@@ -61,7 +63,13 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
-			mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// t_vector *v = ray->direction;
+			// t_vector *vv = ray->origin;
+			// printf("%d %d : %f %f %f %f\n", i, j, vv->dim[0], vv->dim[1], vv->dim[2], vv->dim[3]);
+			// printf("%d %d : %f %f %f %f\n", i, j, v->dim[0], v->dim[1], v->dim[2], v->dim[3]);
+			color_vector = color_at(world, ray, gc);
+			color_hex = rgb_to_hex(color_vector);
+			mlx_put_pixel(img, i, j, color_hex);
 			// if (check_hit(&(*scene), &ray, gc))
 			// ray = ray();
 			// ray = ray((*camera).point, ,gc);
@@ -74,6 +82,9 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 
 int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 {
+
+	draw(world, camera, gc);
+
 // t_sphere *s;
 // // t_intersections xs;
 // 	printf("num of objects = %d\n", world->nr_objects);

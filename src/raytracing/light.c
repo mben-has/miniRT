@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/11 21:11:02 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:29:41 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_color *lighting(t_computation *computation, t_garbage_collector *gc)
 	ambient = get_ambient(material->ambient, computation, gc);
 	diffuse = get_diffuse(material->diffuse, computation, gc);
 	specular = get_specular(material->specular, computation, gc);
+	// printf(" %f %f %f %f %f %f %f %f %f\n", ambient->col[0], ambient->col[1], ambient->col[2], diffuse->col[0], diffuse->col[1], diffuse->col[2], specular->col[0], specular->col[1], specular->col[2]);
 	result = color_add(ambient, diffuse, gc);
 	result = color_add(result, specular, gc);
 	return (result);
@@ -152,34 +153,41 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	transformation_matrix = get_transformation_matrix(intersection->object);
 	comp->material = get_material(intersection->object);
 	comp->point	= compute_point(ray, intersection, gc);
+	printf("%f %f %f %f\n", comp->point->dim[0], comp->point->dim[1], comp->point->dim[2], comp->point->dim[3]);
 	comp->lightv = vector_subtract(light.position, comp->point, gc);
+	comp->lightv = normalize(comp->lightv, gc);
 	comp->normalv = normal_at(transformation_matrix, comp->point, gc);
 	comp->eyev = vector_negate(ray->direction, gc);
 	comp->reflectv = reflect(vector_negate(comp->lightv, gc), comp->normalv, gc);
 	comp->effective_color = color_mult(comp->material->color, light.intensity, gc);
 	comp->light_color = color(light.intensity, light.intensity, light.intensity, gc);
 	comp->dot_light_normal = dot(comp->lightv, comp->normalv);
+	if (comp->dot_light_normal >= 0)
+		printf("%f\n", comp->dot_light_normal);
 	comp->dot_reflect_eye = dot(comp->reflectv, comp->eyev);
 	return (comp);
 }
 
-t_color	*shade_hit(t_intersection *intersection, t_computation *computation, t_garbage_collector *gc)
+t_color	*shade_hit(t_computation *computation, t_garbage_collector *gc)
 {	
 	return lighting(computation, gc);
 }
 
 t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc)
 {
-	t_intersections	*intersections;
-	t_intersection	*intersection;
+	t_intersections	intersections;
+	t_intersection	intersection;
 	t_computation	*computation;
 	t_color			*col;
+	t_sphere		*s;
 
-	// intersections = intersect_world(world, ray);
-	// intersection = hit(intersections);
-	if (intersection == NULL)
+	s = world->objects[0].sphere;
+	intersections = intersect(s, ray, gc);
+	intersection = hit(intersections, 0);
+	if (intersection.object == NULL)
 		return (get_black(gc));
-	computation = prepare_computations(intersection, ray, world->light, gc);
-	col = shade_hit(intersection, computation, gc);
+	computation = prepare_computations(&intersection, ray, world->light, gc);
+	col = shade_hit(computation, gc);
+	// printf("%f %f %f\n", col->col[0], col->col[1], col->col[2]);
 	return (col);
 }

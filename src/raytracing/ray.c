@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/13 02:17:37 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/13 19:30:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ t_vector *position(t_ray *ray, double t, t_garbage_collector *gc)
 t_intersections intersect(t_sphere *s, t_ray *r, t_garbage_collector *gc)
 {
 	t_intersections xs;
-	s->transformation_matrix = inverse(s->transformation_matrix, gc);
-	t_ray *r2 = transform(r, s->transformation_matrix, gc);
+	t_ray *r2 = transform(r, inverse(s->transformation_matrix, gc), gc);
 	t_vector *sphere_to_ray;
 	double a, b, c, discriminant;
 	double t1, t2;
