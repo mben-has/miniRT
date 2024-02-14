@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 21:44:40 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:56:31 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	mlx_image_t	*img;
 	t_color 	*color_vector;
 	unsigned int	color_hex;
+	t_intersections xs;
+	t_intersection ht;
 
 	i = 0;
 	j = 0;
@@ -63,6 +65,19 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
+			// xs = intersect_world(world, ray, gc);
+			// ht = hit(xs, 0);
+			// if (ht.object != NULL)
+			// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// if(ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)
+			// {
+			// 	printf("xs.count = %d \n", xs.count);	
+			// 	printf("xs[0] = %f ; xs[1] = %f \n", xs.xs[0], xs.xs[1]);	
+			// 	printf("t[0] = %f \n", ht.t);	
+			// 	// printf("object = %c \n", t.object->id );	
+			// 	return;
+			// }
+			
 			color_vector = color_at(world, ray, gc);
 			color_hex = rgb_to_hex(color_vector);
 			mlx_put_pixel(img, i, j, color_hex);
@@ -79,20 +94,21 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 {
 
+	printf("num of objects = %d\n", world->nr_objects);
 	draw(world, camera, gc);
 
 // t_sphere *s;
 // // t_intersections xs;
-// 	printf("num of objects = %d\n", world->nr_objects);
 // 	int i = 0;
 // 	int num_spheres = 0;
 // 	while (i < world->nr_objects)
 // 	{
 // 		if(world->objects[i].id == 's')
 // 		{
-// 			s = world->objects->sphere;
+// 			s = world->objects[i].sphere;
+// 			print_matrix(s->transformation_matrix);
 // 			num_spheres++;
-// 			break;
+
 // 		}
 // 		i++;
 // 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/13 19:30:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:07:13 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,52 @@ t_vector *position(t_ray *ray, double t, t_garbage_collector *gc)
 	return (position);
 }
 
-t_intersections intersect(t_sphere *s, t_ray *r, t_garbage_collector *gc)
+t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *gc)
 {
+	int i;
+	t_intersections xs;
+	t_intersections aux;
+	int j;
+	int k;
+	xs.count = 0;
+	aux.count = 0;
+	k = 0;  
+	i = 0;
+	while (i < world->nr_objects)
+	{
+		aux = intersect(world->objects[i], r, gc);
+		if (aux.count > 0)
+		{
+			j = 0;
+			while (j < aux.count)
+			{
+				xs.count++;
+				xs.xs[k] = aux.xs[j];
+				k++;
+				j++;
+			}
+		}
+		i++;
+	}
+	return (xs);
+}
+
+t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc)
+{
+	t_intersections xs;
+	if (o.id == 's')
+		xs = intersect_sphere(o.sphere, r, gc);
+	else if (o.id == 'c')
+		printf("intersection cylinder not done yet\n");
+	else if (o.id == 'p')
+		git 
+	
+	return(xs);
+}
+
+t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc)
+{
+	// print_matrix(s->transformation_matrix);
 	t_intersections xs;
 	t_ray *r2 = transform(r, inverse(s->transformation_matrix, gc), gc);
 	t_vector *sphere_to_ray;
@@ -64,7 +108,6 @@ t_intersections intersect(t_sphere *s, t_ray *r, t_garbage_collector *gc)
     }
 	t1 = (-b - sqrt(discriminant)) / (2 * a);
 	t2 = (-b + sqrt(discriminant)) / (2 * a);
-	
 	xs = intersections(intersection(t1, s, gc), intersection(t2, s, gc), NULL);
 return(xs);
 }
@@ -119,7 +162,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	j = 0;
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t >=focal_length)
+		if (xs.xs[j].t >=1)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -130,7 +173,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	}
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t <= t  && xs.xs[j].t >=focal_length)
+		if (xs.xs[j].t <= t  && xs.xs[j].t >=1)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -169,5 +212,22 @@ void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc)
 			j++;
 		}
 		i++;
+	}
+}
+
+void print_matrix(t_matrix *m)
+{
+	int	k = 0;
+	int l = 0;
+	while(k < 4)
+	{
+		l = 0;
+		while(l < 4)
+		{
+			printf("| %f | ", (*m)[k][l]);
+			l++;
+		}
+		printf("\n");
+		k++;
 	}
 }

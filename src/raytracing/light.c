@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 21:44:33 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:34:10 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc)
 	t_color			*col;
 	t_sphere		*s;
 
-	s = world->objects[0].sphere;
-	intersections = intersect(s, ray, gc);
+	// s = world->objects[0].sphere;
+	intersections = intersect_world(world, ray, gc);
 	intersection = hit(intersections, 0);
 	if (intersection.object == NULL)
 		return (get_black(gc));
