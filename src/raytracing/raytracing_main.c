@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 23:11:14 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/15 00:51:47 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,22 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	printf("num of objects = %d\n", world->nr_objects);
 	draw(world, camera, gc);
 
-t_sphere *s2 = world->objects[1].sphere;
+// t_sphere *s2 = world->objects[1].sphere;
 
-// t_material *scaled = scaling(point(0.5, 0.5, 0.5, gc),gc);
-// s2->transformation_matrix = matrix_mult_m(s2->transformation_matrix , scaled , gc);
+// // t_material *scaled = scaling(point(0.5, 0.5, 0.5, gc),gc);
+// // s2->transformation_matrix = matrix_mult_m(s2->transformation_matrix , scaled , gc);
 
 // t_vector *v = vector (0, 0, 1, gc);
 // t_vector *p = point(0, 0 , -5, gc);
 // t_ray *r = ray (p, v , gc); 
 
 // t_intersection  i = intersection(4, world->objects[1],gc);
+// t_computation * c = prepare_computations(i , ray, world->light,gc);
+// printf(" comps.t = %f", c.)
 // t_intersections xs = intersect_world(world, r, gc);
-//  	printf("xs.count = %d \n", xs.count);	
-// 				printf("xs[0] = %f ; xs[1] = %f ", xs.xs[0], xs.xs[1]);	
-// 				printf("xs[0] = %f ; xs[1] = %f \n", xs.xs[2], xs.xs[3]);	
+ 	// printf("xs.count = %d \n", xs.count);	
+	// 			printf("xs[0] = %f ; xs[1] = %f ", xs.xs[0], xs.xs[1]);	
+	// 			printf("xs[0] = %f ; xs[1] = %f \n", xs.xs[2], xs.xs[3]);	
 				
 	// int i = 0;
 	// int num_spheres = 0;
@@ -123,7 +125,7 @@ t_sphere *s2 = world->objects[1].sphere;
 	// 		num_spheres++;
 
 	// 	}
-	// 	i++;
+	// 	i++;z
 	// }
 // 	printf("num of spheres = %d\n", num_spheres);
 
