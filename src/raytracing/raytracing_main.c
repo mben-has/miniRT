@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 20:56:31 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/14 23:02:14 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,33 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	printf("num of objects = %d\n", world->nr_objects);
 	draw(world, camera, gc);
 
-// t_sphere *s;
-// // t_intersections xs;
-// 	int i = 0;
-// 	int num_spheres = 0;
-// 	while (i < world->nr_objects)
-// 	{
-// 		if(world->objects[i].id == 's')
-// 		{
-// 			s = world->objects[i].sphere;
-// 			print_matrix(s->transformation_matrix);
-// 			num_spheres++;
+// t_sphere *s2 = world->objects[1].sphere;
 
-// 		}
-// 		i++;
-// 	}
+// t_material *scaled = scaling(point(0.5, 0.5, 0.5, gc),gc);
+// s2->transformation_matrix = matrix_mult_m(s2->transformation_matrix , scaled , gc);
+
+// t_vector *v = vector (0, 0, 1, gc);
+// t_vector *p = point(0, 0 , -5, gc);
+// t_ray *r = ray (p, v , gc); 
+
+// t_intersections xs = intersect_world(world, r, gc);
+//  	printf("xs.count = %d \n", xs.count);	
+// 				printf("xs[0] = %f ; xs[1] = %f ", xs.xs[0], xs.xs[1]);	
+// 				printf("xs[0] = %f ; xs[1] = %f \n", xs.xs[2], xs.xs[3]);	
+				
+	// int i = 0;
+	// int num_spheres = 0;
+	// while (i < world->nr_objects)
+	// {
+	// 	if(world->objects[0].id == 's')
+	// 	{
+	// 		s = world->objects[i].sphere;
+	// 		print_matrix(s->transformation_matrix);
+	// 		num_spheres++;
+
+	// 	}
+	// 	i++;
+	// }
 // 	printf("num of spheres = %d\n", num_spheres);
 
 // Scenario: Aggregating intersections

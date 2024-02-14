@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/14 21:07:13 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/14 22:56:41 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,30 @@ t_vector *position(t_ray *ray, double t, t_garbage_collector *gc)
 	position = vector_add(ray->origin, position, gc);
 	return (position);
 }
+void sort_intersections(t_intersections *xs) 
+{
+    int i;
+	int j;
+	 t_intersection temp;
+
+	i = 0;
+    while (i < xs->count - 1) 
+	{
+         j = 0;
+        while (j < xs->count - i - 1)
+		 {
+            if (xs->xs[j].t > xs->xs[j + 1].t) 
+			{
+                temp = xs->xs[j];
+                xs->xs[j] = xs->xs[j + 1];
+                xs->xs[j + 1] = temp;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
 
 t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *gc)
 {
@@ -67,6 +91,7 @@ t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *g
 		}
 		i++;
 	}
+	sort_intersections(&xs);
 	return (xs);
 }
 
@@ -78,7 +103,7 @@ t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc)
 	else if (o.id == 'c')
 		printf("intersection cylinder not done yet\n");
 	else if (o.id == 'p')
-		git 
+		printf("intersection plane not done yet\n");
 	
 	return(xs);
 }

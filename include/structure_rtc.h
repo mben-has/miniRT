@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 19:30:52 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/14 22:54:59 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,7 @@ t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *g
 t_ray *transform(t_ray *r, t_matrix *m, t_garbage_collector *gc);
 void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc);
 void print_matrix(t_matrix *m);
+void sort_intersections(t_intersections *xs);
+
 
 #endif 
