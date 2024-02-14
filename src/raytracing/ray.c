@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/14 22:56:41 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/14 23:10:44 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc)
 {
 	t_intersections xs;
 	if (o.id == 's')
-		xs = intersect_sphere(o.sphere, r, gc);
+		xs = intersect_sphere(o, r, gc);
 	else if (o.id == 'c')
 		printf("intersection cylinder not done yet\n");
 	else if (o.id == 'p')
@@ -108,9 +108,10 @@ t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc)
 	return(xs);
 }
 
-t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc)
+t_intersections intersect_sphere(t_object o, t_ray *r, t_garbage_collector *gc)
 {
 	// print_matrix(s->transformation_matrix);
+	t_sphere * s = o.sphere;
 	t_intersections xs;
 	t_ray *r2 = transform(r, inverse(s->transformation_matrix, gc), gc);
 	t_vector *sphere_to_ray;
@@ -133,24 +134,27 @@ t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc)
     }
 	t1 = (-b - sqrt(discriminant)) / (2 * a);
 	t2 = (-b + sqrt(discriminant)) / (2 * a);
-	xs = intersections(intersection(t1, s, gc), intersection(t2, s, gc), NULL);
+	xs = intersections(intersection(t1, o, gc), intersection(t2, o, gc), NULL);
 return(xs);
 }
 
-t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc)
+t_intersection intersection(double t, t_object object, t_garbage_collector *gc)
 {
 	t_intersection i;
 	
-	i.t = t;
-    i.object = (t_object *)malloc(sizeof(t_object));
-	if (!i.object)
-		exit_function(gc, "error alloc obj\n", 1, true);
-	else
-		add_pointer_node(gc, i.object);
-	i.object->sphere = s;
-	i.object->id = 's';
-	i.object->plane = NULL;
-	i.object->cylinder = NULL;
+	if(object.id == 's')
+	{
+		i.t = t;
+		i.object = (t_object *)malloc(sizeof(t_object));
+		if (!i.object)
+			exit_function(gc, "error alloc obj\n", 1, true);
+		else
+			add_pointer_node(gc, i.object);
+		i.object->sphere = object.sphere;
+		i.object->id = 's';
+		i.object->plane = NULL;
+		i.object->cylinder = NULL;
+	}
 	return(i);
 }
 

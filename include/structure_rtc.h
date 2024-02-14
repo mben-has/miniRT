@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 22:54:59 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/14 23:09:47 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 t_vector *position(t_ray *ray, double t, t_garbage_collector *gc);
 t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc);
-t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc);
-t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc);
+t_intersections intersect_sphere(t_object o, t_ray *r, t_garbage_collector *gc);
+t_intersection intersection(double t, t_object object, t_garbage_collector *gc);
 t_intersections intersections(t_intersection first, ...);//last parameter should be NULL
 t_intersection hit(t_intersections xs, double focal_length);
 t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *gc);
