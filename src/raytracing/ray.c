@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/14 21:07:13 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/15 07:16:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	aux->direction = direction;
 	aux->origin = origin;
 	// aux->clo = NULL;
-	// aux->direction = normalize_vector(aux->direction);
+	aux->direction = normalize(aux->direction, gc);
 	return (aux);
 }
 
@@ -78,8 +78,7 @@ t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc)
 	else if (o.id == 'c')
 		printf("intersection cylinder not done yet\n");
 	else if (o.id == 'p')
-		git 
-	
+		xs = intersect_plane(o, r, gc);
 	return(xs);
 }
 
@@ -110,6 +109,33 @@ t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc)
 	t2 = (-b + sqrt(discriminant)) / (2 * a);
 	xs = intersections(intersection(t1, s, gc), intersection(t2, s, gc), NULL);
 return(xs);
+}
+
+/*
+Testloesung von Mara, soll nicht so bleiben!!!
+*/
+t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *gc)
+{
+	t_intersections xs;
+	t_intersection	inters;
+	double			t;
+
+	if (abs(r->origin->dim[1] < EPSILON))
+	{
+		xs.count = 0;
+		return (xs);
+	}
+	t = -r->origin->dim[1] / r->direction->dim[1];
+	inters.t = t;
+	// printf("%f\n", t);
+	t_object *obj = malloc(sizeof(t_object));
+	inters.object = obj;
+	inters.object->id = 'p';
+	inters.object->sphere = NULL;
+	inters.object->cylinder = NULL;
+	inters.object->plane = object.plane;
+	xs = intersections(inters, NULL);
+	return(xs);
 }
 
 t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc)

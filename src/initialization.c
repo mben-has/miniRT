@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 21:23:59 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 03:30:23 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_light(t_scene *scene, t_light *light, t_garbage_collector *gc)
 	light->position = vector_cast(scene->light.point, gc);
 }
 
-t_matrix	*get_matrix_sphere(t_sphere_p *sphere_parsing, t_garbage_collector *gc)
+t_matrix	*set_matrix_sphere(t_sphere_p *sphere_parsing, t_garbage_collector *gc)
 {
 	t_matrix	*m1;
 	t_matrix	*m2;
@@ -63,7 +63,7 @@ void	fill_data_sphere(t_sphere *sphere, t_sphere_p *sphere_parsing, t_ambient am
 	sphere->material.diffuse = DIFFUSE;
 	sphere->material.specular = SPECULAR;
 	sphere->material.shininess = SHININESS;
-	sphere->transformation_matrix = get_matrix_sphere(sphere_parsing, gc);
+	sphere->transformation_matrix = set_matrix_sphere(sphere_parsing, gc);
 }
 
 void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
@@ -92,6 +92,27 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	}
 }
 
+t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_garbage_collector *gc)
+{
+	t_matrix	*m1;
+	t_vector	*v;
+
+	v = vector_cast(plane_parsing->point, gc);
+	m1 = translation(v, gc);
+	m1 = identity_matrix(gc);
+	return (m1);
+}
+
+void	fill_data_plane(t_plane *plane, t_plane_p *plane_parsing, t_ambient ambient, t_garbage_collector *gc)
+{
+	plane->material.color = color_cast(plane_parsing->color, gc);
+	plane->material.ambient = ambient.lighting_ratio;
+	plane->material.diffuse = DIFFUSE;
+	plane->material.specular = SPECULAR;
+	plane->material.shininess = SHININESS;
+	plane->transformation_matrix = set_matrix_plane(plane_parsing, gc);
+}
+
 void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 {
 	int			i;
@@ -112,6 +133,7 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 		obj->sphere = NULL;
 		obj->cylinder = NULL;
 		world->nr_objects++;
+		fill_data_plane(plane, scene->planes[i], scene->ambient, gc);
 		i++;
 	}
 }

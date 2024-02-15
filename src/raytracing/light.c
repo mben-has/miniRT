@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 19:34:10 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/15 07:58:34 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_color	*get_specular(double specular, t_computation *computation, t_garbage_col
 	return (result);
 }
 
-t_color *lighting(t_computation *computation, t_garbage_collector *gc)
+t_color *lighting(t_computation *computation, bool shadowed, t_garbage_collector *gc)
 {
 	t_material	*material;
 	t_color	*ambient;
@@ -69,6 +69,8 @@ t_color *lighting(t_computation *computation, t_garbage_collector *gc)
 
 	material = computation->material;
 	ambient = get_ambient(material->ambient, computation, gc);
+	if (shadowed)
+		return (ambient);
 	diffuse = get_diffuse(material->diffuse, computation, gc);
 	specular = get_specular(material->specular, computation, gc);
 	result = color_add(ambient, diffuse, gc);
@@ -102,13 +104,12 @@ t_vector	*compute_point(t_ray *ray, t_intersection *intersection, t_garbage_coll
 {
 	t_vector	*vector;
 
-	vector = vector_add(ray->origin, ray->direction, gc);
-	normalize(vector, gc);
-	vector = scalar_mult(vector, intersection->t, gc);
+	vector = scalar_mult(ray->direction, intersection->t, gc);
+	vector = vector_add(ray->origin, vector, gc);
 	return (vector);
 }
 
-t_vector	*normal_at(t_matrix *transformation_matrix, t_vector *p, t_garbage_collector *gc)
+t_vector	*normal_at(t_matrix *transformation_matrix, t_vector *p, char id, t_garbage_collector *gc)
 {
 	t_matrix	*inv;
 	t_matrix	*transp;
@@ -116,9 +117,15 @@ t_vector	*normal_at(t_matrix *transformation_matrix, t_vector *p, t_garbage_coll
 	t_vector	*object_normal;
 	t_vector	*world_normal;
 
+	assert(transformation_matrix != NULL);
 	inv = inverse(transformation_matrix, gc);
 	object_point = matrix_mult_v(inv, p, gc);
-	object_normal = vector_subtract(object_point, point(0, 0, 0, gc), gc);
+	object_normal = NULL;
+	if (id == 's')
+		object_normal = vector_subtract(object_point, point(0, 0, 0, gc), gc);
+	if (id == 'p')
+		object_normal = vector(0.0, 1.0, 0.0, gc);
+	assert(object_normal != NULL);
 	transp = transpose(inv, gc);
 	world_normal = matrix_mult_v(transp, object_normal, gc);
 	world_normal->dim[3] = 0;
@@ -138,6 +145,36 @@ t_vector	*reflect(t_vector *in, t_vector *normal, t_garbage_collector *gc)
 	return (result);
 }
 
+t_vector	*compute_over_point(t_vector* p, t_vector *normalv, t_garbage_collector *gc)
+{
+	t_vector *result;
+
+	result = scalar_mult(normalv, EPSILON, gc);
+	result = vector_add(result, p, gc);
+	return (result);
+}
+
+bool	is_shadowed(t_world *world, t_vector *p, t_garbage_collector *gc)
+{
+	t_vector		*v;
+	t_vector		*direction;
+	t_ray			*r;
+	t_intersection	intersection;
+	t_intersections	intersections;
+
+	v = vector_subtract(world->light.position, p, gc);
+	direction = normalize(v, gc);
+	r = ray(p, direction, gc);
+	intersections = intersect_world(world, r, gc);
+	intersection = hit(intersections, 0);
+	if (intersection.object != NULL && intersection.t < magnitude(v))
+	{
+		return (true);
+	}
+	else
+		return (false);
+}
+
 t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_light light, t_garbage_collector *gc)
 {
 	t_computation	*comp;
@@ -153,7 +190,7 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	comp->point	= compute_point(ray, intersection, gc);
 	comp->lightv = vector_subtract(light.position, comp->point, gc);
 	comp->lightv = normalize(comp->lightv, gc);
-	comp->normalv = normal_at(transformation_matrix, comp->point, gc);
+	comp->normalv = normal_at(transformation_matrix, comp->point, intersection->object->id, gc);
 	comp->eyev = vector_negate(ray->direction, gc);
 	comp->eyev = normalize(comp->eyev, gc);
 	comp->reflectv = reflect(vector_negate(comp->lightv, gc), comp->normalv, gc);
@@ -161,28 +198,34 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	comp->light_color = color(light.intensity, light.intensity, light.intensity, gc);
 	comp->dot_light_normal = dot(comp->lightv, comp->normalv);
 	comp->dot_reflect_eye = dot(comp->reflectv, comp->eyev);
+	comp->over_point = compute_over_point(comp->point, comp->normalv, gc);
 	return (comp);
 }
 
-t_color	*shade_hit(t_computation *computation, t_garbage_collector *gc)
+t_color	*shade_hit(t_world *world, t_computation *computation, t_garbage_collector *gc)
 {	
-	return lighting(computation, gc);
+	bool	shadowed;
+
+	shadowed = is_shadowed(world, computation->point, gc);
+	return lighting(computation, shadowed, gc);
 }
 
-t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc)
+t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc, int i, int j)
 {
 	t_intersections	intersections;
 	t_intersection	intersection;
 	t_computation	*computation;
 	t_color			*col;
-	t_sphere		*s;
 
-	// s = world->objects[0].sphere;
 	intersections = intersect_world(world, ray, gc);
 	intersection = hit(intersections, 0);
 	if (intersection.object == NULL)
 		return (get_black(gc));
 	computation = prepare_computations(&intersection, ray, world->light, gc);
-	col = shade_hit(computation, gc);
+
+	// t_vector *p = computation->point;
+	// printf("%d %d : %f %f %f : %f\n", i, j, p->dim[0], p->dim[1],p->dim[2], intersection.t);
+
+	col = shade_hit(world, computation, gc);
 	return (col);
 }

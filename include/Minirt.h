@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 16:25:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:25:08 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <assert.h>
 # include "libft.h"
 # include "liblinalg.h"
 # include "MLX42.h"

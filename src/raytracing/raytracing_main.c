@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 20:56:31 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/15 07:29:31 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_ray *get_ray(t_camera *cam, int i, int j, t_garbage_collector *gc)
     // v1 = vector_sum(init_vector(i + 0.5 ,0,0,gc), init_vector(0,-j -0.5,0,gc), gc);
     // v2 = vector_sum((*scene)->camera.radius, v1, gc);
     // ray_direction = vector_sum((*scene)->camera v2, gc);
+	p = r->direction;
+	// printf("%d %d : %f %f %f\n", i, j, p->dim[0], p->dim[1],p->dim[2]);
     return (r);
 }
 
@@ -78,7 +80,7 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 			// 	return;
 			// }
 			
-			color_vector = color_at(world, ray, gc);
+			color_vector = color_at(world, ray, gc, i, j);
 			color_hex = rgb_to_hex(color_vector);
 			mlx_put_pixel(img, i, j, color_hex);
 			// if (check_hit(&(*scene), &ray, gc))

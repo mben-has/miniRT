@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 19:30:52 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/15 07:31:37 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_computation {
 	t_color		*light_color;
 	double		dot_light_normal;
 	double		dot_reflect_eye;
+	t_vector	*over_point;
 }	t_computation;
 
 typedef	struct s_light {
@@ -118,13 +119,14 @@ typedef struct s_world {
 }	t_world;
 
 //light.c
-t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
+t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc, int i, int j);
 
 //ray
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 t_vector *position(t_ray *ray, double t, t_garbage_collector *gc);
 t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc);
 t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc);
+t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *gc);
 t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc);
 t_intersections intersections(t_intersection first, ...);//last parameter should be NULL
 t_intersection hit(t_intersections xs, double focal_length);
