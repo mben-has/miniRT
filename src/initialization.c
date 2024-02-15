@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 03:30:23 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:29:47 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,23 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_garbage_collector *gc)
 {
 	t_matrix	*m1;
+	t_matrix	*m2;
+	t_matrix	*m3;
+	t_matrix	*result;
 	t_vector	*v;
+	double		angle;
+	double		dot_product;
 
 	v = vector_cast(plane_parsing->point, gc);
 	m1 = translation(v, gc);
-	m1 = identity_matrix(gc);
-	return (m1);
+	dot_product = dot(vector_cast(plane_parsing->normal_vector, gc), vector(0, 1, 0, gc));
+	angle = acos(dot_product);
+	// printf("%f\n", angle);
+	m2 = rotation_x(-angle, gc);
+	// m3 = rotation_z(angle, gc);
+	result = matrix_mult_m(m1, m2, gc);
+	// result = matrix_mult_m(m3, result, gc);
+	return (result);
 }
 
 void	fill_data_plane(t_plane *plane, t_plane_p *plane_parsing, t_ambient ambient, t_garbage_collector *gc)

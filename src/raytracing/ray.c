@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/15 08:11:55 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:38:37 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,15 @@ t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *
 	t_intersection	inters;
 	double			t;
 
-	if (abs(r->origin->dim[1] < EPSILON))
+	t_matrix *m = inverse(object.plane->transformation_matrix, gc);
+	t_ray *r2 = transform(r, m, gc);
+	if (abs(r2->origin->dim[1]) < EPSILON)
 	{
 		xs.count = 0;
+		// printf("%f\n", abs(r2->origin->dim[1]));
 		return (xs);
 	}
-	t = -r->origin->dim[1] / r->direction->dim[1];
+	t = -r2->origin->dim[1] / r2->direction->dim[1];
 	inters.t = t;
 	t_object *obj = malloc(sizeof(t_object));
 	inters.object = obj;

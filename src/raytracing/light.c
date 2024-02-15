@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 08:05:24 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:37:14 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_color	*get_diffuse(double diffuse, t_computation *computation, t_garbage_colle
 		result = get_black(gc);
 	else
 		result = color_mult(computation->effective_color, diffuse * computation->dot_light_normal, gc);
+	// printf("%f %f %f %f\n", result->col[0], result->col[1], result->col[2], diffuse * computation->dot_light_normal);
+	// printf("%f %f %f %f\n", computation->effective_color->col[0], computation->effective_color->col[1], computation->effective_color->col[2], diffuse * computation->dot_light_normal);
 	return (result);
 }
 
@@ -124,7 +126,7 @@ t_vector	*normal_at(t_matrix *transformation_matrix, t_vector *p, char id, t_gar
 	if (id == 's')
 		object_normal = vector_subtract(object_point, point(0, 0, 0, gc), gc);
 	if (id == 'p')
-		object_normal = vector(0.0, 1.0, 0.0, gc);
+		object_normal = vector(0, 1, 0, gc);
 	assert(object_normal != NULL);
 	transp = transpose(inv, gc);
 	world_normal = matrix_mult_v(transp, object_normal, gc);
@@ -168,9 +170,7 @@ bool	is_shadowed(t_world *world, t_vector *p, t_garbage_collector *gc)
 	intersections = intersect_world(world, r, gc);
 	intersection = hit(intersections, 0);
 	if (intersection.object != NULL && intersection.t < magnitude(v))
-	{
 		return (true);
-	}
 	else
 		return (false);
 }
@@ -188,8 +188,10 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	transformation_matrix = get_transformation_matrix(intersection->object);
 	comp->material = get_material(intersection->object);
 	comp->point	= compute_point(ray, intersection, gc);
+	// printf("%f %f %f\n", comp->point->dim[0], comp->point->dim[1], comp->point->dim[2]);
 	comp->lightv = vector_subtract(light.position, comp->point, gc);
 	comp->lightv = normalize(comp->lightv, gc);
+	// printf("%f %f %f\n", comp->lightv->dim[0], comp->lightv->dim[1], comp->lightv->dim[2]);
 	comp->normalv = normal_at(transformation_matrix, comp->point, intersection->object->id, gc);
 	comp->eyev = vector_negate(ray->direction, gc);
 	comp->eyev = normalize(comp->eyev, gc);
@@ -197,6 +199,7 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	comp->effective_color = color_mult(comp->material->color, light.intensity, gc);
 	comp->light_color = color(light.intensity, light.intensity, light.intensity, gc);
 	comp->dot_light_normal = dot(comp->lightv, comp->normalv);
+	// printf("%f\n", comp->dot_light_normal);
 	comp->dot_reflect_eye = dot(comp->reflectv, comp->eyev);
 	comp->over_point = compute_over_point(comp->point, comp->normalv, gc);
 	return (comp);
@@ -206,7 +209,7 @@ t_color	*shade_hit(t_world *world, t_computation *computation, t_garbage_collect
 {	
 	bool	shadowed;
 
-	shadowed = is_shadowed(world, computation->point, gc);
+	shadowed = is_shadowed(world, computation->over_point, gc);
 	return lighting(computation, shadowed, gc);
 }
 

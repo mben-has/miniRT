@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 05:24:05 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:07:35 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # endif
 
-# define EPSILON 0.0001
+# define EPSILON 0.00001
 
 typedef	struct s_vector
 {
