@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 07:58:34 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:05:24 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ t_color	*shade_hit(t_world *world, t_computation *computation, t_garbage_collect
 	return lighting(computation, shadowed, gc);
 }
 
-t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc, int i, int j)
+t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc)
 {
 	t_intersections	intersections;
 	t_intersection	intersection;
@@ -222,10 +222,6 @@ t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc, int i, in
 	if (intersection.object == NULL)
 		return (get_black(gc));
 	computation = prepare_computations(&intersection, ray, world->light, gc);
-
-	// t_vector *p = computation->point;
-	// printf("%d %d : %f %f %f : %f\n", i, j, p->dim[0], p->dim[1],p->dim[2], intersection.t);
-
 	col = shade_hit(world, computation, gc);
 	return (col);
 }

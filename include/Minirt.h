@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/14 21:25:08 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:03:36 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,8 @@ void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_coll
 // raytracing
 int				raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc);
 unsigned int	rgb_to_hex(t_color *col);
+
+//computation
+t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_light light, t_garbage_collector *gc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 07:31:37 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:09:38 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,20 +119,22 @@ typedef struct s_world {
 }	t_world;
 
 //light.c
-t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc, int i, int j);
+t_color	*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
 
 //ray
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc);
 t_vector *position(t_ray *ray, double t, t_garbage_collector *gc);
 t_intersections intersect(t_object o, t_ray *r, t_garbage_collector *gc);
-t_intersections intersect_sphere(t_sphere *s, t_ray *r, t_garbage_collector *gc);
 t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *gc);
-t_intersection intersection(double t, t_sphere *s, t_garbage_collector *gc);
+t_intersections intersect_sphere(t_object o, t_ray *r, t_garbage_collector *gc);
+t_intersection intersection(double t, t_object object, t_garbage_collector *gc);
 t_intersections intersections(t_intersection first, ...);//last parameter should be NULL
 t_intersection hit(t_intersections xs, double focal_length);
 t_intersections intersect_world(t_world *world, t_ray *r, t_garbage_collector *gc);
 t_ray *transform(t_ray *r, t_matrix *m, t_garbage_collector *gc);
 void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc);
 void print_matrix(t_matrix *m);
+void sort_intersections(t_intersections *xs);
+
 
 #endif 
