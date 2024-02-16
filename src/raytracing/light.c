@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 12:37:14 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:45:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,13 @@ bool	is_shadowed(t_world *world, t_vector *p, t_garbage_collector *gc)
 	direction = normalize(v, gc);
 	r = ray(p, direction, gc);
 	intersections = intersect_world(world, r, gc);
+	if (intersections.count == 3)
+		printf("%d %f %f %f", intersections.count, intersections.xs[0].t, intersections.xs[1].t, intersections.xs[2].t);
 	intersection = hit(intersections, 0);
 	if (intersection.object != NULL && intersection.t < magnitude(v))
+	{
 		return (true);
+	}
 	else
 		return (false);
 }
@@ -193,6 +197,8 @@ t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_
 	comp->lightv = normalize(comp->lightv, gc);
 	// printf("%f %f %f\n", comp->lightv->dim[0], comp->lightv->dim[1], comp->lightv->dim[2]);
 	comp->normalv = normal_at(transformation_matrix, comp->point, intersection->object->id, gc);
+	if (dot(comp->lightv, comp->normalv) <= 0)
+		comp->normalv = vector_negate(comp->normalv, gc);
 	comp->eyev = vector_negate(ray->direction, gc);
 	comp->eyev = normalize(comp->eyev, gc);
 	comp->reflectv = reflect(vector_negate(comp->lightv, gc), comp->normalv, gc);
