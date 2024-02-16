@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:11:23 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 19:59:58 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:28:24 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool check_camera(char **split, t_scene *scene, t_garbage_collector *gc)
 		return(exit_function(gc, "Error\nMalformed element id\n", 8, false));
 	if (read_vector(split[1], &scene->camera.point, 0, gc) == false)
 		return(exit_function(gc, "Error\nNot a vector or not in range", 11, false));
-	if (read_vector(split[2], &scene->camera.orientation, 1, gc) == 0)
+	if (read_vector(split[2], &scene->camera.orientation, 1, gc) == false)
 		return(exit_function(gc, "Error\nNot a vector or not in range", 11, false));
 	scene->camera.fov = read_byte(split[3], 0, 180);
 	if (scene->camera.fov == -1)

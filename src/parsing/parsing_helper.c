@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 19:44:15 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:29:07 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collec
 	i = 0;
 	while (i < 3)
 	{
-		if (read_double(split[i], &(*vector)->coordinate[0], range_left, range_right) == false)
+		if (read_double(split[i], &(*vector)->coordinate[i], range_left, range_right) == false)
 			return (false);
 		i++;
 	}
