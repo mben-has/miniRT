@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 08:09:38 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:50:41 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,11 @@ typedef struct s_plane {
 }	t_plane;
 
 typedef struct s_cylinder {
-	// other specific fields
 	t_matrix	*transformation_matrix;
 	t_material	material;
+	double		minimum;
+	double		maximum;
+	bool		closed;
 }	t_cylinder;
 
 typedef struct s_object 
