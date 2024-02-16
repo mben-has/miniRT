@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 16:24:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:44:04 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,24 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 		i++;
 	}
 }
+// void extract_rotation_angles(Vector3D normalized_vector, double *angle_x, double *angle_y, double *angle_z) {
+//     // Step 1: Compute rotation around y-axis
+//     *angle_y = atan2(normalized_vector.x, normalized_vector.z);
+
+//     // Step 2: Rotate vector to align with x-z plane
+//     double cos_y = cos(-(*angle_y));
+//     double sin_y = sin(-(*angle_y));
+//     Vector3D vector_xz_plane;
+//     vector_xz_plane.x = normalized_vector.x * cos_y - normalized_vector.z * sin_y;
+//     vector_xz_plane.y = normalized_vector.y;
+//     vector_xz_plane.z = normalized_vector.x * sin_y + normalized_vector.z * cos_y;
+
+//     // Step 3: Compute rotation around x-axis
+//     *angle_x = atan2(vector_xz_plane.y, vector_xz_plane.z);
+
+//     // Step 4: Compute rotation around z-axis
+//     *angle_z = atan2(normalized_vector.y, sqrt(normalized_vector.x * normalized_vector.x + normalized_vector.z * normalized_vector.z));
+// }
 
 t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collector *gc)
 {
@@ -211,6 +229,18 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collecto
 	m2 = scaling(v, gc);
 	m3 = matrix_mult_m(m1, m2, gc);
 	// TODO rotation
+
+	//    double angle_x; // Angle in radians for rotation around x axis
+    // double angle_y; // Angle in radians for rotation around y axis
+    // double angle_z; // Angle in radians for rotation around z axis
+
+    // extract_rotation_angles(vector3d(0, 0, -1), &angle_x, &angle_y, &angle_z);
+	// t_mrt_matrix rotation_x = mrt_matrix_rotate_x(&allocator, angle_x);
+    // t_mrt_matrix rotation_y = mrt_matrix_rotate_y(&allocator, angle_y);
+    // t_mrt_matrix rotation_z = mrt_matrix_rotate_z(&allocator, angle_z);
+	// t_mrt_matrix combined_rotation_matrix = matrix_multiply(matrix_multiply(rotation_x, rotation_y), rotation_z);
+		// m3 = matrix_mult_m(m3, combined_rotation_matrix , gc);
+
 	return (m3);}
 
 void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
