@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 10:57:58 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:24:21 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,35 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	}
 }
 
+t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collector *gc)
+{
+	t_matrix	*m1;
+	t_matrix	*m2;
+	t_matrix	*m3;
+	t_vector	*v;
+	double		radius;
+
+	v = vector_cast(cylinder_parsing->point, gc);
+	m1 = translation(v, gc);
+	radius = cylinder_parsing->diameter / 2;
+	v = vector(radius, radius, radius, gc);
+	m2 = scaling(v, gc);
+	m3 = matrix_mult_m(m1, m2, gc);
+	// TODO rotation
+	return (m3);}
+
+void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
+{
+	cylinder->material.color = color_cast(cylinder_parsing->color, gc);
+	cylinder->material.ambient = ambient.lighting_ratio;
+	cylinder->material.diffuse = DIFFUSE;
+	cylinder->material.specular = SPECULAR;
+	cylinder->material.shininess = SHININESS;
+	cylinder->minimum = - (cylinder_parsing->height / 2);
+	cylinder->maximum = (cylinder_parsing->height / 2);
+	cylinder->transformation_matrix = set_matrix_cylinder(cylinder_parsing, gc);
+}
+
 void	add_cylinders(t_scene *scene, t_world *world, t_garbage_collector *gc)
 {
 	int			i;
@@ -216,6 +245,7 @@ void	add_cylinders(t_scene *scene, t_world *world, t_garbage_collector *gc)
 		obj->plane = NULL;
 		obj->sphere = NULL;
 		world->nr_objects++;
+		fill_data_cylinder(cylinder, scene->cylinders[i], scene->ambient, gc);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 15:50:41 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:14:56 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_cylinder {
 	t_material	material;
 	double		minimum;
 	double		maximum;
-	bool		closed;
 }	t_cylinder;
 
 typedef struct s_object 
