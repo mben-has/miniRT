@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:58:29 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/02 14:16:51 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:30:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void						add_pointer_node(t_garbage_collector *gc,
 								void *pointer);
 t_garbage_collector			*init_garbage_collector(void);
 void						free_all(t_garbage_collector *garbage_collector);
-void						exit_function(t_garbage_collector *collector,
+bool						exit_function(t_garbage_collector *collector,
 								char *string, int exit_code, bool shoul_exit);
 void						ft_free(void *to_free);
 void						free_2d(char **str);

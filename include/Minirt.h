@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 08:03:36 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:30:45 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,18 @@ typedef int (*t_function_pointer)(char **split, t_scene *scene, t_garbage_collec
 void	print_usage(void);
 
 // parsing
-int		parsing(char *file, t_scene *scene, t_garbage_collector *gc);
-int		check_ambient(char **split, t_scene *scene, t_garbage_collector *gc);
-int 	check_camera(char **split, t_scene *scene, t_garbage_collector *gc);
-int 	check_light(char **split, t_scene *scene, t_garbage_collector *gc);
-int 	check_sphere(char **split, t_scene *scene, t_garbage_collector *gc);
-int 	check_plane(char **split, t_scene *scene, t_garbage_collector *gc);
-int 	check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc);
-int		read_double(char *str, double *number, double range_left, double range_right);
+void	parsing(char *file, t_scene *scene, t_garbage_collector *gc);
+bool	check_ambient(char **split, t_scene *scene, t_garbage_collector *gc);
+bool 	check_camera(char **split, t_scene *scene, t_garbage_collector *gc);
+bool 	check_light(char **split, t_scene *scene, t_garbage_collector *gc);
+bool 	check_sphere(char **split, t_scene *scene, t_garbage_collector *gc);
+bool 	check_plane(char **split, t_scene *scene, t_garbage_collector *gc);
+bool 	check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc);
+bool	read_double(char *str, double *number, double range_left, double range_right);
 int		word_length(char **split);
-int		read_color(char *str, t_vector_p **color, t_garbage_collector *gc);
+bool	read_color(char *str, t_vector_p **color, t_garbage_collector *gc);
 int		read_byte(char *str, int range_left, int range_right);
-int		read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc);
+bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc);
 
 // initialization
 void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc);

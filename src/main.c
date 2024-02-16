@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 16:14:22 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:52:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ int	main(int argc, char **argv)
 		print_usage();
 		exit(1);
 	}
-
 	gc = init_garbage_collector();
-
-	error = parsing(argv[1], &scene, gc);
-	if (error != 0)
-		exit(error);
+	parsing(argv[1], &scene, gc);
 	
 	init_world(&scene, &world, &camera, gc);
 
@@ -39,6 +35,6 @@ int	main(int argc, char **argv)
 		exit(error);
 	
 	free_all(gc);
-	// system("leaks minirt");
+
 	return (0);	
 }
