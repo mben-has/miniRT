@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 08:08:07 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:33:39 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 			// 	printf("xs[0] = %f ; xs[1] = %f \n", xs.xs[0], xs.xs[1]);	
 			// 	printf("t[0] = %f \n", ht.t);	
 			// 	// printf("object = %c \n", t.object->id );	
-			// 	return;
+			// 	// return;
 			// }
 			
 			color_vector = color_at(world, ray, gc);
