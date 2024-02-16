@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/15 12:38:37 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:55:52 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,13 @@ return(xs);
 /*
 Testloesung von Mara, soll nicht so bleiben!!!
 */
-t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *gc)
+t_intersections intersect_plane(t_object o, t_ray *r, t_garbage_collector *gc)
 {
 	t_intersections xs;
 	t_intersection	inters;
 	double			t;
 
-	t_matrix *m = inverse(object.plane->transformation_matrix, gc);
+	t_matrix *m = inverse(o.plane->transformation_matrix, gc);
 	t_ray *r2 = transform(r, m, gc);
 	if (abs(r2->origin->dim[1]) < EPSILON)
 	{
@@ -154,15 +154,15 @@ t_intersections intersect_plane(t_object object, t_ray *r, t_garbage_collector *
 		// printf("%f\n", abs(r2->origin->dim[1]));
 		return (xs);
 	}
-	t = -r2->origin->dim[1] / r2->direction->dim[1];
-	inters.t = t;
-	t_object *obj = malloc(sizeof(t_object));
-	inters.object = obj;
-	inters.object->id = 'p';
-	inters.object->sphere = NULL;
-	inters.object->cylinder = NULL;
-	inters.object->plane = object.plane;
-	xs = intersections(inters, NULL);
+	t = (-r2->origin->dim[1]) / (r2->direction->dim[1]);
+	// inters.t = t;
+	// t_object *obj = malloc(sizeof(t_object));
+	// inters.object = obj;
+	// inters.object->id = 'p';
+	// inters.object->sphere = NULL;
+	// inters.object->cylinder = NULL;
+	// inters.object->plane = object.plane;
+	xs = intersections(intersection(t, o, gc), NULL);
 	return(xs);
 }
 
@@ -181,6 +181,19 @@ t_intersection intersection(double t, t_object object, t_garbage_collector *gc)
 		i.object->sphere = object.sphere;
 		i.object->id = 's';
 		i.object->plane = NULL;
+		i.object->cylinder = NULL;
+	}
+	else if(object.id == 'p')
+	{
+		i.t = t;
+		i.object = (t_object *)malloc(sizeof(t_object));
+		if (!i.object)
+			exit_function(gc, "error alloc obj\n", 1, true);
+		else
+			add_pointer_node(gc, i.object);
+		i.object->plane = object.plane;
+		i.object->id = 'p';
+		i.object->sphere = NULL;
 		i.object->cylinder = NULL;
 	}
 	return(i);
@@ -219,7 +232,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	j = 0;
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t >=1)
+		if (xs.xs[j].t >=0)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -230,7 +243,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	}
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t <= t  && xs.xs[j].t >=1)
+		if (xs.xs[j].t <= t  && xs.xs[j].t >=0)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
