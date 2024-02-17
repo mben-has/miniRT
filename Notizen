@@ -2,12 +2,10 @@ Mara:
 -----
 - Parser testen
 - Parser Leak finden
-- Errorhandling: Schreibe Errornachricht on Error
-- garbage collector: Beende mit gc - funktion on error!
-- Light in madatory part has no color!
-- Ist Cylinder height positiv?
 
 - library norminetten
 - header file mit comments versehen
 
-- Checken, ob Normale wirklich Normale ist (in Initialisierung)
+- Checken, ob normalsierter Vektor wirklich normalisiert ist (in Initialisierung)
+
+- Screen sizes in header file!
