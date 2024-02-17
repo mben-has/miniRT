@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 20:29:07 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/17 11:27:38 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 	*color = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*color == NULL)
 		return (false);
-    add_pointer_node(gc, *color);
+	add_pointer_node(gc, *color);
 	split = ft_split(str, ',');
 	if (split == NULL)
 		return (false);
@@ -78,7 +78,7 @@ bool	read_color(char *str, t_vector_p **color, t_garbage_collector *gc)
 			free_2d(split);
 			return (false);
 		}
-		(*color)->coordinate[i] = byte;	
+		(*color)->coordinate[i] = byte;
 		i++;
 	}
 	free_2d(split);
@@ -108,7 +108,8 @@ bool	read_double_check_format(char *str)
 Reads in double in int or float form. Checks if number is in range.
 If both ends of the range are 0, we dont check for range.
 */
-bool	read_double(char *str, double *number, double range_left, double range_right)
+bool	read_double(char *str, double *number, double range_left, \
+	double range_right)
 {
 	size_t		i;
 	long int	d;
@@ -128,7 +129,7 @@ bool	read_double(char *str, double *number, double range_left, double range_righ
 		{
 			point_position = ft_strlen(str) - i - 1;
 			i++;
-			continue;
+			continue ;
 		}
 		d *= 10;
 		d += str[i] - '0';
@@ -140,12 +141,14 @@ bool	read_double(char *str, double *number, double range_left, double range_righ
 	while (point_position-- > 0)
 		dec *= 10.0f;
 	*number = d / dec;
-	if ((!(range_left == 0 && range_right == 0)) && (*number < range_left || *number > range_right))
+	if ((!(range_left == 0 && range_right == 0)) && (*number < range_left || \
+		*number > range_right))
 		return (false);
 	return (true);
 }
 
-bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc)
+bool	read_vector(char *str, t_vector_p **vector, int is_normal, \
+	t_garbage_collector *gc)
 {
 	char	**split;
 	int		i;
@@ -155,7 +158,7 @@ bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collec
 	*vector = (t_vector_p *) malloc(sizeof(t_vector_p));
 	if (*vector == NULL)
 		return (false);
-    add_pointer_node(gc, *vector);
+	add_pointer_node(gc, *vector);
 	split = ft_split(str, ',');
 	if (split == NULL)
 		return (false);
@@ -171,7 +174,8 @@ bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collec
 	i = 0;
 	while (i < 3)
 	{
-		if (read_double(split[i], &(*vector)->coordinate[i], range_left, range_right) == false)
+		if (read_double(split[i], &(*vector)->coordinate[i], range_left, \
+			range_right) == false)
 			return (false);
 		i++;
 	}

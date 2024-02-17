@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 21:44:04 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 20:06:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,8 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collecto
 	// t_mrt_matrix combined_rotation_matrix = matrix_multiply(matrix_multiply(rotation_x, rotation_y), rotation_z);
 		// m3 = matrix_mult_m(m3, combined_rotation_matrix , gc);
 
-	return (m3);}
+	return (m3);
+}
 
 void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
 {

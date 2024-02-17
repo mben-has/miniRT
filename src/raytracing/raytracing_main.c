@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/17 17:59:47 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/17 19:40:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
-			xs = intersect_world(world, ray, gc);
-			ht = hit(xs, 0);
-			if (ht.object != NULL)
-				mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// xs = intersect_world(world, ray, gc);
+			// ht = hit(xs, 0);
+			// if (ht.object != NULL)
+			// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
 			// if(ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)
 			// {
 			// 	printf("xs.count = %d \n", xs.count);	
@@ -80,9 +80,9 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 			// 	// return;
 			// }
 			
-			// color_vector = color_at(world, ray, gc);
-			// color_hex = rgb_to_hex(color_vector);
-			// mlx_put_pixel(img, i, j, color_hex);
+			color_vector = color_at(world, ray, gc);
+			color_hex = rgb_to_hex(color_vector);
+			mlx_put_pixel(img, i, j, color_hex);
 			// if (check_hit(&(*scene), &ray, gc))
 			// ray = ray();
 			// ray = ray((*camera).point, ,gc);

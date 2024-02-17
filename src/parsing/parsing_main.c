@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 18:22:54 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/17 11:24:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Initialzes the scene struct. There can only be 100 objects of every type each.
 */
 bool	init_scene(t_scene *scene)
 {
-	void *mem;
+	void	*mem;
 
 	mem = (t_sphere *) malloc(100 * sizeof(t_sphere *));
 	if (mem == NULL)
@@ -45,7 +45,8 @@ bool	check_file_extension(char *file)
 	int	length;
 
 	length = ft_strlen(file);
-	if (length < 4 || file[length - 3] != '.' || file[length - 2] != 'r' || file[length - 1] != 't')
+	if (length < 4 || file[length - 3] != '.' || file[length - 2] != 'r' || \
+		file[length - 1] != 't')
 		return (false);
 	else
 		return (true);
