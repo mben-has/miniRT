@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/17 18:49:49 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/17 21:03:50 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,19 @@ t_intersection intersection(double t, t_object object, t_garbage_collector *gc)
 		i.object->id = 'p';
 		i.object->sphere = NULL;
 		i.object->cylinder = NULL;
+	}
+	else if(object.id == 'c')
+	{
+		i.t = t;
+		i.object = (t_object *)malloc(sizeof(t_object));
+		if (!i.object)
+			exit_function(gc, "error alloc obj\n", 1, true);
+		else
+			add_pointer_node(gc, i.object);
+		i.object->plane = NULL;
+		i.object->id = 'c';
+		i.object->sphere = NULL;
+		i.object->cylinder =  object.cylinder;
 	}
 	return(i);
 }
