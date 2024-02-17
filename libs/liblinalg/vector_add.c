@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector_add.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:20:46 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 22:21:33 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:07:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_vector	*vector_add(t_vector* a, t_vector* b, t_garbage_collector *gc)
+t_vector	*vector_add(t_vector *a, t_vector *b, t_garbage_collector *gc)
 {
 	t_vector	*result;
 

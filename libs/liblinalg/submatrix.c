@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   submatrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:31:17 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/13 00:54:20 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/17 10:36:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	copy(t_matrix *sub, t_matrix *m)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	while (j < 4)
@@ -30,18 +30,11 @@ static void	copy(t_matrix *sub, t_matrix *m)
 	}
 }
 
-t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc)
+void	copy_rows(t_matrix *sub, t_matrix *m, int y)
 {
-	t_matrix	*sub;
-	int 		i;
-	int 		j;
+	int	i;
+	int	j;
 
-	sub = (t_matrix*) malloc(sizeof(t_matrix));
-	if (sub == NULL)
-		exit_function(gc, "error malloc submatrix \n", 1, true);
-	else
-		add_pointer_node(gc, sub);
-	copy(sub, m);
 	j = y + 1;
 	while (j < 4)
 	{
@@ -53,6 +46,13 @@ t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc)
 		}
 		j++;
 	}
+}
+
+void	copy_columns(t_matrix *sub, int x)
+{
+	int	i;
+	int	j;
+
 	j = 0;
 	while (j < 4)
 	{
@@ -64,5 +64,19 @@ t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc)
 		}
 		j++;
 	}
+}
+
+t_matrix	*submatrix(t_matrix *m, int x, int y, t_garbage_collector *gc)
+{
+	t_matrix	*sub;
+
+	sub = (t_matrix *) malloc(sizeof(t_matrix));
+	if (sub == NULL)
+		exit_function(gc, "error malloc submatrix \n", 1, true);
+	else
+		add_pointer_node(gc, sub);
+	copy(sub, m);
+	copy_rows(sub, m, y);
+	copy_columns(sub, x);
 	return (sub);
 }

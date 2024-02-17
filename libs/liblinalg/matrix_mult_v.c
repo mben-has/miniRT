@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_mult_v.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:49:41 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 22:18:55 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:10:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
 
-t_vector	*matrix_mult_v(t_matrix* m, t_vector *v, t_garbage_collector *gc)
+t_vector	*matrix_mult_v(t_matrix *m, t_vector *v, t_garbage_collector *gc)
 {
 	t_vector	*result;
 	int			j;

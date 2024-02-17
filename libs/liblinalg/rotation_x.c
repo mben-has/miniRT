@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation_x.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:20:39 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 22:08:22 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:09:55 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ t_matrix	*rotation_x(double radians, t_garbage_collector *gc)
 	(*m)[2][2] = cos(radians);
 	(*m)[1][2] = -sin(radians);
 	(*m)[2][1] = sin(radians);
-	return(m);
+	return (m);
 }

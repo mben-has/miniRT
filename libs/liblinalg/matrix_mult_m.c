@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_mult_m.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:09:13 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 22:18:47 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:28:10 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblinalg.h"
+
+void	fill_column(t_matrix *b, int i, double *column)
+{
+	column[0] = (*b)[0][i];
+	column[1] = (*b)[1][i];
+	column[2] = (*b)[2][i];
+	column[3] = (*b)[3][i];
+}
 
 t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b, t_garbage_collector *gc)
 {
@@ -30,10 +38,7 @@ t_matrix	*matrix_mult_m(t_matrix *a, t_matrix *b, t_garbage_collector *gc)
 		i = 0;
 		while (i < 4)
 		{
-			column[0] = (*b)[0][i]; 
-			column[1] = (*b)[1][i]; 
-			column[2] = (*b)[2][i];
-			column[3] = (*b)[3][i]; 
+			fill_column(b, i, column);
 			(*result)[j][i] = row_by_column((*a)[j], column);
 			i++;
 		}

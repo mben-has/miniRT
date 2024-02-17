@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identity_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:49:15 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/08 23:08:08 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:13:06 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_matrix	*identity_matrix(t_garbage_collector *gc)
 {
 	t_matrix	*m;
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	m = (t_matrix *) malloc(sizeof(t_matrix));
 	if (m == NULL)

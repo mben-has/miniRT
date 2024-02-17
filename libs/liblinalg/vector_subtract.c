@@ -21,9 +21,9 @@ t_vector	*vector_subtract(t_vector *a, t_vector *b, t_garbage_collector *gc)
 		exit_function(gc, "error allocating vector\n", 1, true);
 	else
 		add_pointer_node(gc, result);
-	result->dim[0] = a->dim[0]- b->dim[0];
-	result->dim[1] = a->dim[1]- b->dim[1];
-	result->dim[2] = a->dim[2]- b->dim[2];
-	result->dim[3] = a->dim[3]- b->dim[3];
+	result->dim[0] = a->dim[0] - b->dim[0];
+	result->dim[1] = a->dim[1] - b->dim[1];
+	result->dim[2] = a->dim[2] - b->dim[2];
+	result->dim[3] = a->dim[3] - b->dim[3];
 	return (result);
 }
