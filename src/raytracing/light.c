@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/17 20:12:20 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/17 21:54:37 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ t_vector	*normal_at(t_object *object, t_matrix *transformation_matrix, \
 	if (object->id == 'p')
 		object_normal = vector(0, 1, 0, gc);
 	if (object->id == 'c')
-		object_normal = get_cylinder_normal(object, p, gc);
+		object_normal = get_cylinder_normal(object, object_point, gc);
 	transp = transpose(inv, gc);
 	world_normal = matrix_mult_v(transp, object_normal, gc);
 	world_normal->dim[3] = 0;

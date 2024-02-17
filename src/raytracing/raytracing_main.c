@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/17 21:02:56 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 21:26:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,11 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 
 int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 {
-
 	printf("num of objects = %d\n", world->nr_objects);
+	
 	draw(world, camera, gc);
 	
-	printf("cylinder minimum = %f\n", world->objects[0].cylinder->minimum);
-	printf("cylinder maximum = %f\n", world->objects[0].cylinder->maximum);
+
 // t_matrix *m = world->objects[0].cylinder->transformation_matrix;
 // print_matrix(m);
 // t_sphere *s2 = world->objects[1].sphere;
