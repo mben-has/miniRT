@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 10:33:39 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:59:47 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
-			// xs = intersect_world(world, ray, gc);
-			// ht = hit(xs, 0);
-			// if (ht.object != NULL)
-			// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
+			xs = intersect_world(world, ray, gc);
+			ht = hit(xs, 0);
+			if (ht.object != NULL)
+				mlx_put_pixel(img, i, j, 0xFF0000FF);
 			// if(ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)
 			// {
 			// 	printf("xs.count = %d \n", xs.count);	
@@ -80,9 +80,9 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 			// 	// return;
 			// }
 			
-			color_vector = color_at(world, ray, gc);
-			color_hex = rgb_to_hex(color_vector);
-			mlx_put_pixel(img, i, j, color_hex);
+			// color_vector = color_at(world, ray, gc);
+			// color_hex = rgb_to_hex(color_vector);
+			// mlx_put_pixel(img, i, j, color_hex);
 			// if (check_hit(&(*scene), &ray, gc))
 			// ray = ray();
 			// ray = ray((*camera).point, ,gc);
@@ -98,7 +98,11 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 
 	printf("num of objects = %d\n", world->nr_objects);
 	draw(world, camera, gc);
-
+	
+	printf("cylinder minimum = %f\n", world->objects[0].cylinder->minimum);
+	printf("cylinder maximum = %f\n", world->objects[0].cylinder->maximum);
+// t_matrix *m = world->objects[0].cylinder->transformation_matrix;
+// print_matrix(m);
 // t_sphere *s2 = world->objects[1].sphere;
 
 // // t_material *scaled = scaling(point(0.5, 0.5, 0.5, gc),gc);

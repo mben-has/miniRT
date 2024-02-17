@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 16:14:56 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:07:30 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ t_ray *transform(t_ray *r, t_matrix *m, t_garbage_collector *gc);
 void set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc);
 void print_matrix(t_matrix *m);
 void sort_intersections(t_intersections *xs);
+t_intersections intersect_cylinder(t_object o, t_ray *r, t_garbage_collector *gc);
 
 
 #endif 
