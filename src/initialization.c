@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/17 20:06:05 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/17 20:33:03 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,8 +251,8 @@ void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_
 	cylinder->material.diffuse = DIFFUSE;
 	cylinder->material.specular = SPECULAR;
 	cylinder->material.shininess = SHININESS;
-	cylinder->minimum = - (cylinder_parsing->height / 2);
-	cylinder->maximum = (cylinder_parsing->height / 2);
+	cylinder->minimum = - (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
+	cylinder->maximum = (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
 	cylinder->transformation_matrix = set_matrix_cylinder(cylinder_parsing, gc);
 }
 
