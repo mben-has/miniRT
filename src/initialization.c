@@ -6,7 +6,7 @@
 /*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 04:21:12 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/18 04:23:53 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,7 @@ static void	calculate_rotation_angles(t_vector *vec, double *x, double *z)
 	else
 		*z = acos(vec->dim[1] / ratio);
 	*x = acos(ratio);
-		printf("angle x = %f \n", *x);
-	printf("angle z = %f \n", *z);
+		
 }
 
 t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
