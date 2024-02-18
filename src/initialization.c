@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 04:23:53 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/18 23:35:58 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
+// #include "../../include/structure_rtc.h"
+
+// int vec_is_normal(t_vector *v, t_garbage_collector *gc)
+// {
+// 	if(length_vector(point(0,0,0,gc), v, gc) == 1)
+// 		return(1);
+// 	else 
+// 		return(0);
+// }
 
 t_vector	*vector_cast(t_vector_p *vector_parsing, t_garbage_collector *gc)
 {
@@ -76,6 +85,7 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	while (i < scene->nr_spheres)
 	{
 		obj = &world->objects[world->nr_objects];
+		
 		obj->id = 's';
 		sphere = (t_sphere *) malloc(sizeof(t_sphere));
 		if (sphere == NULL)
@@ -197,6 +207,7 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	i = 0;
 	while (i < scene->nr_planes)
 	{
+
 		obj = &world->objects[world->nr_objects];
 		obj->id = 'p';
 		plane = (t_plane *) malloc(sizeof(t_plane));
@@ -226,11 +237,11 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 	double		radius;
 
 	v = vector_cast(cp->point, gc);
+
 	m1 = translation(v, gc);
-	radius = cp->diameter / 2;
-	v = vector(radius, radius, radius, gc);
+	radius = cp->diameter / 2.0;
+	v = vector(radius,radius, radius, gc);
 	m2 = scaling(v, gc);
-	m3 = matrix_mult_m(m1, m2, gc);
 	// TODO rotation
 	t_vector * cy_dir = vector(cp->axis_vector->coordinate[0],cp->axis_vector->coordinate[1],cp->axis_vector->coordinate[2], gc);
 	double		x_angle;
@@ -239,7 +250,8 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 	t_matrix *rz = rotation_z(z_angle, gc);
 	t_matrix *rx = rotation_x(x_angle, gc);
 	t_matrix *r = matrix_mult_m(rz, rx, gc);
-	m4 = matrix_mult_m(m3, r,gc);
+	m3 = matrix_mult_m(r, m2, gc);
+	m4 = matrix_mult_m(m1, m3,gc);
 
 
 	return (m4);
@@ -254,6 +266,7 @@ void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_
 	cylinder->material.shininess = SHININESS;
 	cylinder->minimum = - (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
 	cylinder->maximum = (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
+
 
 	cylinder->transformation_matrix = set_matrix_cylinder(cylinder_parsing, gc);
 }

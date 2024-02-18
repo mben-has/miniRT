@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/18 19:57:15 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/18 23:50:10 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <stdarg.h>
 
 
-double length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
-{
-	double dx = v->dim[0] - point->dim[0];
-    double dy = v->dim[1] - point->dim[1];
-    double dz = v->dim[2] - point->dim[2];
+// double length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
+// {
+// 	double dx = v->dim[0] - point->dim[0];
+//     double dy = v->dim[1] - point->dim[1];
+//     double dz = v->dim[2] - point->dim[2];
     
-    return sqrt(dx*dx + dy*dy + dz*dz);
-}
+//     return sqrt(dx*dx + dy*dy + dz*dz);
+// }
 
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 {
@@ -34,13 +34,15 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	else
 		add_pointer_node(gc, aux);
 
-	aux->direction = direction;
+	aux->o_direction = direction;
+	aux->o_origin = origin;
+	// aux->original_length = length_vector(aux->direction, aux->origin, gc);
+	aux->direction = normalize(aux->o_direction, gc);
+	//  aux->direction = direction;
 	aux->origin = origin;
-	aux->original_length = length_vector(aux->direction, aux->origin, gc);
-	// aux->direction = normalize(aux->direction, gc);
 	return (aux);
 }
-t_ray *ray_with_orignal_length(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
+t_ray *ray_with_orignal_length(t_ray *r, t_garbage_collector *gc)
 {
 	t_ray *aux; 
     
@@ -50,9 +52,9 @@ t_ray *ray_with_orignal_length(t_vector *origin, t_vector *direction, t_garbage_
 	else
 		add_pointer_node(gc, aux);
 
-	aux->direction = direction;
-	aux->origin = origin;
-	aux->original_length = length_vector(aux->direction, aux->origin, gc);
+	aux->direction = r->o_direction;
+	aux->origin = r->o_origin;
+	// aux->original_length = length_vector(aux->direction, aux->origin, gc);
 	return (aux);
 }
 
@@ -270,7 +272,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	j = 0;
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t >=1)
+		if (xs.xs[j].t >=0)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -281,7 +283,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	}
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t <= t  && xs.xs[j].t >=1)
+		if (xs.xs[j].t <= t  && xs.xs[j].t >=0)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -361,6 +363,8 @@ t_vector *local_normal_at(t_cylinder *cy, t_vector *point, t_garbage_collector *
 }
 int check_cap(t_ray *ray, double t)
 {
+    // double x = ray->origin->dim[0] + t * ray->direction->dim[0];
+    // double z = ray->origin->dim[2] + t * ray->direction->dim[2];
     double x = ray->origin->dim[0] + t * ray->direction->dim[0];
     double z = ray->origin->dim[2] + t * ray->direction->dim[2];
     
@@ -384,20 +388,20 @@ void intersect_caps(t_object* o, t_ray *ray, t_intersections *xs, t_garbage_coll
     // al intersectar el rayo con el plano en y=cyl.minimum
     double t = (cyl->minimum - ray->origin->dim[1]) / ray->direction->dim[1];
     if (check_cap(ray, t)) {
-        (*xs).xs[(*xs).count++] = intersection(t, *o, gc);
+        (*xs).xs[(*xs).count++] = intersection(t , *o, gc);
     }
 
     // Comprueba si hay una intersección con el extremo superior
     // al intersectar el rayo con el plano en y=cyl.maximum
     t = (cyl->maximum - ray->origin->dim[1]) / ray->direction->dim[1];
     if (check_cap(ray, t)) {
-       (*xs).xs[(*xs).count++] = intersection(t, *o, gc);
+       (*xs).xs[(*xs).count++] = intersection(t , *o, gc);
     }
 }
 
 t_intersections intersect_cylinder(t_object o, t_ray *r3, t_garbage_collector *gc)
 {
-	t_ray *r2 = ray_with_orignal_length(r3->origin, scalar_mult(r3->direction, r3->original_length, gc), gc);
+	//  t_ray *r2 = ray_with_orignal_length(r3, gc);
 	// printf("r2.direction = (%f, %f, %f) \n", r2->direction->dim[0], r2->direction->dim[1], r2->direction->dim[2]);
 	// printf("r2.origin = (%f, %f, %f) \n", r2->origin->dim[0], r2->origin->dim[1], r2->origin->dim[2]);
 	// printf("r2.length = (%f, %f, %f) \n", r2->original_length, r2->original_length, r2->original_length);
@@ -412,10 +416,10 @@ t_intersections intersect_cylinder(t_object o, t_ray *r3, t_garbage_collector *g
     a = r->direction->dim[0] * r->direction->dim[0] + r->direction->dim[2] * r->direction->dim[2];
     
     // Verifica si el ro es paralelo al eje y
-    if (approximately_equal(a, 0.0)) {
-        xs.count = 0;
-        return xs;
-    }
+    // if (approximately_equal(a, 0.0)) {
+    //     xs.count = 0;
+    //     return xs;
+    // }
 
     b = 2 * (r->origin->dim[0] * r->direction->dim[0] + r->origin->dim[2] * r->direction->dim[2]);
 
@@ -440,9 +444,8 @@ t_intersections intersect_cylinder(t_object o, t_ray *r3, t_garbage_collector *g
     t0 = t1;
     t1 = temp;
 }
-
  xs.count = 0;
-    intersect_caps(&o, r, &xs,gc);
+
 
    double y0 = r->origin->dim[1] + t0 * r->direction->dim[1];
     if (cy->minimum < y0 && y0 < cy->maximum) {
@@ -454,6 +457,8 @@ t_intersections intersect_cylinder(t_object o, t_ray *r3, t_garbage_collector *g
     if (cy->minimum < y1 && y1 < cy->maximum) {
         xs.xs[xs.count++] = intersection(t1, o, gc);
     }
+	
+    intersect_caps(&o, r, &xs,gc);
 	
 	
     return xs;

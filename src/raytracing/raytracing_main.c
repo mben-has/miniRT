@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 19:57:43 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/18 23:39:46 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,10 @@ t_ray *get_ray(t_camera *cam, int i, int j, t_garbage_collector *gc)
 
 		vo = vector_subtract((*cam).pixel00, (*cam).point, gc);
 	   v1 = vector_add( scalar_mult((*cam).v_width, i, gc) , scalar_mult((*cam).v_height,-j, gc), gc); 
-	// printf("v1 coordinates (%f, %f, %f, %f) \n", v1->dim[0], v1->dim[1],v1->dim[2],v1->dim[3] );
-	//    v1 = vector_add(v1, (*cam).pixel00, gc);
 	   vo = vector_add(vo, v1, gc);
-	// printf("*********************************************************************************\n");
-	// printf("RAY coordinates (%f, %f, %f, %f) \n", vo->dim[0], vo->dim[1],vo->dim[2],vo->dim[3] );
+	
     r = ray((*cam).point, vo, gc);
-	//    p = point(0, 0 ,0, gc);
-		// p->dim[0] = (*cam).pixel00[0] ;
-    // t_vector *ray_direction;
-    // t_ray *ray;
-    // t_vector *v1;
-    // t_vector *v2;
-
-	// v1 = vector_subtract((*cam).pixel00, (*cam).point, gc);
-    // v1 = vector_sum(init_vector(i + 0.5 ,0,0,gc), init_vector(0,-j -0.5,0,gc), gc);
-    // v2 = vector_sum((*scene)->camera.radius, v1, gc);
-    // ray_direction = vector_sum((*scene)->camera v2, gc);
-	p = r->direction;
-	// printf("%d %d : %f %f %f\n", i, j, p->dim[0], p->dim[1],p->dim[2]);
+	
     return (r);
 }
 
@@ -68,14 +53,19 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		{
 			ray = get_ray(camera, i, j, gc);
 			
-				
-			// xs= intersect_world(world, ray, gc);
-			// ht = hit(xs, 0);
-			// if (ht.object != NULL)
+			// if (ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)	
 			// {
-			// 	printf("hit = %f\n", ht.t);
-			// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
-			// 	exit(1);
+				xs= intersect_world(world, ray, gc);
+				ht = hit(xs, 0);
+				// if (ht.object != NULL)
+				// {
+				// 	printf("ray.direction = (%f, %f, %f) \n", ray->direction->dim[0], ray->direction->dim[1], ray->direction->dim[2]);
+				// 	printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0], ray->origin->dim[1], ray->origin->dim[2]);
+				// 	printf("hit = %f\n", ht.t);
+				// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
+				// 	return;
+				// }
+				
 			// }
 			
 				
@@ -95,6 +85,8 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 
 	
 	draw(world, camera, gc);
+	
+	
 	
 
 
