@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 04:19:37 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:57:43 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
+			
+				
+			// xs= intersect_world(world, ray, gc);
+			// ht = hit(xs, 0);
+			// if (ht.object != NULL)
+			// {
+			// 	printf("hit = %f\n", ht.t);
+			// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// 	exit(1);
+			// }
+			
+				
 			color_vector = color_at(world, ray, gc);
 			color_hex = rgb_to_hex(color_vector);
 			mlx_put_pixel(img, i, j, color_hex);

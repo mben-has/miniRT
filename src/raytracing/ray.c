@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/18 03:08:19 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/18 19:57:15 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include "../../include/structure_rtc.h"
 #include <stdarg.h>
 
+
+double length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
+{
+	double dx = v->dim[0] - point->dim[0];
+    double dy = v->dim[1] - point->dim[1];
+    double dz = v->dim[2] - point->dim[2];
+    
+    return sqrt(dx*dx + dy*dy + dz*dz);
+}
 
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 {
@@ -24,10 +33,26 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 		exit_function(gc, "error while init ray\n", 1, true);
 	else
 		add_pointer_node(gc, aux);
+
 	aux->direction = direction;
 	aux->origin = origin;
-	// aux->clo = NULL;
+	aux->original_length = length_vector(aux->direction, aux->origin, gc);
 	// aux->direction = normalize(aux->direction, gc);
+	return (aux);
+}
+t_ray *ray_with_orignal_length(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
+{
+	t_ray *aux; 
+    
+    aux = malloc(sizeof(t_ray));
+    if (!aux)
+		exit_function(gc, "error while init ray\n", 1, true);
+	else
+		add_pointer_node(gc, aux);
+
+	aux->direction = direction;
+	aux->origin = origin;
+	aux->original_length = length_vector(aux->direction, aux->origin, gc);
 	return (aux);
 }
 
@@ -245,7 +270,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	j = 0;
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t >=0)
+		if (xs.xs[j].t >=1)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -256,7 +281,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	}
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t <= t  && xs.xs[j].t >=0)
+		if (xs.xs[j].t <= t  && xs.xs[j].t >=1)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -370,13 +395,17 @@ void intersect_caps(t_object* o, t_ray *ray, t_intersections *xs, t_garbage_coll
     }
 }
 
-t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *gc)
+t_intersections intersect_cylinder(t_object o, t_ray *r3, t_garbage_collector *gc)
 {
-	
+	t_ray *r2 = ray_with_orignal_length(r3->origin, scalar_mult(r3->direction, r3->original_length, gc), gc);
+	// printf("r2.direction = (%f, %f, %f) \n", r2->direction->dim[0], r2->direction->dim[1], r2->direction->dim[2]);
+	// printf("r2.origin = (%f, %f, %f) \n", r2->origin->dim[0], r2->origin->dim[1], r2->origin->dim[2]);
+	// printf("r2.length = (%f, %f, %f) \n", r2->original_length, r2->original_length, r2->original_length);
+	// exit(1);
 	t_cylinder *cy = o.cylinder;
     t_intersections xs;
     double a, b, c, disc, t0, t1;
-	t_ray *r = transform(ray, inverse(cy->transformation_matrix, gc), gc);
+	t_ray *r = transform(r3, inverse(cy->transformation_matrix, gc), gc);
     
     // Calcula a
 	// a ← ray.direction.x² + ray.direction.z²
@@ -425,6 +454,7 @@ t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *
     if (cy->minimum < y1 && y1 < cy->maximum) {
         xs.xs[xs.count++] = intersection(t1, o, gc);
     }
-
+	
+	
     return xs;
 }

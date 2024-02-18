@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liblinalg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/15 10:07:35 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/18 19:21:42 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ t_matrix	*rotation_y(double radians, t_garbage_collector *gc);
 t_matrix	*rotation_z(double radians, t_garbage_collector *gc);
 double		discriminant(double a, double b, double c);
 double		row_by_column(double row[4], double column[4]);
+double 		length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc);
 
 #endif
