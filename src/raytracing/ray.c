@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/17 21:03:50 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/18 03:08:19 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	aux->direction = direction;
 	aux->origin = origin;
 	// aux->clo = NULL;
-	aux->direction = normalize(aux->direction, gc);
+	// aux->direction = normalize(aux->direction, gc);
 	return (aux);
 }
 
@@ -315,17 +315,6 @@ void print_matrix(t_matrix *m)
 	}
 }
 
-int check_cap(t_ray *ray, double t)
-{
-    double x = ray->origin->dim[0] + t * ray->direction->dim[0];
-    double z = ray->origin->dim[2] + t * ray->direction->dim[2];
-    
-    if ((x * x + z * z) <= 1) {
-        return 1; // El punto está dentro del círculo
-    } else {
-        return 0; // El punto está fuera del círculo
-    }
-}
 
 #define EPSILON 1e-6 // Umbral de tolerancia
 
@@ -345,10 +334,21 @@ t_vector *local_normal_at(t_cylinder *cy, t_vector *point, t_garbage_collector *
         return vector(point->dim[0], 0, point->dim[2],gc);
     }
 }
+int check_cap(t_ray *ray, double t)
+{
+    double x = ray->origin->dim[0] + t * ray->direction->dim[0];
+    double z = ray->origin->dim[2] + t * ray->direction->dim[2];
+    
+    if ((x * x + z * z) <= 1.0) {
+        return 1; // El punto está dentro del círculo
+    } else {
+        return 0; // El punto está fuera del círculo
+    }
+}
 
-void intersect_caps(t_object o, t_ray *ray, t_intersections *xs, t_garbage_collector *gc) {
+void intersect_caps(t_object* o, t_ray *ray, t_intersections *xs, t_garbage_collector *gc) {
 
-	t_cylinder *cyl = o.cylinder;
+	t_cylinder *cyl = (*o).cylinder;
     // Los extremos solo importan si el cilindro está cerrado y podría ser
     // intersectado por el rayo.
     if (approximately_equal(ray->direction->dim[1], 0.0)) {
@@ -359,19 +359,20 @@ void intersect_caps(t_object o, t_ray *ray, t_intersections *xs, t_garbage_colle
     // al intersectar el rayo con el plano en y=cyl.minimum
     double t = (cyl->minimum - ray->origin->dim[1]) / ray->direction->dim[1];
     if (check_cap(ray, t)) {
-        xs->xs[xs->count++] = intersection(t, o, gc);
+        (*xs).xs[(*xs).count++] = intersection(t, *o, gc);
     }
 
     // Comprueba si hay una intersección con el extremo superior
     // al intersectar el rayo con el plano en y=cyl.maximum
     t = (cyl->maximum - ray->origin->dim[1]) / ray->direction->dim[1];
     if (check_cap(ray, t)) {
-        xs->xs[xs->count++] = intersection(t, o, gc);
+       (*xs).xs[(*xs).count++] = intersection(t, *o, gc);
     }
 }
 
 t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *gc)
 {
+	
 	t_cylinder *cy = o.cylinder;
     t_intersections xs;
     double a, b, c, disc, t0, t1;
@@ -386,16 +387,9 @@ t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *
         xs.count = 0;
         return xs;
     }
-    
-    // Calcula b
-// 	b ← 2 * ray.origin.x * ray.direction.x +
-// 2 * ray.origin.z * ray.direction.z
 
     b = 2 * (r->origin->dim[0] * r->direction->dim[0] + r->origin->dim[2] * r->direction->dim[2]);
-    
-    // Calcula c
 
-// c ← ray.origin.x² + ray.origin.z² - 1
 
     c = r->origin->dim[0] * r->origin->dim[0] + r->origin->dim[2] * r->origin->dim[2] - 1;
     
@@ -409,11 +403,6 @@ t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *
         return xs;
     }
     
-// 	➤ t0 ← (-b - √(disc)) / (2 * a)
-// ➤ t1 ← (-b + √(disc)) / (2 * a)
-// ➤
-// ➤ return ( intersection(t0, cylinder), intersection(t1, cylinder) )
-    // Calcula las intersecciones t0 y t1
     t0 = (-b - sqrt(disc)) / (2 * a);
     t1 = (-b + sqrt(disc)) / (2 * a);
     
@@ -424,18 +413,8 @@ t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *
 }
 
  xs.count = 0;
+    intersect_caps(&o, r, &xs,gc);
 
-// ➤ xs = ()
-// ➤
-// ➤ y0 ← ray.origin.y + t0 * ray.direction.y
-// ➤ if cylinder.minimum < y0 and y0 < cylinder.maximum
-// ➤ add intersection(t0, cylinder) to xs
-// ➤ end if
-// ➤
-// ➤ y1 ← ray.origin.y + t1 * ray.direction.y
-// ➤ if cylinder.minimum < y1 and y1 < cylinder.maximum
-// ➤ add intersection(t1, cylinder) to xs
-// ➤ end if
    double y0 = r->origin->dim[1] + t0 * r->direction->dim[1];
     if (cy->minimum < y0 && y0 < cy->maximum) {
         xs.xs[xs.count++] = intersection(t0, o, gc);
@@ -446,27 +425,6 @@ t_intersections intersect_cylinder(t_object o, t_ray *ray, t_garbage_collector *
     if (cy->minimum < y1 && y1 < cy->maximum) {
         xs.xs[xs.count++] = intersection(t1, o, gc);
     }
-    intersect_caps(o, r, &xs,gc);
 
-//  double y0 = r->origin->dim[1] + t0 * r->direction->dim[1];
-//     double y1 = r->origin->dim[1] + t1 * r->direction->dim[1];
-//     // if ((cy->minimum < y0 && y0 < cy->maximum) && (cy->minimum < y1 && y1 < cy->maximum)) {
-//     //     xs = intersections(intersection(t0, o, gc),intersection(t1, o, gc), NULL);
-// 	// }
-//     // if ((cy->minimum < y1 && y1 < cy->maximum)) {
-//     //     xs = intersections(intersection(t1, o, gc), NULL);
-//     // }
-//     if ((cy->minimum < y0 && y0 < cy->maximum)) {
-//         xs = intersections(intersection(t0, o, gc), NULL);
-//     }
-    
-    // // Calcula y1 y verifica si está dentro del rango
-    // // Retorna las intersecciones
-    // xs.count = 2;
-    // xs.xs[0] = intersection(t0, cylinder);
-    // xs.xs[1] = intersection(t1, cylinder);
-	// xs = intersections(intersection(t0, o, gc), intersection(t1, o, gc), NULL);
-	// xs = intersection(t0, cy), intersection(t1, cy)
-    
     return xs;
 }

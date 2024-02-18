@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/17 20:33:03 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/18 03:35:55 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,61 @@ t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_garbage_collector *gc)
 	return (result);
 }
 
+// t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
+// {
+// 	t_matrix	*m1;
+// 	t_matrix	*m2;
+// 	t_matrix	*m3;
+// 	t_matrix	*result;
+// 	t_vector	*v;
+// 	double		angle;
+// 	double		dot_product;
+// 	t_vector	*cam_point;
+
+// 	v = vector_cast(plane_parsing->point, gc);
+// 	m1 = translation(v, gc);
+
+// 	//check if plane normal vector is perpendicular to cam orientation
+// 	if(dot(camera_parsing.orientation , plane_parsing->normal_vector) == 0)
+// 	{
+// 		return(m1);
+		
+// 	}
+// 	// create vector from camera point to plane point
+// 	cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
+// 						plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
+// 						plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
+// 										 gc);
+// 	//invert the normal vector of plane depending if the is above or under the light
+// 	if(dot(cam_point , plane_parsing->normal_vector) > 0)
+// 	{
+// 		for (int i = 0; i < 3; i++) 
+//         	plane_parsing->normal_vector->coordinate[i] = -(plane_parsing->normal_vector->coordinate[i]);
+		
+// 	}
+// 	dot_product = dot(vector_cast(plane_parsing->normal_vector, gc), vector(0, 1, 0, gc));
+// 	angle = acos(dot_product);
+// 	// printf("%f\n", angle);
+// 	m2 = rotation_x(-angle, gc);
+// 	// m3 = rotation_z(angle, gc);
+// 	result = matrix_mult_m(m1, m2, gc);
+// 	// result = matrix_mult_m(m3, result, gc);
+// 	return (result);
+// }
+static void	calculate_rotation_angles(t_vector *vec, double *x, double *z)
+{
+	double	ratio;
+
+	ratio = sqrt((vec->dim[0] * vec->dim[0]) + (vec->dim[1] * vec->dim[1]));
+	if (ratio == 0.0)
+		*z = M_PI_2;
+	else
+		*z = acos(vec->dim[1] / ratio);
+	*x = acos(ratio);
+		printf("angle x = %f \n", *x);
+	printf("angle z = %f \n", *z);
+}
+
 t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
 {
 	t_matrix	*m1;
@@ -129,28 +184,32 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 	v = vector_cast(plane_parsing->point, gc);
 	m1 = translation(v, gc);
 
-	//check if plane normal vector is perpendicular to cam orientation
-	if(dot(camera_parsing.orientation , plane_parsing->normal_vector) == 0)
-	{
-		return(m1);
+	// check if plane normal vector is perpendicular to cam orientation
+	// if(dot(camera_parsing.orientation , plane_parsing->normal_vector) == 0)
+	// {
+	// 	return(m1);
 		
-	}
-	// create vector from camera point to plane point
+	// }
+	// // create vector from camera point to plane point
 	cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
 						plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
 						plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
 										 gc);
+	// }
+
 	//invert the normal vector of plane depending if the is above or under the light
-	if(dot(cam_point , plane_parsing->normal_vector) > 0)
+	if(dot(cam_point , plane_parsing->normal_vector) == 0)
 	{
-		for (int i = 0; i < 3; i++) 
-        	plane_parsing->normal_vector->coordinate[i] = -(plane_parsing->normal_vector->coordinate[i]);
+		return(m1);
 		
 	}
-	dot_product = dot(vector_cast(plane_parsing->normal_vector, gc), vector(0, 1, 0, gc));
-	angle = acos(dot_product);
-	// printf("%f\n", angle);
-	m2 = rotation_x(-angle, gc);
+	double		x_angle;
+	double		z_angle;
+	t_vector *pl_normal = vector(plane_parsing->normal_vector->coordinate[0], plane_parsing->normal_vector->coordinate[1],plane_parsing->normal_vector->coordinate[2],gc);
+	calculate_rotation_angles(pl_normal, &x_angle, &z_angle);
+	t_matrix *rz = rotation_z(z_angle, gc);
+	t_matrix *rx = rotation_x(x_angle, gc);
+	m2 = matrix_mult_m(rz, rx, gc);
 	// m3 = rotation_z(angle, gc);
 	result = matrix_mult_m(m1, m2, gc);
 	// result = matrix_mult_m(m3, result, gc);
@@ -214,22 +273,34 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 //     *angle_z = atan2(normalized_vector.y, sqrt(normalized_vector.x * normalized_vector.x + normalized_vector.z * normalized_vector.z));
 // }
 
-t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collector *gc)
+
+
+t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 {
 	t_matrix	*m1;
 	t_matrix	*m2;
 	t_matrix	*m3;
+	t_matrix	*m4;
 	t_vector	*v;
 	double		radius;
 
-	v = vector_cast(cylinder_parsing->point, gc);
+	v = vector_cast(cp->point, gc);
 	m1 = translation(v, gc);
-	radius = cylinder_parsing->diameter / 2;
+	radius = cp->diameter / 2;
 	v = vector(radius, radius, radius, gc);
 	m2 = scaling(v, gc);
 	m3 = matrix_mult_m(m1, m2, gc);
 	// TODO rotation
-
+	t_vector * cy_dir = vector(cp->axis_vector->coordinate[0],cp->axis_vector->coordinate[1],cp->axis_vector->coordinate[2], gc);
+	double		x_angle;
+	double		z_angle;
+	calculate_rotation_angles(cy_dir, &x_angle, &z_angle);
+	t_matrix *rz = rotation_z(z_angle, gc);
+	t_matrix *rx = rotation_x(x_angle, gc);
+	t_matrix *r = matrix_mult_m(rz, rx, gc);
+	m4 = matrix_mult_m(m3, r,gc);
+	printf("angle x = %f \n", x_angle);
+	printf("angle z = %f \n", z_angle);
 	//    double angle_x; // Angle in radians for rotation around x axis
     // double angle_y; // Angle in radians for rotation around y axis
     // double angle_z; // Angle in radians for rotation around z axis
@@ -241,8 +312,37 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collecto
 	// t_mrt_matrix combined_rotation_matrix = matrix_multiply(matrix_multiply(rotation_x, rotation_y), rotation_z);
 		// m3 = matrix_mult_m(m3, combined_rotation_matrix , gc);
 
-	return (m3);
+	return (m4);
 }
+// t_matrix	*set_matrix_cylinder(t_cylinder_p *cylinder_parsing, t_garbage_collector *gc)
+// {
+// 	t_matrix	*m1;
+// 	t_matrix	*m2;
+// 	t_matrix	 *m3;
+// 	t_vector	*v;
+// 	double		radius;
+
+// 	v = vector_cast(cylinder_parsing->point, gc);
+// 	m1 = translation(v, gc);
+// 	radius = cylinder_parsing->diameter / 2;
+// 	v = vector(radius, radius, radius, gc);
+// 	m2 = scaling(v, gc);
+// 	m3 = matrix_mult_m(m1, m2, gc);
+// 	// TODO rotation
+
+// 	//    double angle_x; // Angle in radians for rotation around x axis
+//     // double angle_y; // Angle in radians for rotation around y axis
+//     // double angle_z; // Angle in radians for rotation around z axis
+
+//     // extract_rotation_angles(vector3d(0, 0, -1), &angle_x, &angle_y, &angle_z);
+// 	// t_mrt_matrix rotation_x = mrt_matrix_rotate_x(&allocator, angle_x);
+//     // t_mrt_matrix rotation_y = mrt_matrix_rotate_y(&allocator, angle_y);
+//     // t_mrt_matrix rotation_z = mrt_matrix_rotate_z(&allocator, angle_z);
+// 	// t_mrt_matrix combined_rotation_matrix = matrix_multiply(matrix_multiply(rotation_x, rotation_y), rotation_z);
+// 		// m3 = matrix_mult_m(m3, combined_rotation_matrix , gc);
+
+// 	return (m3);
+// }
 
 void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
@@ -253,6 +353,7 @@ void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_
 	cylinder->material.shininess = SHININESS;
 	cylinder->minimum = - (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
 	cylinder->maximum = (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
+
 	cylinder->transformation_matrix = set_matrix_cylinder(cylinder_parsing, gc);
 }
 
@@ -278,13 +379,13 @@ void	add_cylinders(t_scene *scene, t_world *world, t_garbage_collector *gc)
 		world->nr_objects++;
 		fill_data_cylinder(cylinder, scene->cylinders[i], scene->ambient, gc);
 		i++;
+		
 	}
 }
 
 void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 {
 	int	nr_objects;
-
 	nr_objects = scene->nr_spheres + scene->nr_planes + scene->nr_cylinders;
 	world->objects = (t_object *) malloc (nr_objects * sizeof(t_object));
 	if (world->objects == NULL)
@@ -294,6 +395,9 @@ void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	add_spheres(scene, world, gc);
 	add_planes(scene, world, gc);
 	add_cylinders(scene, world, gc);
+
+
+
 }
 
 void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
