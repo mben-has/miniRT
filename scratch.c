@@ -25,3 +25,46 @@ double		x_angle;
 	t_matrix *rz = rotation_z(z_angle, gc);
 	t_matrix *rx = rotation_x(x_angle, gc);
 	m2 = matrix_mult_m(rz, rx, gc);
+
+
+    / t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
+// {
+// 	t_matrix	*m1;
+// 	t_matrix	*m2;
+// 	t_matrix	*m3;
+// 	t_matrix	*result;
+// 	t_vector	*v;
+// 	double		angle;
+// 	double		dot_product;
+// 	t_vector	*cam_point;
+
+// 	v = vector_cast(plane_parsing->point, gc);
+// 	m1 = translation(v, gc);
+
+// 	//check if plane normal vector is perpendicular to cam orientation
+// 	if(dot(camera_parsing.orientation , plane_parsing->normal_vector) == 0)
+// 	{
+// 		return(m1);
+		
+// 	}
+// 	// create vector from camera point to plane point
+// 	cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
+// 						plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
+// 						plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
+// 										 gc);
+// 	//invert the normal vector of plane depending if the is above or under the light
+// 	if(dot(cam_point , plane_parsing->normal_vector) > 0)
+// 	{
+// 		for (int i = 0; i < 3; i++) 
+//         	plane_parsing->normal_vector->coordinate[i] = -(plane_parsing->normal_vector->coordinate[i]);
+		
+// 	}
+// 	dot_product = dot(vector_cast(plane_parsing->normal_vector, gc), vector(0, 1, 0, gc));
+// 	angle = acos(dot_product);
+// 	// printf("%f\n", angle);
+// 	m2 = rotation_x(-angle, gc);
+// 	// m3 = rotation_z(angle, gc);
+// 	result = matrix_mult_m(m1, m2, gc);
+// 	// result = matrix_mult_m(m3, result, gc);
+// 	return (result);
+// }
