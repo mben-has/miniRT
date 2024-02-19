@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:58:29 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/16 19:30:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:42:13 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ bool						exit_function(t_garbage_collector *collector,
 								char *string, int exit_code, bool shoul_exit);
 void						ft_free(void *to_free);
 void						free_2d(char **str);
-
 
 #endif

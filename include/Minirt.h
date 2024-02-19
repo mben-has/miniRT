@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 01:42:53 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:49:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#define WIDTH 800
-#define HEIGHT (int)(WIDTH/(16.9/9.0))
-#define VP_HEIGHT 2.0
-#define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
+# define WIDTH 800
+# define HEIGHT (int)(WIDTH/(16.9/9.0))
+# define VP_HEIGHT 2.0
+# define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -35,7 +35,7 @@ typedef struct s_vector_p {
 }	t_vector_p;
 
 typedef struct s_ambient {
-	double	lighting_ratio;
+	double		lighting_ratio;
 	t_vector_p	*color;
 }	t_ambient;
 
@@ -79,47 +79,60 @@ typedef struct s_cylinder_p {
 }	t_cylinder_p;
 
 typedef struct s_scene {
-	t_ambient	ambient;
-	t_camera_p	camera;
+	t_ambient		ambient;
+	t_camera_p		camera;
 	t_light_p		light;
-	t_sphere_p	**spheres;
+	t_sphere_p		**spheres;
 	t_plane_p		**planes;
 	t_cylinder_p	**cylinders;
-	int			nr_spheres;
-	int			nr_planes;
-	int			nr_cylinders;
+	int				nr_spheres;
+	int				nr_planes;
+	int				nr_cylinders;
 }	t_scene;
 
-typedef int (*t_function_pointer)(char **split, t_scene *scene, t_garbage_collector *gc);
+typedef int	(*t_function_pointer)(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
 
 // main
-void	print_usage(void);
+void			print_usage(void);
 
 // parsing
-void	parsing(char *file, t_scene *scene, t_garbage_collector *gc);
-bool	check_ambient(char **split, t_scene *scene, t_garbage_collector *gc);
-bool 	check_camera(char **split, t_scene *scene, t_garbage_collector *gc);
-bool 	check_light(char **split, t_scene *scene, t_garbage_collector *gc);
-bool 	check_sphere(char **split, t_scene *scene, t_garbage_collector *gc);
-bool 	check_plane(char **split, t_scene *scene, t_garbage_collector *gc);
-bool 	check_cylinder(char **split, t_scene *scene, t_garbage_collector *gc);
-bool	read_double(char *str, double *number, double range_left, double range_right);
-int		word_length(char **split);
-bool	read_color(char *str, t_vector_p **color, t_garbage_collector *gc);
-int		read_byte(char *str, int range_left, int range_right);
-bool	read_vector(char *str, t_vector_p **vector, int is_normal, t_garbage_collector *gc);
+void			parsing(char *file, t_scene *scene, t_garbage_collector *gc);
+bool			check_ambient(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			check_camera(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			check_light(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			check_sphere(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			check_plane(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			check_cylinder(char **split, t_scene *scene, \
+	t_garbage_collector *gc);
+bool			read_double(char *str, double *number, double range_left, \
+	double range_right);
+int				word_length(char **split);
+bool			read_color(char *str, t_vector_p **color, \
+	t_garbage_collector *gc);
+int				read_byte(char *str, int range_left, int range_right);
+bool			read_vector(char *str, t_vector_p **vector, int is_normal, \
+	t_garbage_collector *gc);
 
 // initialization
-void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc);
+void			init_world(t_scene *scene, t_world *world, t_camera *camera, \
+	t_garbage_collector *gc);
 
 // raytracing
-int				raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc);
+int				raytracing(t_world *world, t_camera *camera, \
+	t_garbage_collector *gc);
 unsigned int	rgb_to_hex(t_color *col);
 
 //computation
-t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_light light, t_garbage_collector *gc);
+t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, \
+	t_light light, t_garbage_collector *gc);
 
 //normal vector check
-int is_vector_normal(t_vector_p *vector);
+int				is_vector_normal(t_vector_p *vector);
 
 #endif

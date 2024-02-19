@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liblinalg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:19:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 20:21:41 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:43:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 # include <stdlib.h>
 # include "garbage_collector.h"
 # ifndef __MATH__
-# include <math.h>
+#  include <math.h>
 # endif
 
 # define EPSILON 0.00001
 
-typedef	struct s_vector
+typedef struct s_vector
 {
 	double	dim[4];
 }	t_vector;
 
 typedef struct s_color {
 	double	col[3];
-} t_color;
+}	t_color;
 
-typedef	double t_matrix[4][4];
+typedef double	t_matrix[4][4];
 
 t_vector	*vector(double a, double b, double c, t_garbage_collector *gc);
 t_vector	*point(double a, double b, double c, t_garbage_collector *gc);
