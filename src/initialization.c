@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 01:46:02 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:35:10 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,13 @@ t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_garbage_collector *gc)
 }
 
 
-static void	calculate_rotation_angles(t_vector *vec, double *x, double *z)
+void	get_angles(t_vector *vec, double *x, double *z)
 {
 	double	ratio;
 
 	ratio = sqrt((vec->dim[0] * vec->dim[0]) + (vec->dim[1] * vec->dim[1]));
 	if (ratio == 0.0)
-		*z = M_PI_2;
+		*z = M_PI/2;
 	else
 		*z = acos(vec->dim[1] / ratio);
 	*x = acos(ratio);
@@ -175,7 +175,7 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 	double		x_angle;
 	double		z_angle;
 	t_vector *pl_normal = vector(plane_parsing->normal_vector->coordinate[0], plane_parsing->normal_vector->coordinate[1],plane_parsing->normal_vector->coordinate[2],gc);
-	calculate_rotation_angles(pl_normal, &x_angle, &z_angle);
+	get_angles(pl_normal, &x_angle, &z_angle);
 	t_matrix *rz = rotation_z(z_angle, gc);
 	t_matrix *rx = rotation_x(x_angle, gc);
 	m2 = matrix_mult_m(rz, rx, gc);
@@ -250,7 +250,7 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 	t_vector * cy_dir = vector(cp->axis_vector->coordinate[0],cp->axis_vector->coordinate[1],cp->axis_vector->coordinate[2], gc);
 	double		x_angle;
 	double		z_angle;
-	calculate_rotation_angles(cy_dir, &x_angle, &z_angle);
+	get_angles(cy_dir, &x_angle, &z_angle);
 	t_matrix *rz = rotation_z(z_angle, gc);
 	t_matrix *rx = rotation_x(x_angle, gc);
 	t_matrix *r = matrix_mult_m(rz, rx, gc);
