@@ -6,6 +6,7 @@ Mara:
 - library norminetten
 - header file mit comments versehen
 
-- Checken, ob normalsierter Vektor wirklich normalisiert ist (in Initialisierung)
-
 - Screen sizes in header file!
+- MLX management richtig (ESC bricht richtig ab)
+- Scenen kreieren
+- sollen wir specular light im mandatory teil rauslassen und bonusteil machen?

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 01:42:41 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:31:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,3 @@ void	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	close(fd);
 }
 
-int is_vector_normal(t_vector_p *vector) {
-    double magnitude;
-	
-	magnitude = sqrt(vector->coordinate[0] * vector->coordinate[0] +
-                            vector->coordinate[1] * vector->coordinate[1] +
-                            vector->coordinate[2] * vector->coordinate[2]);
-
-    if (magnitude == 1.0)
-		return (1);
-	else 
-		return (0);
-}
