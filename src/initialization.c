@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 03:35:10 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:50:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ t_matrix	*set_matrix_sphere(t_sphere_p *sphere_parsing, t_garbage_collector *gc)
 
 void	fill_data_sphere(t_sphere *sphere, t_sphere_p *sphere_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
+	t_color	*col;
+
 	sphere->material.color = color_cast(sphere_parsing->color, gc);
-	sphere->material.ambient = ambient.lighting_ratio;
+	col = color_cast(ambient.color, gc);
+	sphere->material.ambient = color_mult(col, ambient.lighting_ratio, gc);
 	sphere->material.diffuse = DIFFUSE;
 	sphere->material.specular = SPECULAR;
 	sphere->material.shininess = SHININESS;
@@ -189,12 +192,15 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 
 void	fill_data_plane(t_scene *scene, t_plane *plane, t_plane_p *plane_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
+	t_color	*col;
+
 	if (!is_vector_normal(plane_parsing->normal_vector))
 	{
 		exit_function(gc, "plane vector is not nomal\n", 1, true);
 	}
 	plane->material.color = color_cast(plane_parsing->color, gc);
-	plane->material.ambient = ambient.lighting_ratio;
+	col = color_cast(ambient.color, gc);
+	plane->material.ambient = color_mult(col, ambient.lighting_ratio, gc);
 	plane->material.diffuse = DIFFUSE;
 	plane->material.specular = SPECULAR;
 	plane->material.shininess = SHININESS;
@@ -263,12 +269,15 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 
 void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
+	t_color	*col;
+
 	if (!is_vector_normal(cylinder_parsing->axis_vector))
 	{
 		exit_function(gc, "cylinder vector is not nomal\n", 1, true);
 	}
 	cylinder->material.color = color_cast(cylinder_parsing->color, gc);
-	cylinder->material.ambient = ambient.lighting_ratio;
+	col = color_cast(ambient.color, gc);
+	cylinder->material.ambient = color_mult(col, ambient.lighting_ratio, gc);
 	cylinder->material.diffuse = DIFFUSE;
 	cylinder->material.specular = SPECULAR;
 	cylinder->material.shininess = SHININESS;

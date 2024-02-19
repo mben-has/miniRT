@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:07:59 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 03:30:36 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:50:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ t_color	*get_black(t_garbage_collector *gc)
 	return (col);
 }
 
-t_color	*get_ambient(double ambient, t_computation *computation, \
+t_color	*get_ambient(t_color *ambient, t_computation *computation, \
 	t_garbage_collector *gc)
 {
 	t_color	*result;
 
-	result = color_mult(computation->effective_color, ambient, gc);
+	result = hadamard_product(computation->effective_color, ambient, gc);
 	return (result);
 }
 

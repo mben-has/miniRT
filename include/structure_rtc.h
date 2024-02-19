@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 03:16:22 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:44:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_camera {
 
 typedef struct s_material {
 	t_color		*color;
-	double		ambient;
+	t_color		*ambient;
 	double		diffuse;
 	double		specular;
 	double		shininess;
