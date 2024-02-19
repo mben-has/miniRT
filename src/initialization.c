@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 23:35:58 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 01:46:02 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,18 +160,18 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 		
 	// }
 	// // create vector from camera point to plane point
-	cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
-						plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
-						plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
-										 gc);
-	// }
+	// cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
+	// 					plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
+	// 					plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
+	// 									 gc);
+	// // }
 
-	//invert the normal vector of plane depending if the is above or under the light
-	if(dot(cam_point , plane_parsing->normal_vector) == 0)
-	{
-		return(m1);
+	// //invert the normal vector of plane depending if the is above or under the light
+	// if(dot(cam_point , plane_parsing->normal_vector) == 0)
+	// {
+	// 	return(m1);
 		
-	}
+	// }
 	double		x_angle;
 	double		z_angle;
 	t_vector *pl_normal = vector(plane_parsing->normal_vector->coordinate[0], plane_parsing->normal_vector->coordinate[1],plane_parsing->normal_vector->coordinate[2],gc);
@@ -189,6 +189,10 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 
 void	fill_data_plane(t_scene *scene, t_plane *plane, t_plane_p *plane_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
+	if (!is_vector_normal(plane_parsing->normal_vector))
+	{
+		exit_function(gc, "plane vector is not nomal\n", 1, true);
+	}
 	plane->material.color = color_cast(plane_parsing->color, gc);
 	plane->material.ambient = ambient.lighting_ratio;
 	plane->material.diffuse = DIFFUSE;
@@ -259,6 +263,10 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 
 void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
+	if (!is_vector_normal(cylinder_parsing->axis_vector))
+	{
+		exit_function(gc, "cylinder vector is not nomal\n", 1, true);
+	}
 	cylinder->material.color = color_cast(cylinder_parsing->color, gc);
 	cylinder->material.ambient = ambient.lighting_ratio;
 	cylinder->material.diffuse = DIFFUSE;

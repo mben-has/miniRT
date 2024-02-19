@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/16 19:30:45 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/19 01:42:53 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,8 @@ unsigned int	rgb_to_hex(t_color *col);
 
 //computation
 t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, t_light light, t_garbage_collector *gc);
+
+//normal vector check
+int is_vector_normal(t_vector_p *vector);
 
 #endif
