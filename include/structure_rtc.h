@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 21:14:44 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:16:22 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ typedef	struct s_light {
 typedef	struct s_ray {
 	t_vector	*origin;
 	t_vector	*direction;
-	t_vector	*o_origin;
-	t_vector	*o_direction;
 	double		original_length;
 }	t_ray;
 
@@ -141,7 +139,7 @@ void print_matrix(t_matrix *m);
 void sort_intersections(t_intersections *xs);
 t_intersections intersect_cylinder(t_object o, t_ray *r, t_garbage_collector *gc);
 t_ray *ray_with_orignal_length(t_ray *r, t_garbage_collector *gc);
-// double 		length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc);
+double 		length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc);
 
 
 #endif 

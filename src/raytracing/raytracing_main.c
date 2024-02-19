@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/18 23:39:46 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:30:23 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,17 @@ void	draw(t_world *world, t_camera *camera, t_garbage_collector *gc)
 			
 			// if (ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)	
 			// {
-				xs= intersect_world(world, ray, gc);
-				ht = hit(xs, 0);
-				// if (ht.object != NULL)
-				// {
-				// 	printf("ray.direction = (%f, %f, %f) \n", ray->direction->dim[0], ray->direction->dim[1], ray->direction->dim[2]);
-				// 	printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0], ray->origin->dim[1], ray->origin->dim[2]);
-				// 	printf("hit = %f\n", ht.t);
-				// 	mlx_put_pixel(img, i, j, 0xFF0000FF);
-				// 	return;
-				// }
+			// 	xs= intersect_world(world, ray, gc);
+			// 	ht = hit(xs, ray->original_length);
+			// 	if (ht.object != NULL)
+			// 	{
+			// 		printf("ray.direction = (%f, %f, %f) \n", ray->direction->dim[0], ray->direction->dim[1], ray->direction->dim[2]);
+			// 		printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0], ray->origin->dim[1], ray->origin->dim[2]);
+			// 		printf("ray.lenght = %f \n", ray->original_length);
+			// 		printf("hit = %f\n", ht.t);
+			// 		mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// 		return;
+			// 	}
 				
 			// }
 			

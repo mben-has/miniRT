@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/18 23:50:10 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:29:36 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <stdarg.h>
 
 
-// double length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
-// {
-// 	double dx = v->dim[0] - point->dim[0];
-//     double dy = v->dim[1] - point->dim[1];
-//     double dz = v->dim[2] - point->dim[2];
+double length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
+{
+	double dx = v->dim[0] - point->dim[0];
+    double dy = v->dim[1] - point->dim[1];
+    double dz = v->dim[2] - point->dim[2];
     
-//     return sqrt(dx*dx + dy*dy + dz*dz);
-// }
+    return sqrt(dx*dx + dy*dy + dz*dz);
+}
 
 t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 {
@@ -34,27 +34,12 @@ t_ray *ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 	else
 		add_pointer_node(gc, aux);
 
-	aux->o_direction = direction;
-	aux->o_origin = origin;
-	// aux->original_length = length_vector(aux->direction, aux->origin, gc);
-	aux->direction = normalize(aux->o_direction, gc);
-	//  aux->direction = direction;
+	aux->direction = direction;
 	aux->origin = origin;
-	return (aux);
-}
-t_ray *ray_with_orignal_length(t_ray *r, t_garbage_collector *gc)
-{
-	t_ray *aux; 
-    
-    aux = malloc(sizeof(t_ray));
-    if (!aux)
-		exit_function(gc, "error while init ray\n", 1, true);
-	else
-		add_pointer_node(gc, aux);
+	aux->original_length = length_vector(aux->direction = direction, aux->origin = origin, gc);
+	
+	aux->direction = normalize(aux->direction, gc);
 
-	aux->direction = r->o_direction;
-	aux->origin = r->o_origin;
-	// aux->original_length = length_vector(aux->direction, aux->origin, gc);
 	return (aux);
 }
 
@@ -262,7 +247,7 @@ t_intersections intersections(t_intersection first, ...)
     return (intersections);
 }
 
-t_intersection hit(t_intersections xs, double focal_length)
+t_intersection hit(t_intersections xs, double r_length)
 {
 	t_intersection i;
 	int j;
@@ -272,7 +257,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	j = 0;
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t >=0)
+		if (xs.xs[j].t >= r_length - EPSILON )
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
@@ -283,7 +268,7 @@ t_intersection hit(t_intersections xs, double focal_length)
 	}
 	while (j < xs.count)
 	{
-		if (xs.xs[j].t <= t  && xs.xs[j].t >=0)
+		if (xs.xs[j].t <= t && xs.xs[j].t >= r_length - EPSILON)
 		{
 			t = xs.xs[j].t;
 			i = xs.xs[j];
