@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_main.c                                     :+:      :+:    :+:   */
+/*   parsing_main1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 16:31:00 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:46:25 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ bool	init_scene(t_scene *scene)
 }
 
 /*
-Checks for file extension .rt.
-*/
-bool	check_file_extension(char *file)
-{
-	int	length;
-
-	length = ft_strlen(file);
-	if (length < 4 || file[length - 3] != '.' || file[length - 2] != 'r' || \
-		file[length - 1] != 't')
-		return (false);
-	else
-		return (true);
-}
-
-/*
-Checks if camera, light and ambient is unique.
-*/
-bool	check_for_unique(int i)
-{
-	static int	unique_elements[3];
-
-	if (i > 2)
-		return (1);
-	if (unique_elements[i] == 1)
-		return (false);
-	unique_elements[i] = 1;
-	return (true);
-}
-
-/*
 Checks if all the 3 mandatory elements are present.
 */
 bool	check_mandatory_elements_present(void)
@@ -85,6 +55,19 @@ bool	check_mandatory_elements_present(void)
 }
 
 /*
+Helper function to get read_in_elements through Norminette
+*/
+char	**get_split(char *line, t_garbage_collector *gc)
+{
+	char	**split;
+
+	split = ft_split(line, ' ');
+	if (split == NULL)
+		exit_function(gc, "Error\nMalloc failure\n", 1, true);
+	return (split);
+}
+
+/*
 Reads in the element.
 In function_pointers are the function pointers to check all elements. 
 A line is being checked by all checking functions until one fits.
@@ -93,21 +76,17 @@ If a line does not fit on one element, it returns false. If no element fits,
 */
 void	read_in_element(char *line, t_scene *scene, t_garbage_collector *gc)
 {
-	t_function_pointer	function_pointers[6] = {check_ambient, check_camera, \
-		check_light, check_sphere, check_plane, check_cylinder};
-	char				*element;
-	int					i;
-	char				**split;
-	bool				error;
+	const t_function_pointer	function_pointers[6] = {check_ambient, \
+	check_camera, check_light, check_sphere, check_plane, check_cylinder};
+	int							i;
+	char						**split;
+	bool						error;
 
-	split = ft_split(line, ' ');
-	if (split == NULL)
-		exit_function(gc, "Error\nMalloc failure\n", 1, true);
-	element = "ACLspc";
+	split = get_split(line, gc);
 	i = 0;
 	while (i < 6)
 	{
-		if (split[0] && element[i] == split[0][0])
+		if (split[0] && "ACLspc"[i] == split[0][0])
 		{
 			error = function_pointers[i](split, scene, gc);
 			free_2d(split);
@@ -153,8 +132,6 @@ void	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 		}
 	}
 	if (check_mandatory_elements_present() == false)
-		exit_function(gc, "Error\nNot all 3 mandatory elemens present\n" \
-		, 4, true);
+		exit_function(gc, "Error\n3 mandatory elements not there\n", 4, true);
 	close(fd);
 }
-

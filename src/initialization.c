@@ -6,26 +6,18 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:57:00 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 14:50:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:54:34 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
-// #include "../../include/structure_rtc.h"
-
-// int vec_is_normal(t_vector *v, t_garbage_collector *gc)
-// {
-// 	if(length_vector(point(0,0,0,gc), v, gc) == 1)
-// 		return(1);
-// 	else 
-// 		return(0);
-// }
 
 t_vector	*vector_cast(t_vector_p *vector_parsing, t_garbage_collector *gc)
 {
 	t_vector	*v;
 
-	v = vector(vector_parsing->coordinate[0], vector_parsing->coordinate[1], vector_parsing->coordinate[2], gc);
+	v = vector(vector_parsing->coordinate[0], vector_parsing->coordinate[1], \
+		vector_parsing->coordinate[2], gc);
 	return (v);
 }
 
@@ -33,8 +25,21 @@ t_color	*color_cast(t_vector_p *vector_parsing, t_garbage_collector *gc)
 {
 	t_color	*col;
 
-	col = color(vector_parsing->coordinate[0] / 255, vector_parsing->coordinate[1] / 255, vector_parsing->coordinate[2] / 255, gc);
-	return (col);	
+	col = color(vector_parsing->coordinate[0] / 255, \
+		vector_parsing->coordinate[1] / 255, vector_parsing->coordinate[2] \
+		/ 255, gc);
+	return (col);
+}
+
+int	is_vector_normal(t_vector_p *vector, t_garbage_collector *gc)
+{
+	t_vector	*v;
+
+	v = vector_cast(vector, gc);
+	if (double_equal(magnitude(v), 1.0))
+		return (1);
+	else
+		return (0);
 }
 
 void	init_base(t_world *world)
@@ -48,7 +53,8 @@ void	init_light(t_scene *scene, t_light *light, t_garbage_collector *gc)
 	light->position = vector_cast(scene->light.point, gc);
 }
 
-t_matrix	*set_matrix_sphere(t_sphere_p *sphere_parsing, t_garbage_collector *gc)
+t_matrix	*set_matrix_sphere(t_sphere_p *sphere_parsing, \
+	t_garbage_collector *gc)
 {
 	t_matrix	*m1;
 	t_matrix	*m2;
@@ -65,7 +71,8 @@ t_matrix	*set_matrix_sphere(t_sphere_p *sphere_parsing, t_garbage_collector *gc)
 	return (m3);
 }
 
-void	fill_data_sphere(t_sphere *sphere, t_sphere_p *sphere_parsing, t_ambient ambient, t_garbage_collector *gc)
+void	fill_data_sphere(t_sphere *sphere, t_sphere_p *sphere_parsing, \
+	t_ambient ambient, t_garbage_collector *gc)
 {
 	t_color	*col;
 
@@ -88,7 +95,6 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	while (i < scene->nr_spheres)
 	{
 		obj = &world->objects[world->nr_objects];
-		
 		obj->id = 's';
 		sphere = (t_sphere *) malloc(sizeof(t_sphere));
 		if (sphere == NULL)
@@ -105,30 +111,6 @@ void	add_spheres(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	}
 }
 
-t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_garbage_collector *gc)
-{
-	t_matrix	*m1;
-	t_matrix	*m2;
-	t_matrix	*m3;
-	t_matrix	*result;
-	t_vector	*v;
-	double		angle;
-	double		dot_product;
-
-	v = vector_cast(plane_parsing->point, gc);
-	m1 = translation(v, gc);
-
-	dot_product = dot(vector_cast(plane_parsing->normal_vector, gc), vector(0, 1, 0, gc));
-	angle = acos(dot_product);
-	// printf("%f\n", angle);
-	m2 = rotation_x(-angle, gc);
-	// m3 = rotation_z(angle, gc);
-	result = matrix_mult_m(m1, m2, gc);
-	// result = matrix_mult_m(m3, result, gc);
-	return (result);
-}
-
-
 void	get_angles(t_vector *vec, double *x, double *z)
 {
 	double	ratio;
@@ -139,10 +121,9 @@ void	get_angles(t_vector *vec, double *x, double *z)
 	else
 		*z = acos(vec->dim[1] / ratio);
 	*x = acos(ratio);
-		
 }
 
-t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
+t_matrix	*set_matrix_plane(t_plane_p *plane_parsing, t_camera_p camera_parsing, t_garbage_collector *gc)
 {
 	t_matrix	*m1;
 	t_matrix	*m2;
@@ -188,15 +169,16 @@ t_matrix	*set_matrix_plane_2(t_plane_p *plane_parsing, t_camera_p camera_parsing
 	return (result);
 }
 
-
-
-void	fill_data_plane(t_scene *scene, t_plane *plane, t_plane_p *plane_parsing, t_ambient ambient, t_garbage_collector *gc)
+void	fill_data_plane(t_scene *scene, t_plane *plane, \
+	t_plane_p *plane_parsing, t_garbage_collector *gc)
 {
-	t_color	*col;
+	t_color		*col;
+	t_ambient	ambient;
 
-	if (!is_vector_normal(plane_parsing->normal_vector))
+	ambient = scene->ambient;
+	if (!is_vector_normal(plane_parsing->normal_vector, gc))
 	{
-		exit_function(gc, "plane vector is not nomal\n", 1, true);
+		exit_function(gc, "plane vector is not normal\n", 1, true);
 	}
 	plane->material.color = color_cast(plane_parsing->color, gc);
 	col = color_cast(ambient.color, gc);
@@ -204,8 +186,8 @@ void	fill_data_plane(t_scene *scene, t_plane *plane, t_plane_p *plane_parsing, t
 	plane->material.diffuse = DIFFUSE;
 	plane->material.specular = SPECULAR;
 	plane->material.shininess = SHININESS;
-	plane->transformation_matrix = set_matrix_plane_2(plane_parsing, scene->camera,  gc);
-	//  plane->transformation_matrix = set_matrix_plane(plane_parsing, gc);
+	plane->transformation_matrix = set_matrix_plane(plane_parsing, \
+		scene->camera, gc);
 }
 
 void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
@@ -217,25 +199,21 @@ void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	i = 0;
 	while (i < scene->nr_planes)
 	{
-
 		obj = &world->objects[world->nr_objects];
 		obj->id = 'p';
 		plane = (t_plane *) malloc(sizeof(t_plane));
 		if (plane == NULL)
 			exit_function(gc, "malloc failed\n", 1, 1);
 		else
-			add_pointer_node(gc, plane); 
+			add_pointer_node(gc, plane);
 		obj->plane = plane;
 		obj->sphere = NULL;
 		obj->cylinder = NULL;
 		world->nr_objects++;
-		// fill_data_plane(plane, scene->planes[i], scene->ambient, gc);
-		fill_data_plane(scene ,plane, scene->planes[i], scene->ambient, gc);
+		fill_data_plane(scene, plane, scene->planes[i], gc);
 		i++;
 	}
 }
-
-
 
 t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 {
@@ -262,18 +240,17 @@ t_matrix	*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc)
 	t_matrix *r = matrix_mult_m(rz, rx, gc);
 	m3 = matrix_mult_m(r, m2, gc);
 	m4 = matrix_mult_m(m1, m3,gc);
-
-
 	return (m4);
 }
 
-void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
+void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p \
+	*cylinder_parsing, t_ambient ambient, t_garbage_collector *gc)
 {
 	t_color	*col;
 
-	if (!is_vector_normal(cylinder_parsing->axis_vector))
+	if (!is_vector_normal(cylinder_parsing->axis_vector, gc))
 	{
-		exit_function(gc, "cylinder vector is not nomal\n", 1, true);
+		exit_function(gc, "cylinder vector is not normal\n", 1, true);
 	}
 	cylinder->material.color = color_cast(cylinder_parsing->color, gc);
 	col = color_cast(ambient.color, gc);
@@ -281,10 +258,10 @@ void	fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p *cylinder_parsing, t_
 	cylinder->material.diffuse = DIFFUSE;
 	cylinder->material.specular = SPECULAR;
 	cylinder->material.shininess = SHININESS;
-	cylinder->minimum = - (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
-	cylinder->maximum = (cylinder_parsing->height / 2) / (cylinder_parsing->diameter * 2);
-
-
+	cylinder->minimum = - (cylinder_parsing->height / 2) / \
+		(cylinder_parsing->diameter * 2);
+	cylinder->maximum = (cylinder_parsing->height / 2) / \
+		(cylinder_parsing->diameter * 2);
 	cylinder->transformation_matrix = set_matrix_cylinder(cylinder_parsing, gc);
 }
 
@@ -310,13 +287,13 @@ void	add_cylinders(t_scene *scene, t_world *world, t_garbage_collector *gc)
 		world->nr_objects++;
 		fill_data_cylinder(cylinder, scene->cylinders[i], scene->ambient, gc);
 		i++;
-		
 	}
 }
 
 void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 {
 	int	nr_objects;
+
 	nr_objects = scene->nr_spheres + scene->nr_planes + scene->nr_cylinders;
 	world->objects = (t_object *) malloc (nr_objects * sizeof(t_object));
 	if (world->objects == NULL)
@@ -326,9 +303,6 @@ void	init_objects(t_scene *scene, t_world *world, t_garbage_collector *gc)
 	add_spheres(scene, world, gc);
 	add_planes(scene, world, gc);
 	add_cylinders(scene, world, gc);
-
-
-
 }
 
 void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
@@ -379,7 +353,8 @@ void	init_camera(t_scene *scene ,t_camera *cam, t_garbage_collector *gc)
 /*
 Initializes world and camera with the data in scene.
 */
-void	init_world(t_scene *scene, t_world *world, t_camera *camera, t_garbage_collector *gc)
+void	init_world(t_scene *scene, t_world *world, t_camera *camera, \
+	t_garbage_collector *gc)
 {
 	init_base(world);
 	init_light(scene, &world->light, gc);

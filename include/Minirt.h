@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 14:00:35 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:49:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_scene {
 	int				nr_cylinders;
 }	t_scene;
 
-typedef int	(*t_function_pointer)(char **split, t_scene *scene, \
+typedef bool (*t_function_pointer)(char **split, t_scene *scene, \
 	t_garbage_collector *gc);
 
 // helper_fumctions
@@ -98,6 +98,8 @@ void			print_usage(void);
 
 // parsing directory
 void			parsing(char *file, t_scene *scene, t_garbage_collector *gc);
+bool			check_file_extension(char *file);
+bool			check_for_unique(int i);
 bool			check_ambient(char **split, t_scene *scene, \
 	t_garbage_collector *gc);
 bool			check_camera(char **split, t_scene *scene, \
@@ -118,6 +120,11 @@ bool			read_color(char *str, t_vector_p **color, \
 int				read_byte(char *str, int range_left, int range_right);
 bool			read_vector(char *str, t_vector_p **vector, int is_normal, \
 	t_garbage_collector *gc);
+int				word_length(char **split);
+int				read_byte(char *str, int range_left, int range_right);
+bool			read_color(char *str, t_vector_p **color, \
+	t_garbage_collector *gc);
+
 
 // initialization
 void			init_world(t_scene *scene, t_world *world, t_camera *camera, \
@@ -129,6 +136,5 @@ int				raytracing(t_world *world, t_camera *camera, \
 unsigned int	rgb_to_hex(t_color *col);
 t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, \
 	t_light light, t_garbage_collector *gc);
-int				is_vector_normal(t_vector_p *vector);
 
 #endif

@@ -1,7 +1,6 @@
 NAME = minirt
 FLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
-# -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
 LINALG = libs/liblinalg/liblinalg.a 
@@ -10,9 +9,12 @@ SRC = 	src/main.c \
 		src/garbage_collector/exit_function.c \
 		src/garbage_collector/free.c \
 		src/garbage_collector/garbage_collector.c \
-		src/parsing/parsing_main.c \
-		src/parsing/check_elements.c \
-		src/parsing/parsing_helper.c \
+		src/parsing/parsing_main1.c \
+		src/parsing/parsing_main2.c \
+		src/parsing/check_elements1.c \
+		src/parsing/check_elements2.c \
+		src/parsing/parsing_helper1.c \
+		src/parsing/parsing_helper2.c \
 		src/raytracing/raytracing_main.c \
 		src/initialization.c \
 		src/raytracing/light1.c \
