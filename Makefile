@@ -1,4 +1,5 @@
-NAME = minirt
+NAME = miniRT
+BONUS = miniRT_bonus
 FLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
 LIBFT = libs/libft/libft.a
@@ -27,8 +28,10 @@ SRC = 	src/main.c \
 		src/raytracing/plane.c \
 		src/raytracing/sphere.c \
 		src/raytracing/raytracing_helper.c 
-
 OBJECTS = $(SRC:.c=.o)
+BONUSSRC = $(SRC:c=_bonus.c)
+BONUSOBJECTS = $(BONUSSRC:.c=.o)
+
 
 
 all : $(NAME)
@@ -57,12 +60,13 @@ testlib	: $(LINALG)
 	cc $(DEBUGFLAGS) -Iinclude -c $< -o $@
 
 clean :
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) $(BONUSOBJECTS)
 
 fclean : clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS)
 
 re : fclean all
 
 bonus :
-	
+	$(BONUS) : $(BONUSOBJECTS) $(LIBFT) $(MLX) $(LINALG)
+	cc $(DEBUGFLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(BONUSOBJECTS) -o $(BONUS)
