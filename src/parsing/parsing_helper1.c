@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:57:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 18:28:13 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:49:54 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	read_double_check_format(char *str)
 	}
 	return (true);
 }
+
 /*
 Helper function for read_double for Norminette reason
 */

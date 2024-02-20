@@ -89,3 +89,24 @@ double		x_angle;
 
     //         t_intersections	xs;
 	// t_intersection	ht;
+
+		// check if plane normal vector is perpendicular to cam orientation
+	// if(dot(camera_parsing.orientation , plane_parsing->normal_vector) == 0)
+	// {
+	// 	return(m1);
+		
+	// }
+	// // create vector from camera point to plane point
+	// cam_point = vector(plane_parsing->point->coordinate[0] - camera_parsing.point->coordinate[0],
+	// 					plane_parsing->point->coordinate[1] - camera_parsing.point->coordinate[1],
+	// 					plane_parsing->point->coordinate[2] - camera_parsing.point->coordinate[2],
+	// 									 gc);
+	// // }
+
+	// //invert the normal vector of plane depending if the is above or under the light
+	// if(dot(cam_point , plane_parsing->normal_vector) == 0)
+	// {
+	// 	return(m1);
+		
+	// }
+	

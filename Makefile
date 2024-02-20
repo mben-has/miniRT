@@ -17,7 +17,12 @@ SRC = 	src/main.c \
 		src/parsing/parsing_helper1.c \
 		src/parsing/parsing_helper2.c \
 		src/raytracing/raytracing_main.c \
-		src/initialization.c \
+		src/initialization/init_camera.c \
+		src/initialization/init_cylinder.c \
+		src/initialization/init_helpers.c \
+		src/initialization/init_plane.c \
+		src/initialization/init_sphere.c \
+		src/initialization/initialization.c \
 		src/raytracing/light1.c \
 		src/raytracing/light2.c \
 		src/raytracing/light3.c \

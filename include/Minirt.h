@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 21:38:01 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:59:27 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # define WIDTH 800
 # define HEIGHT (int)(WIDTH/(16.9/9.0))
-# define VP_HEIGHT 2.0
-# define VP_WIDTH VP_HEIGHT * (double)(WIDTH/HEIGHT)
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -90,7 +88,7 @@ typedef struct s_scene {
 	int				nr_cylinders;
 }	t_scene;
 
-typedef bool (*t_function_pointer)(char **split, t_scene *scene, \
+typedef bool	(*t_function_pointer)(char **split, t_scene *scene, \
 	t_garbage_collector *gc);
 
 // helper_fumctions
@@ -125,11 +123,41 @@ int				read_byte(char *str, int range_left, int range_right);
 bool			read_color(char *str, t_vector_p **color, \
 	t_garbage_collector *gc);
 
-
 // initialization
 void			init_world(t_scene *scene, t_world *world, t_camera *camera, \
 	t_garbage_collector *gc);
-
+t_vector		*vector_cast(t_vector_p *vector_parsing, \
+	t_garbage_collector *gc);
+t_color			*color_cast(t_vector_p *vector_parsing, \
+	t_garbage_collector *gc);
+int				is_vector_normal(t_vector_p *vector, t_garbage_collector *gc);
+void			init_base(t_world *world);
+void			init_light(t_scene *scene, t_light *light, \
+	t_garbage_collector *gc);
+t_matrix		*set_matrix_sphere(t_sphere_p *sphere_parsing, \
+	t_garbage_collector *gc);
+void			fill_data_sphere(t_sphere *sphere, t_sphere_p *sphere_parsing, \
+	t_ambient ambient, t_garbage_collector *gc);
+void			add_spheres(t_scene *scene, t_world *world, \
+	t_garbage_collector *gc);
+void			get_angles(t_vector *vec, double *x, double *z);
+t_matrix		*set_matrix_plane(t_plane_p *plane_parsing, \
+	t_camera_p camera_parsing, t_garbage_collector *gc);
+void			fill_data_plane(t_scene *scene, t_plane *plane, \
+	t_plane_p *plane_parsing, t_garbage_collector *gc);
+void			add_planes(t_scene *scene, t_world *world, \
+	t_garbage_collector *gc);
+t_matrix		*set_matrix_cylinder(t_cylinder_p *cp, t_garbage_collector *gc);
+void			fill_data_cylinder(t_cylinder *cylinder, t_cylinder_p \
+	*cylinder_parsing, t_ambient ambient, t_garbage_collector *gc);
+void			add_cylinders(t_scene *scene, t_world *world, \
+	t_garbage_collector *gc);
+void			init_objects(t_scene *scene, t_world *world, \
+	t_garbage_collector *gc);
+void			init_camera(t_scene *scene, t_camera *cam, \
+	t_garbage_collector *gc);
+t_matrix		*get_rotation_matrix(t_vector *v_normal, \
+	t_garbage_collector *gc);
 // raytracing directory
 int				raytracing(t_world *world, t_camera *camera, \
 	t_garbage_collector *gc);
