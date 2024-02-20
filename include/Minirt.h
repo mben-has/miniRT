@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 16:49:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:38:01 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,8 @@ int				raytracing(t_world *world, t_camera *camera, \
 unsigned int	rgb_to_hex(t_color *col);
 t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, \
 	t_light light, t_garbage_collector *gc);
+double			length_vector(t_vector *v, t_vector *point, \
+	t_garbage_collector *gc);
+void			print_matrix(t_matrix *m);
 
 #endif

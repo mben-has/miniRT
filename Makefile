@@ -22,6 +22,10 @@ SRC = 	src/main.c \
 		src/raytracing/light3.c \
 		src/raytracing/light4.c \
 		src/raytracing/ray.c \
+		src/raytracing/cylinder.c \
+		src/raytracing/intersection.c \
+		src/raytracing/plane.c \
+		src/raytracing/sphere.c \
 		src/raytracing/raytracing_helper.c 
 
 OBJECTS = $(SRC:.c=.o)

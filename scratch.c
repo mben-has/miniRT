@@ -68,3 +68,24 @@ double		x_angle;
 // 	// result = matrix_mult_m(m3, result, gc);
 // 	return (result);
 // }
+
+// if (ray->direction->dim[0] == 0 && ray->direction->dim[1] == 0)
+			// {
+			// 	xs= intersect_world(world, ray, gc);
+			// 	ht = hit(xs, ray->original_length);
+			// 	if (ht.object != NULL)
+			// 	{
+			// 		printf("ray.direction = (%f, %f, %f) \n",
+							ray->direction->dim[0], ray->direction->dim[1],
+							ray->direction->dim[2]);
+			// 		printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0],
+							ray->origin->dim[1], ray->origin->dim[2]);
+			// 		printf("ray.lenght = %f \n", ray->original_length);
+			// 		printf("hit = %f\n", ht.t);
+			// 		mlx_put_pixel(img, i, j, 0xFF0000FF);
+			// 		return ;
+			// 	}
+			// }
+
+    //         t_intersections	xs;
+	// t_intersection	ht;
