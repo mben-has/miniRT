@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 15:49:53 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:00:35 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ typedef struct s_scene {
 typedef int	(*t_function_pointer)(char **split, t_scene *scene, \
 	t_garbage_collector *gc);
 
-// main
+// helper_fumctions
 void			print_usage(void);
 
-// parsing
+// parsing directory
 void			parsing(char *file, t_scene *scene, t_garbage_collector *gc);
 bool			check_ambient(char **split, t_scene *scene, \
 	t_garbage_collector *gc);
@@ -123,16 +123,12 @@ bool			read_vector(char *str, t_vector_p **vector, int is_normal, \
 void			init_world(t_scene *scene, t_world *world, t_camera *camera, \
 	t_garbage_collector *gc);
 
-// raytracing
+// raytracing directory
 int				raytracing(t_world *world, t_camera *camera, \
 	t_garbage_collector *gc);
 unsigned int	rgb_to_hex(t_color *col);
-
-//computation
 t_computation	*prepare_computations(t_intersection *intersection, t_ray *ray, \
 	t_light light, t_garbage_collector *gc);
-
-//normal vector check
 int				is_vector_normal(t_vector_p *vector);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:18:02 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 16:33:30 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:06:50 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ unsigned int	rgb_to_hex(t_color *col)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int is_vector_normal(t_vector_p *vector) {
-    if (double_equal(magnitude(vector), 1.0))
+int	is_vector_normal(t_vector_p *vector)
+{
+	if (double_equal(magnitude(vector), 1.0))
 		return (1);
-	else 
+	else
 		return (0);
 }

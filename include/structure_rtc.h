@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/19 16:11:17 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:33:33 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,37 @@ typedef struct s_world {
 	int			nr_objects;
 }	t_world;
 
-//light.c
+//light functions
 t_color			*color_at(t_world *world, t_ray *ray, t_garbage_collector *gc);
+t_color			*get_black(t_garbage_collector *gc);
+void			prepare_computations_1(t_computation *comp, t_intersection \
+	*intersection, t_ray *ray, t_garbage_collector *gc);
+void			prepare_computations_2(t_computation *comp, t_light light, \
+	t_garbage_collector *gc);
+bool			is_shadowed(t_world *world, t_vector *p, \
+	t_garbage_collector *gc);
+t_color			*lighting(t_computation *computation, bool shadowed, \
+	t_garbage_collector *gc);
+t_matrix		*get_transformation_matrix(t_object *object);
+t_material		*get_material(t_object *object);
+t_vector		*compute_point(t_ray *ray, t_intersection *intersection, \
+	t_garbage_collector *gc);
+t_vector		*normal_at(t_object *object, t_matrix *transformation_matrix, \
+	t_vector *p, t_garbage_collector *gc);
+t_vector		*reflect(t_vector *in, t_vector *normal, \
+	t_garbage_collector *gc);
+t_vector		*compute_over_point(t_vector *p, t_vector *normalv, \
+	t_garbage_collector *gc);
+t_color			*get_ambient(t_color *ambient, t_computation *computation, \
+	t_garbage_collector *gc);
+t_color			*get_diffuse(double diffuse, t_computation *computation, \
+	t_garbage_collector *gc);
+t_color			*get_specular(double specular, t_computation *computation, \
+	t_garbage_collector *gc);
+t_vector		*get_cylinder_normal(t_object *object, t_vector *p, \
+	t_garbage_collector *gc);
 
-//ray
+//ray.c
 t_ray			*ray(t_vector *origin, t_vector *direction, \
 	t_garbage_collector *gc);
 t_vector		*position(t_ray *ray, double t, t_garbage_collector *gc);
