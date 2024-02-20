@@ -6,12 +6,22 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 21:45:14 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:08:41 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
 #include "../../include/structure_rtc.h"
+
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{	
+	mlx_t *mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+}
+
 
 t_ray	*get_ray(t_camera *cam, int i, int j, t_garbage_collector *gc)
 {
@@ -63,6 +73,7 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, img, 0, 0);
 	draw(world, &img, camera, gc);
+	mlx_key_hook(mlx, &my_keyhook, mlx);
 	mlx_loop(mlx);
 	return (0);
 }
