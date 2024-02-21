@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:45:22 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 16:46:25 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:13:45 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,27 @@
 /*
 Initialzes the scene struct. There can only be 100 objects of every type each.
 */
-bool	init_scene(t_scene *scene)
+bool	init_scene(t_scene *scene, t_garbage_collector *gc)
 {
 	void	*mem;
 
 	mem = (t_sphere *) malloc(100 * sizeof(t_sphere *));
 	if (mem == NULL)
-		return (false);
+		(exit_function(gc, "feheler\n", 1, 1));
+	else
+		add_pointer_node(gc, mem);
 	scene->spheres = mem;
 	mem = (t_plane *) malloc(100 * sizeof(t_plane *));
 	if (mem == NULL)
-		return (false);
+		(exit_function(gc, "feheler\n", 1, 1));
+	else
+		add_pointer_node(gc, mem);
 	scene->planes = mem;
 	mem = (t_cylinder *) malloc(100 * sizeof(t_cylinder *));
 	if (mem == NULL)
-		return (false);
+		(exit_function(gc, "feheler\n", 1, 1));
+	else
+		add_pointer_node(gc, mem);
 	scene->cylinders = mem;
 	scene->nr_spheres = 0;
 	scene->nr_planes = 0;
@@ -112,7 +118,7 @@ void	parsing(char *file, t_scene *scene, t_garbage_collector *gc)
 	char	*line;
 	int		fd;
 
-	if (init_scene(scene) == false)
+	if (init_scene(scene, gc) == false)
 		exit_function(gc, "Error\nMalloc failure\n", 1, true);
 	if (check_file_extension(file) == false)
 		exit_function(gc, "Error\nWrong file extension\n", 2, true);

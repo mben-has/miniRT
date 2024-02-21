@@ -1,6 +1,6 @@
 NAME = miniRT
 BONUS = miniRT_bonus
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 DEBUGFLAGS = -Wall -Wextra -g -fsanitize=address
 LIBFT = libs/libft/libft.a
 MLX = libs/mlx/libmlx42.a 
