@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 00:08:41 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 01:06:30 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void	draw(t_world *world, mlx_image_t **img, t_camera *camera,
 	t_color			*color_vector;
 	unsigned int	color_hex;
 
+
+			
+
+            t_intersections	xs;
+	t_intersection	ht;
+
 	i = 0;
 	j = 0;
 	while (j < HEIGHT)
@@ -55,9 +61,23 @@ void	draw(t_world *world, mlx_image_t **img, t_camera *camera,
 		while (i < WIDTH)
 		{
 			ray = get_ray(camera, i, j, gc);
-			color_vector = color_at(world, ray, gc);
-			color_hex = rgb_to_hex(color_vector);
-			mlx_put_pixel(*img, i, j, color_hex);
+			xs= intersect_world(world, ray, gc);
+				ht = hit(xs, ray->original_length);
+				if (ht.object != NULL)
+				{
+					// printf("ray.direction = (%f, %f, %f) \n",
+					// 		ray->direction->dim[0], ray->direction->dim[1],
+					// 		ray->direction->dim[2]);
+					// printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0],
+					// 		ray->origin->dim[1], ray->origin->dim[2]);
+					// printf("ray.lenght = %f \n", ray->original_length);
+					// printf("hit = %f\n", ht.t);
+					mlx_put_pixel(*img, i, j, 0xFF0000FF);
+				}
+
+			// color_vector = color_at(world, ray, gc);
+			// color_hex = rgb_to_hex(color_vector);
+			// mlx_put_pixel(*img, i, j, color_hex);
 			i++;
 		}
 		j++;
@@ -68,6 +88,14 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+
+	// int i = 0;
+	// while(i < world->nr_objects)
+	// {
+	// 	i++;
+	// }
+	// printf("number of objects = %d\n", i);
+	// exit(1);
 
 	mlx = mlx_init(WIDTH, HEIGHT, "minirt", true);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
