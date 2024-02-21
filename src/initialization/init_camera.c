@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 22:27:42 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/21 17:15:01 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:40:17 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	init_camera(t_scene *scene, t_camera *cam, t_garbage_collector *gc)
 	t_vector	*aux;
 	double		half_diag;
 
+	if (!is_vector_normal(scene->camera.orientation, gc))
+		exit_function(gc, "camera vector is not normal\n", 1, true);
 	(*cam).width = WIDTH;
 	(*cam).height = (int)(((*cam).width) / (16.9 / 9.0));
 	(*cam).point = point(scene->camera.point->coordinate[0],

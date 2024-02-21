@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 17:03:50 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:26:34 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	raytracing(t_world *world, t_camera *camera, t_garbage_collector *gc)
 	draw(world, &img, camera, gc);
 	mlx_key_hook(mlx, &my_keyhook, mlx);
 	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (0);
 }
