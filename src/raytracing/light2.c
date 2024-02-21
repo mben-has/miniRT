@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:13:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 15:24:17 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:27:32 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	prepare_computations_2(t_computation *comp, t_light light, \
 {
 	comp->lightv = vector_subtract(light.position, comp->point, gc);
 	comp->lightv = normalize(comp->lightv, gc);
-	// if (dot(comp->lightv, comp->normalv) < 0)
-	// 	comp->normalv = vector_negate(comp->normalv, gc);
 	comp->reflectv = reflect(vector_negate(comp->lightv, gc), comp->normalv, \
 		gc);
 	comp->effective_color = color_mult(comp->material->color, light.intensity, \
