@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:13:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 18:12:24 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:27:32 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_color	*lighting(t_computation *computation, bool shadowed, \
 	t_material	*material;
 	t_color		*ambient;
 	t_color		*diffuse;
+	t_color		*specular;
 	t_color		*result;
 
 	material = computation->material;
@@ -76,6 +77,8 @@ t_color	*lighting(t_computation *computation, bool shadowed, \
 	if (shadowed)
 		return (ambient);
 	diffuse = get_diffuse(material->diffuse, computation, gc);
+	specular = get_specular(material->specular, computation, gc);
 	result = color_add(ambient, diffuse, gc);
+	result = color_add(result, specular, gc);
 	return (result);
 }

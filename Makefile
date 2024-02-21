@@ -33,8 +33,35 @@ SRC = 	src/main.c \
 		src/raytracing/plane.c \
 		src/raytracing/sphere.c \
 		src/raytracing/raytracing_helper.c 
+BONUSSRC = src/main.c \
+		src/helper_functions.c \
+		src/garbage_collector/exit_function.c \
+		src/garbage_collector/free.c \
+		src/garbage_collector/garbage_collector.c \
+		src/parsing/parsing_main1.c \
+		src/parsing/parsing_main2.c \
+		src/parsing/check_elements1.c \
+		src/parsing/check_elements2.c \
+		src/parsing/parsing_helper1.c \
+		src/parsing/parsing_helper2.c \
+		src/raytracing/raytracing_main.c \
+		src/initialization/init_camera.c \
+		src/initialization/init_cylinder.c \
+		src/initialization/init_helpers.c \
+		src/initialization/init_plane.c \
+		src/initialization/init_sphere.c \
+		src/initialization/initialization.c \
+		src/raytracing/light1.c \
+		src/raytracing/light2_bonus.c \
+		src/raytracing/light3.c \
+		src/raytracing/light4.c \
+		src/raytracing/ray.c \
+		src/raytracing/cylinder.c \
+		src/raytracing/intersection.c \
+		src/raytracing/plane.c \
+		src/raytracing/sphere.c \
+		src/raytracing/raytracing_helper.c 
 OBJECTS = $(SRC:.c=.o)
-BONUSSRC = $(SRC:c=_bonus.c)
 BONUSOBJECTS = $(BONUSSRC:.c=.o)
 
 
@@ -72,6 +99,5 @@ fclean : clean
 
 re : fclean all
 
-bonus :
-	$(BONUS) : $(BONUSOBJECTS) $(LIBFT) $(MLX) $(LINALG)
+bonus : $(BONUSOBJECTS) $(LIBFT) $(MLX) $(LINALG)
 	cc $(FLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(BONUSOBJECTS) -o $(BONUS)
