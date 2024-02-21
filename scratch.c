@@ -109,4 +109,28 @@ double		x_angle;
 	// 	return(m1);
 		
 	// }
+		xs= intersect_world(world, ray, gc);
+				ht = hit(xs, ray->original_length);
+				// if(ray->direction->dim[0] == 0 && ray->direction->dim[2] == 0)
+				// {
+				// 	printf("xs[0] = %f\n", xs.xs[0]);
+				// 	printf("xs[1] = %f\n", xs.xs[1]);
+				// 	printf("ray length = %f\n", ray->original_length);
+					
+				// 	if (ht.object != NULL)
+				// 	{
+				// 		printf("ray.direction = (%f, %f, %f) \n",
+				// 				ray->direction->dim[0], ray->direction->dim[1],
+				// 				ray->direction->dim[2]);
+				// 		printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0],
+				// 				ray->origin->dim[1], ray->origin->dim[2]);
+				// 		// printf("ray.lenght = %f \n", ray->original_length);
+				// 		printf("hit = %f\n", ht.t);
+				// 		mlx_put_pixel(*img, i, j, 0xFF0000FF);
+				// 	}
+				// 	// exit(1);
+				// }
+
+           t_intersections	xs;
+	t_intersection	ht;
 	

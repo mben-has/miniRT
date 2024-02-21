@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 21:28:29 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:00:19 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_camera {
 	double		half_width;
 	double		half_height;
 	double		focal_length;
+	double		width;
+	double		height;
 	t_vector	*v_cam_canvas;
 	t_vector	*orientation;
 	t_vector	*v_width;

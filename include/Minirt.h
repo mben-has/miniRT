@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 23:59:27 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:02:14 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINIRT_H
 
 # define WIDTH 800
-# define HEIGHT (int)(WIDTH/(16.9/9.0))
 
 # include <stdlib.h>
 # include <stdio.h>
