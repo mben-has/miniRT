@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 01:06:30 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 02:40:25 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,29 @@ void	draw(t_world *world, mlx_image_t **img, t_camera *camera,
 			ray = get_ray(camera, i, j, gc);
 			xs= intersect_world(world, ray, gc);
 				ht = hit(xs, ray->original_length);
-				if (ht.object != NULL)
-				{
-					// printf("ray.direction = (%f, %f, %f) \n",
-					// 		ray->direction->dim[0], ray->direction->dim[1],
-					// 		ray->direction->dim[2]);
-					// printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0],
-					// 		ray->origin->dim[1], ray->origin->dim[2]);
-					// printf("ray.lenght = %f \n", ray->original_length);
-					// printf("hit = %f\n", ht.t);
-					mlx_put_pixel(*img, i, j, 0xFF0000FF);
-				}
+				// if(ray->direction->dim[0] == 0 && ray->direction->dim[2] == 0)
+				// {
+				// 	printf("xs[0] = %f\n", xs.xs[0]);
+				// 	printf("xs[1] = %f\n", xs.xs[1]);
+				// 	printf("ray length = %f\n", ray->original_length);
+					
+				// 	if (ht.object != NULL)
+				// 	{
+				// 		printf("ray.direction = (%f, %f, %f) \n",
+				// 				ray->direction->dim[0], ray->direction->dim[1],
+				// 				ray->direction->dim[2]);
+				// 		printf("ray.origin = (%f, %f, %f) \n", ray->origin->dim[0],
+				// 				ray->origin->dim[1], ray->origin->dim[2]);
+				// 		// printf("ray.lenght = %f \n", ray->original_length);
+				// 		printf("hit = %f\n", ht.t);
+				// 		mlx_put_pixel(*img, i, j, 0xFF0000FF);
+				// 	}
+				// 	// exit(1);
+				// }
 
-			// color_vector = color_at(world, ray, gc);
-			// color_hex = rgb_to_hex(color_vector);
-			// mlx_put_pixel(*img, i, j, color_hex);
+			color_vector = color_at(world, ray, gc);
+			color_hex = rgb_to_hex(color_vector);
+			mlx_put_pixel(*img, i, j, color_hex);
 			i++;
 		}
 		j++;

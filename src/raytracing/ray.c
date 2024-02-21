@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/20 21:31:21 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 02:29:55 by BigBen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_ray	*ray(t_vector *origin, t_vector *direction, t_garbage_collector *gc)
 		add_pointer_node(gc, aux);
 	aux->direction = direction;
 	aux->origin = origin;
-	aux->original_length = length_vector(aux->direction = direction, \
-		aux->origin = origin, gc);
+	aux->original_length = length_vector(direction, \
+		vector(0, 0, 0, gc), gc);
 	aux->direction = normalize(aux->direction, gc);
 	return (aux);
 }
