@@ -6,15 +6,12 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:38:29 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 20:16:47 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:19:51 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minirt.h"
 #include <stdlib.h>
-void foo() {
-	system("leaks miniRT");
-}
 
 int	main(int argc, char **argv)
 {
@@ -22,8 +19,7 @@ int	main(int argc, char **argv)
 	t_garbage_collector	*gc;
 	t_world				world;
 	t_camera			camera;
-
-	atexit(foo);
+	
 	if (argc != 2)
 	{
 		print_usage();
