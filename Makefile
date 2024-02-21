@@ -42,7 +42,7 @@ BONUSOBJECTS = $(BONUSSRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJECTS) $(LIBFT) $(MLX) $(LINALG)
-	cc $(FLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(OBJECTS) -o $(NAME)
+	cc $(FLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm -O2 $(OBJECTS) -o $(NAME)
 
 $(LIBFT) :
 	cd libs/libft; make; make clean

@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:23:27 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/20 21:39:13 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:49:11 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 t_intersections	intersect_plane(t_object o, t_ray *r2, t_garbage_collector *gc)
 {
 	t_intersections	xs;
-	t_intersection	inters;
 	double			t;
 
-	if (abs(r2->origin->dim[1]) < EPSILON)
+	if (fabs(r2->origin->dim[1]) < EPSILON)
 	{
 		xs.count = 0;
 		return (xs);

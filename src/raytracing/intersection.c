@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:21:46 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/20 21:38:56 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:51:58 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_intersections	intersect(t_object o, t_ray *r, t_garbage_collector *gc)
 	t_intersections	xs;
 	t_ray			*ray_transformed;
 
+	xs.count = 0;
 	if (o.id == 's')
 	{
 		ray_transformed = transform(r, inverse(o.sphere->transformation_matrix,
@@ -97,6 +98,7 @@ t_intersection	intersection(double t, t_object object, t_garbage_collector *gc)
 {
 	t_intersection	i;
 
+	i.object = NULL;
 	if (object.id == 's')
 	{
 		i = intersection_sphere(t, &object, gc);

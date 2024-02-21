@@ -6,7 +6,7 @@
 /*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:18:02 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 21:36:56 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:49:51 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ double	length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
 	double	dy;
 	double	dz;
 
+	(void) gc;
 	dx = v->dim[0] - point->dim[0];
 	dy = v->dim[1] - point->dim[1];
 	dz = v->dim[2] - point->dim[2];
