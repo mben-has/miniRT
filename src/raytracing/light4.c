@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:21:42 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 14:23:45 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:24:25 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_color	*get_diffuse(double diffuse, t_computation *computation, \
 		result = get_black(gc);
 	else
 		result = color_mult(computation->effective_color, diffuse \
-			*computation->dot_light_normal, gc);
+			* computation->dot_light_normal, gc);
 	return (result);
 }
 

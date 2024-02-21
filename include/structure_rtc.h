@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 17:00:19 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:28:36 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_RTC_H
 # define STRUCTURE_RTC_H
+
+# include <stdarg.h>
 
 # ifndef LIBLINALG_H
 
@@ -20,8 +22,6 @@ typedef double	t_matrix[4][4];
 typedef double	t_color[3];
 
 # endif
-
-#include <stdarg.h>
 
 # define DIFFUSE	0.9
 # define SPECULAR	0.9

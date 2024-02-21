@@ -42,7 +42,7 @@ BONUSOBJECTS = $(BONUSSRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJECTS) $(LIBFT) $(MLX) $(LINALG)
-	cc $(DEBUGFLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(OBJECTS) -o $(NAME)
+	cc $(FLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(OBJECTS) -o $(NAME)
 
 $(LIBFT) :
 	cd libs/libft; make; make clean
@@ -62,7 +62,7 @@ testlib	: $(LINALG)
 	rm -f $(LINALG)
 
 %.o : %.c
-	cc $(DEBUGFLAGS) -Iinclude -c $< -o $@
+	cc $(FLAGS) -Iinclude -c $< -o $@
 
 clean :
 	rm -f $(OBJECTS) $(BONUSOBJECTS)
@@ -74,4 +74,4 @@ re : fclean all
 
 bonus :
 	$(BONUS) : $(BONUSOBJECTS) $(LIBFT) $(MLX) $(LINALG)
-	cc $(DEBUGFLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(BONUSOBJECTS) -o $(BONUS)
+	cc $(FLAGS) -Llibs/libft -lft -Llibs/liblinalg -llinalg -lglfw -Llibs/mlx -lmlx42 -lm $(BONUSOBJECTS) -o $(BONUS)

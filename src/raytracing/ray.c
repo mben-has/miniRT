@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: BigBen <BigBen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:23:55 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/21 02:29:55 by BigBen           ###   ########.fr       */
+/*   Updated: 2024/02/21 17:35:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	set_transform(t_sphere *s, t_matrix *m, t_garbage_collector *gc)
 	int	i;
 	int	j;
 
+	(void)gc;
 	i = 0;
 	j = 0;
 	while (i < 4)
