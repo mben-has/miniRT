@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_rtc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:34:24 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 14:33:33 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:28:29 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef double	t_matrix[4][4];
 typedef double	t_color[3];
 
 # endif
+
+#include <stdarg.h>
 
 # define DIFFUSE	0.9
 # define SPECULAR	0.9
@@ -170,6 +172,12 @@ t_intersections	intersect_cylinder(t_object o, t_ray *r, \
 	t_garbage_collector *gc);
 t_ray			*ray_with_orignal_length(t_ray *r, t_garbage_collector *gc);
 double			length_vector(t_vector *v, t_vector *point, \
+	t_garbage_collector *gc);
+t_intersection	intersection_sphere(double t, t_object *object, \
+	t_garbage_collector *gc);
+t_intersection	intersection_plane(double t, t_object *object, \
+	t_garbage_collector *gc);
+t_intersection	intersection_cylinder(double t, t_object *object, \
 	t_garbage_collector *gc);
 
 #endif 

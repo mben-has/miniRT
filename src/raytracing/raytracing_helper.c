@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:18:02 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/20 15:50:25 by marschul         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:36:56 by mben-has         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,36 @@ unsigned int	rgb_to_hex(t_color *col)
 	else if (b > 255)
 		b = 255;
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+double	length_vector(t_vector *v, t_vector *point, t_garbage_collector *gc)
+{
+	double	dx;
+	double	dy;
+	double	dz;
+
+	dx = v->dim[0] - point->dim[0];
+	dy = v->dim[1] - point->dim[1];
+	dz = v->dim[2] - point->dim[2];
+	return (sqrt(dx * dx + dy * dy + dz * dz));
+}
+
+void	print_matrix(t_matrix *m)
+{
+	int	k;
+	int	l;
+
+	k = 0;
+	l = 0;
+	while (k < 4)
+	{
+		l = 0;
+		while (l < 4)
+		{
+			printf("| %f | ", (*m)[k][l]);
+			l++;
+		}
+		printf("\n");
+		k++;
+	}
 }
