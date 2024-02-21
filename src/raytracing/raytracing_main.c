@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:40:56 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 17:03:50 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:33:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	mlx_t	*mlx;
 
 	mlx = param;
+	(void)keydata;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 }
@@ -26,7 +27,6 @@ t_ray	*get_ray(t_camera *cam, int i, int j, t_garbage_collector *gc)
 {
 	t_vector	*v1;
 	t_vector	*vo;
-	t_vector	*p;
 	t_ray		*r;
 
 	vo = vector_subtract((*cam).pixel00, (*cam).point, gc);

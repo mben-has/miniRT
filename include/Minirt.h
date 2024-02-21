@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:40:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/02/21 17:02:14 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:34:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void			add_spheres(t_scene *scene, t_world *world, \
 	t_garbage_collector *gc);
 void			get_angles(t_vector *vec, double *x, double *z);
 t_matrix		*set_matrix_plane(t_plane_p *plane_parsing, \
-	t_camera_p camera_parsing, t_garbage_collector *gc);
+	t_garbage_collector *gc);
 void			fill_data_plane(t_scene *scene, t_plane *plane, \
 	t_plane_p *plane_parsing, t_garbage_collector *gc);
 void			add_planes(t_scene *scene, t_world *world, \

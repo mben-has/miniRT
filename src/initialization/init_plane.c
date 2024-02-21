@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-has <mben-has@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 22:24:16 by mben-has          #+#    #+#             */
-/*   Updated: 2024/02/20 23:42:14 by mben-has         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:33:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Minirt.h"
 
 t_matrix	*set_matrix_plane(t_plane_p *plane_parsing,
-		t_camera_p camera_parsing, t_garbage_collector *gc)
+	t_garbage_collector *gc)
 {
 	t_matrix	*m1;
 	t_matrix	*m2;
@@ -46,8 +46,7 @@ void	fill_data_plane(t_scene *scene, t_plane *plane,
 	plane->material.diffuse = DIFFUSE;
 	plane->material.specular = SPECULAR;
 	plane->material.shininess = SHININESS;
-	plane->transformation_matrix = set_matrix_plane(plane_parsing, \
-		scene->camera, gc);
+	plane->transformation_matrix = set_matrix_plane(plane_parsing, gc);
 }
 
 void	add_planes(t_scene *scene, t_world *world, t_garbage_collector *gc)
